@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@mui/material";
@@ -8,32 +6,33 @@ import { Button } from "@mui/material";
 import { DeleteTask, UpdateTask } from "api/taskrequests";
 import { removeTask, updateTaskCompleted } from "store/taskSlice";
 import { selectUser } from "store/selectors";
+import { useAppDispatch, useAppSelector } from "store/hook";
 import { ICompleteTask, ITask } from "types/taskTypes";
 
 interface IFullCardButtons {
     task: ITask;
     deleteLoading: (arg0: boolean) => void;
-    closeModal: () => void 
+    closeModal: () => void
 }
 
 const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, closeModal }) => {
     const { _id, completed } = task;
     const [completeLoading, setCompleteLoading] = useState(false);
 
-    const { userdata } = useSelector(selectUser);
-    const dispatch = useDispatch();
+    const { userdata } = useAppSelector(selectUser);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const handleDelete = (id: string) => {
         deleteLoading(true);
         closeModal();
         DeleteTask({ _id: id }, userdata.token)
-            .then(function (response) {
-                console.log(response.data.message);
+            .then(response => {
+                console.log(response.message);
                 dispatch(removeTask(id));
                 deleteLoading(false);
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.warn(error.message);
                 alert("Delete Error");
             });
@@ -47,18 +46,17 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
         setCompleteLoading(true);
         const newData: ICompleteTask = { completed: !data.completed, _id: data._id };
         UpdateTask(newData, userdata.token)
-            .then(function (response) {
-                console.log(response.data.message);
+            .then(response => {
+                console.log(response.message);
                 dispatch(updateTaskCompleted(data._id));
                 setCompleteLoading(false);
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.warn(error.message);
                 alert("Complete Error");
             });
     };
 
-    
     return (
         <>
             <Button
@@ -79,8 +77,8 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
                 {completeLoading
                     ? "Loading..."
                     : completed
-                    ? "Undo Complete"
-                    : "Complete"}
+                        ? "Undo Complete"
+                        : "Complete"}
             </Button>
         </>
     );

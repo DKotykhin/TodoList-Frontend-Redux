@@ -1,10 +1,15 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import UpdateTaskComponent from "components/updateTask/UpdateTask";
+import { selectUser } from "store/selectors";
+import { useAppSelector } from "store/hook";
 
 const UpdateTaskPage: React.FC = () => {
-    return (
+    const { userdata } = useAppSelector(selectUser);
+
+    return userdata.token ? (
         <>
             <Helmet>
                 <meta name="description" content="Update Task Page" />
@@ -12,6 +17,8 @@ const UpdateTaskPage: React.FC = () => {
             </Helmet>
             <UpdateTaskComponent />
         </>
+    ) : (
+        <Navigate to="/" />
     );
 };
 

@@ -24,3 +24,22 @@ export interface IUserWithToken {
     user: IUser;
     token: string;
 }
+
+export interface IUserResponse extends IUser {    
+    token: string;
+    message: string; 
+}
+
+export interface IUserResponseWithoutToken extends IUser {    
+    message: string; 
+}
+
+export interface IUserDeleteResponse {
+    status: object;
+    message: string;
+}
+
+export interface IUserAvatar {
+    avatarURL: string;
+    message: string;
+}

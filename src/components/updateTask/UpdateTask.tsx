@@ -7,23 +7,25 @@ import { format } from "date-fns";
 import {
     Container,
     Typography,
-    Paper,
-    TextField,
     InputLabel,
     Checkbox,
     Button,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
+import { TaskFormValidation } from "components/taskFields/taskFormValidation";
+import { MDEField } from "../taskFields/MDEField";
+
 import { UpdateTask } from "api/taskrequests";
 // import { updateTaskAll } from "store/taskSlice";
 import { selectTask, selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
-import { MDEField } from "../taskFields/MDEField";
 import { IUpdateTask } from "types/taskTypes";
 
 import "./updateTask.scss";
-import { TaskFormValidation } from "components/taskFields/taskFormValidation";
+import TitleField from "components/taskFields/TitleField";
+import { SubtitleField } from "components/taskFields/SubtitleField";
+import { DeadlineField } from "components/taskFields/DeadlineField";
 
 interface IUpdateForm {
     title: string;
@@ -39,8 +41,7 @@ const UpdateTaskComponent: React.FC = () => {
     const { taskdata } = useAppSelector(selectTask);
     const { userdata } = useAppSelector(selectUser);
 
-    const params = useParams();
-    // const dispatch = useDispatch();
+    const params = useParams();;
     const navigate = useNavigate();
     const { handleSubmit, register, formState: { errors } } = useForm<IUpdateForm>(TaskFormValidation);
 
@@ -63,13 +64,12 @@ const UpdateTaskComponent: React.FC = () => {
         };
         setLoading(true);
         UpdateTask(totalData, userdata.token)
-            .then(function (response) {
-                console.log(response.data.message);
+            .then(response => {
+                console.log(response.message);
                 navigate("/", { replace: true });
-                // dispatch(updateTaskAll(response.data));
                 setLoading(false);
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.warn(error.message);
                 alert("Update Task Error");
             });
@@ -87,49 +87,12 @@ const UpdateTaskComponent: React.FC = () => {
         <Container className="update_page" maxWidth="sm">
             <Typography className="update_page_title">Update Task</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component="form">
-                <Paper sx={{ mb: 4 }}>
-                    <InputLabel>Title</InputLabel>
-                    <TextField
-                        {...register("title")}
-                        multiline
-                        fullWidth
-                        maxRows={2}
-                        helperText={errors.title?.message}
-                        error={errors.title ? true : false}
-                        variant="standard"
-                        placeholder="Update title..."
-                        defaultValue={title}
-                    />
-                </Paper>
-                <Paper sx={{ my: 4 }}>
-                    <InputLabel>Subtitle</InputLabel>
-                    <TextField
-                        {...register("subtitle")}
-                        multiline
-                        fullWidth
-                        maxRows={2}
-                        variant="standard"
-                        placeholder="Update subtitle..."
-                        defaultValue={subtitle}
-                    />
-                </Paper>
-                <Paper>
-                    <MDEField MDEChange={MDEChange} description={description} />
-                </Paper>
-                <Box className="update_page_deadline">
-                    <InputLabel className="update_page_deadline_title">
-                        Deadline
-                    </InputLabel>
-                    <TextField
-                        {...register("deadline")}
-                        type="date"
-                        inputProps={{
-                            min: format(new Date(), "yyyy-LL-dd"),
-                        }}
-                        variant="outlined"
-                        defaultValue={parseDeadline}
-                    />
-                </Box>
+
+                <TitleField register={register} error={errors} value={title} />
+                <SubtitleField register={register} value={subtitle} />
+                <MDEField MDEChange={MDEChange} description={description} />
+                <DeadlineField register={register} value={parseDeadline} />
+
                 <Box className="update_page_checkbox">
                     <Checkbox
                         {...register("completed")}

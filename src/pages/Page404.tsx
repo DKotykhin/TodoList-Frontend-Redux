@@ -15,4 +15,4 @@ const Page404: React.FC = () => {
   )
 }
 
-export default Page404
+export default Page404;

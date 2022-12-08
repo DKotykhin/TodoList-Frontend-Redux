@@ -1,20 +1,29 @@
-export interface IAddTask {    
+export interface IAddTask {
     title: string;
     subtitle?: string;
-    description?: string;    
-    deadline?: string;    
+    description?: string;
+    deadline?: string;
 }
 
-export interface IUpdateTask extends IAddTask {    
+export interface IUpdateTask extends IAddTask {
     _id: string;
-    completed: boolean;  
+    completed: boolean;
 }
 
-export interface ICompleteTask {    
+export interface ICompleteTask {
     _id: string;
-    completed: boolean;  
+    completed: boolean;
 }
 
-export interface ITask extends IUpdateTask {   
+export interface ITask extends IUpdateTask {
     createdAt: string;
+}
+
+export interface ITaskResponse extends ITask {
+    message: string;
+}
+
+export interface ITaskResponseStatus {
+    status: object;
+    message: string;
 }

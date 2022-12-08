@@ -8,7 +8,7 @@ import { useAppSelector } from "store/hook";
 
 const ProfilePage: React.FC = () => {
     const { userdata } = useAppSelector(selectUser);
-
+    
     return userdata.token ? (
         <>
             <Helmet>
@@ -18,7 +18,7 @@ const ProfilePage: React.FC = () => {
             <ProfileForm />
         </>
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 };
 

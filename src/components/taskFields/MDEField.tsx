@@ -1,4 +1,6 @@
 import React, { useMemo } from "react";
+import Paper from "@mui/material/Paper";
+
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
@@ -8,13 +10,6 @@ interface IMDEField {
 }
 
 export const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
-    // const [value, setValue] = useState(props);
-
-    // const onChange = useCallback((value) => {
-    //     setValue(value);
-    //     // console.log(value);
-    //     MDEChange(value)
-    // }, [MDEChange]);
 
     const options: EasyMDE.Options = useMemo(
         () => ({
@@ -32,5 +27,9 @@ export const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
         }),
         []
     );
-    return <SimpleMDE value={description} onChange={MDEChange} options={options} />;
+    return (
+        <Paper>
+            <SimpleMDE value={description} onChange={MDEChange} options={options} />
+        </Paper>
+    )
 };

@@ -5,7 +5,7 @@ import { ITask } from "../types/taskTypes"
 export const fetchTasks = createAsyncThunk(
     'task/fetch',
     async (token: string) => {
-        const { data } = await GetAllTasks(token);
+        const data = await GetAllTasks(token);
         return data
     }
 );
@@ -24,9 +24,9 @@ const TasksSlice = createSlice({
     name: "task",
     initialState,
     reducers: {
-        addTask: (state, action: PayloadAction<ITask>) => {
-            state.taskdata = [...state.taskdata, action.payload];
-        },
+        // addTask: (state, action: PayloadAction<ITask>) => {
+        //     state.taskdata = [...state.taskdata, action.payload];
+        // },
         removeTask: (state, action: PayloadAction<string>) => {
             const newTasks = state.taskdata.filter(
                 (task) => task._id !== action.payload
@@ -40,14 +40,14 @@ const TasksSlice = createSlice({
                 }
             });
         },
-        updateTaskAll: (state, action: PayloadAction<ITask>) => {
-            state.taskdata.forEach((item) => {
-                if (item._id === action.payload._id) {
-                    item.description = action.payload.description
-                    item.completed = action.payload.completed
-                }
-            });
-        },
+        // updateTaskAll: (state, action: PayloadAction<ITask>) => {
+        //     state.taskdata.forEach((item) => {
+        //         if (item._id === action.payload._id) {
+        //             item.description = action.payload.description
+        //             item.completed = action.payload.completed
+        //         }
+        //     });
+        // },
     },
     extraReducers: (builder) => {
         builder
@@ -72,9 +72,7 @@ const TasksSlice = createSlice({
 const { actions, reducer } = TasksSlice;
 
 export default reducer;
-export const {
-    addTask,
+export const {    
     removeTask,
-    updateTaskCompleted,
-    updateTaskAll
+    updateTaskCompleted,    
 } = actions;

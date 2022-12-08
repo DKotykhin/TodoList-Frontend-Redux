@@ -7,7 +7,7 @@ import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 
 const ChangePasswordPage: React.FC = () => {    
-    const { userdata } = useAppSelector(selectUser)
+    const { userdata } = useAppSelector(selectUser);
  
     return userdata.token ? (
         <>
@@ -18,7 +18,7 @@ const ChangePasswordPage: React.FC = () => {
             <PasswordForm />
         </>
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 }
 
