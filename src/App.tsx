@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import Layout from "components/layout/Layout";
+// import Spinner from "components/spinner/Spinner";
+
+import HomePage from "pages/HomePage";
+import LoginPage from "pages/LoginPage";
+import ProfilePage from "pages/ProfilePage";
+import RegistrationPage from "pages/RegistrationPage";
+import Page404 from "pages/Page404";
+import ChangePasswordPage from "pages/ChangePasswordPage";
+import UpdateTask from "pages/UpdateTaskPage";
+import AddTask from "pages/AddTaskPage";
+
+const theme = createTheme({
+  palette: {
+      primary: {
+          main: "#00a1b6",
+      },
+  },
+});
+
+const App = () => {  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+            {/* <Suspense fallback={<Spinner />}> */}
+            <ThemeProvider theme={theme}>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="/updatetask/:taskId" element={<UpdateTask />} />
+                        <Route path="/addtask" element={<AddTask />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="profile" element={<ProfilePage />} />
+                        <Route path="registration" element={<RegistrationPage />} />
+                        <Route path="password" element={<ChangePasswordPage />} />
+                        <Route path="*" element={<Page404 />} />
+                    </Route>
+                </Routes>
+            </ThemeProvider>
+            {/* </Suspense> */}
+        </Router>
   );
 }
 

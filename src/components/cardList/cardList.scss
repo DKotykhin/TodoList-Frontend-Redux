@@ -1,0 +1,19 @@
+.cardlist {
+    .cardlist_addtask {
+        text-align: center;
+        &_button {
+            margin: 16px;
+            border-radius: 20px;            
+        }
+    }
+    &_message {
+        font-size: 18px;
+        margin: 8px;
+        text-align: center;        
+    }
+    &_short_card {
+        margin: 8px;
+        display: flex;
+        justify-content: center;       
+    }
+}

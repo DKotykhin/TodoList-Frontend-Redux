@@ -1,0 +1,18 @@
+.footer {
+    height: 64px;
+    background-color: #00a1b6;
+    text-align: end;    
+    .footer_icon {
+        color: #fff;
+        display: inline-block;
+        margin: 22px 8px -3px 0px
+    }
+    .footer_logo_text {
+        display: inline-block;
+        margin-right: 24px;
+        font-size: 25px;
+        font-weight: 700;
+        font-family: monospace;
+        color: #ffffff;
+    }
+}

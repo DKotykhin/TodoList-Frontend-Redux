@@ -1,0 +1,30 @@
+.full_card {
+    width: 400px;
+    border: 2px solid #979797;
+    max-width: 100%;
+    border-radius: 20px;
+    .modal_close_icon {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        color: #808080;
+        cursor: pointer;
+        &:hover {
+            color: #000;
+        }
+    }
+    .subtitle {
+        min-height: 30px;
+        word-wrap: break-word;
+    }
+    .description {
+        margin-top: -10px;
+        min-height: 60px;
+        word-wrap: break-word;
+        overflow-y: auto;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+}

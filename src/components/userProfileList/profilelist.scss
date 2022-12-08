@@ -1,0 +1,48 @@
+.profile_form {
+    .profile_box {
+        text-align: center;
+    }
+    .field {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+    .title {
+        font-size: 22px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .subtitle {
+        text-align: center;
+        // margin-top: 50px;
+    }
+    .save_button {
+        display: block;
+        margin: 20px auto;
+        margin-bottom: 60px;
+    }
+    label {
+        color: #808080;
+        text-align: left;
+        margin-left: 40px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .message {
+        color: #00a1b6;
+        text-align: center;
+        min-height: 25px;
+    }
+}
+
+.avatar_form {
+    .title {
+        font-size: 22px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    label {
+        margin-left: 0;
+    }
+}
