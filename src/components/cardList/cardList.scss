@@ -6,6 +6,16 @@
             border-radius: 20px;            
         }
     }
+    &_fullcard {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        max-height: 600px;
+        overflow-y: auto;
+        border-radius: 20px;
+    }
     &_message {
         font-size: 18px;
         margin: 8px;

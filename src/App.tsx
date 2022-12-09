@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Layout from "components/layout/Layout";
-// import Spinner from "components/spinner/Spinner";
 
 import HomePage from "pages/HomePage";
 import LoginPage from "pages/LoginPage";
@@ -15,18 +14,17 @@ import UpdateTask from "pages/UpdateTaskPage";
 import AddTask from "pages/AddTaskPage";
 
 const theme = createTheme({
-  palette: {
-      primary: {
-          main: "#00a1b6",
-      },
-  },
+    palette: {
+        primary: {
+            main: "#00a1b6",
+        },
+    },
 });
 
-const App = () => {  
+const App = () => {
 
-  return (
-    <Router>
-            {/* <Suspense fallback={<Spinner />}> */}
+    return (
+        <Router>
             <ThemeProvider theme={theme}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
@@ -41,9 +39,8 @@ const App = () => {
                     </Route>
                 </Routes>
             </ThemeProvider>
-            {/* </Suspense> */}
         </Router>
-  );
+    );
 }
 
 export default App;

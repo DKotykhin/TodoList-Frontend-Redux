@@ -9,7 +9,7 @@ interface IDeadlineField {
     value: string | undefined;    
 }
 
-export const DeadlineField: React.FC<IDeadlineField> = ({ register, value }) => {
+const DeadlineField: React.FC<IDeadlineField> = ({ register, value }) => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3}}>
             <InputLabel sx={{ mt: 2, mr: 3 }}>
@@ -29,3 +29,5 @@ export const DeadlineField: React.FC<IDeadlineField> = ({ register, value }) => 
         </Box>
     )
 }
+
+export default DeadlineField;

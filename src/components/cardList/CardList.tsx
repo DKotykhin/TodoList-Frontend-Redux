@@ -13,18 +13,6 @@ import { ITask } from "types/taskTypes";
 
 import "./cardList.scss";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    maxWidth: "90%",
-    maxHeight: 600,
-    overflowY: "auto",
-    borderRadius: "20px",
-    boxShadow: 24,
-};
-
 interface ICardList {
     taskdata: ITask[];
 }
@@ -45,31 +33,31 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
         setTaskList(SortAction(taskdata, sortField, sortOrder));
     }, [sortField, sortOrder, taskdata]);
 
-    const FieldSelect = (data: string) => {
+    const FieldSelect = (data: string): void => {
         setSortField(data);
     };
-    const AZSelect = (data: string) => {
+    const AZSelect = (data: string): void => {
         setSortOrder(data);
     };
 
-    const handleOpenFullCard = (data: string) => {
+    const handleOpenFullCard = (data: string): void => {
         setCardFullOpen(true);
         setCardFullId(data);
     };
 
-    const cardFullClose = () => {
+    const cardFullClose = (): void => {
         setCardFullOpen(false);
     };
 
-    const handleAddTask = () => {
+    const handleAddTask = (): void => {
         navigate("/addtask");
     };
 
-    const deleteLoading = (data: boolean) => {
+    const deleteLoading = (data: boolean): void => {
         setLoading(data);
     };
 
-    const onSearch = (data: string) => {
+    const onSearch = (data: string): void => {
         const newTaskdata = SortAction(taskdata, sortField, sortOrder);
         const filterData = newTaskdata.filter((task) =>
             task.title.toLowerCase().includes(data)
@@ -80,7 +68,7 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
     return (
         <Container className="cardlist" maxWidth="xl">
             <Modal open={cardFullOpen} onClose={cardFullClose}>
-                <Box sx={style}>
+                <Box sx={{ boxShadow: 24 }} className='cardlist_fullcard'>
                     <FullCard
                         task={updatedTask}
                         handleCloseFullCard={cardFullClose}

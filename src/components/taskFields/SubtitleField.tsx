@@ -7,7 +7,7 @@ interface ISubtitleField {
     value: string | undefined;
 }
 
-export const SubtitleField: React.FC<ISubtitleField> = ({ register, value }) => {
+const SubtitleField: React.FC<ISubtitleField> = ({ register, value }) => {
     return (
         <Paper sx={{ my: 4 }}>
             <InputLabel>Subtitle</InputLabel>
@@ -23,3 +23,5 @@ export const SubtitleField: React.FC<ISubtitleField> = ({ register, value }) => 
         </Paper>
     )
 }
+
+export default SubtitleField;

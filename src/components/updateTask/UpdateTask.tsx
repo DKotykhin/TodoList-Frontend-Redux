@@ -14,7 +14,7 @@ import {
 import { Box } from "@mui/system";
 
 import { TaskFormValidation } from "components/taskFields/taskFormValidation";
-import { MDEField } from "../taskFields/MDEField";
+import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 
 import { UpdateTask } from "api/taskrequests";
 // import { updateTaskAll } from "store/taskSlice";
@@ -23,9 +23,8 @@ import { useAppSelector } from "store/hook";
 import { IUpdateTask } from "types/taskTypes";
 
 import "./updateTask.scss";
-import TitleField from "components/taskFields/TitleField";
-import { SubtitleField } from "components/taskFields/SubtitleField";
-import { DeadlineField } from "components/taskFields/DeadlineField";
+
+
 
 interface IUpdateForm {
     title: string;
@@ -51,7 +50,7 @@ const UpdateTaskComponent: React.FC = () => {
 
     const parseDeadline = deadline ? format(new Date(deadline), "yyyy-LL-dd") : '';
 
-    const onSubmit = (data: IUpdateForm) => {
+    const onSubmit = (data: IUpdateForm): void => {
         const { title, subtitle, deadline, completed } = data;
         const newDeadline = deadline ? new Date(deadline).toJSON() : '';
         const totalData: IUpdateTask = {
@@ -72,6 +71,7 @@ const UpdateTaskComponent: React.FC = () => {
             .catch(error => {
                 console.warn(error.message);
                 alert("Update Task Error");
+                setLoading(false);
             });
     };
 
@@ -79,7 +79,7 @@ const UpdateTaskComponent: React.FC = () => {
         setMdeValue(data);
     }, []);
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         navigate("/");
     };
 

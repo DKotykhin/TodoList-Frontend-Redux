@@ -11,7 +11,7 @@ const NavBarMenu = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const handleSettingMenu = (event: string) => {
+    const handleSettingMenu = (event: string): void => {
         switch (event) {
             case "Profile":                
                 navigate("/profile");

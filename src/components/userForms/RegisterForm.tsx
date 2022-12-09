@@ -26,16 +26,16 @@ const RegisterForm = () => {
         reset,
     } = useForm<IUserRegister>(RegisterFormValidation);
 
-    const onSubmit = (data: IUserRegister) => {
+    const onSubmit = (data: IUserRegister): void => {
         setLoading(true);
         RegisterUser(data)
-            .then((response) => {
+            .then(response => {
                 console.log(response.message);                
                 sessionStorage.setItem("rememberMe", response.token);                
                 navigate("/");
                 reset();
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log(error.message);
                 setError(true);
                 setLoading(false);

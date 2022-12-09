@@ -1,9 +1,11 @@
 import React from "react";
+import { useEffect, useState } from "react";
+
 import { format, formatDistanceToNow } from "date-fns";
 
 import { Box, Typography } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useEffect, useState } from "react";
+
 import { ITask } from "types/taskTypes";
 
 interface ICardTime {

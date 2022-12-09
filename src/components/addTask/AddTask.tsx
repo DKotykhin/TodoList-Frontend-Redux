@@ -1,11 +1,11 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { Box } from "@mui/system";
 import { Container, Typography, Button } from "@mui/material";
 
-import { MDEField } from "../taskFields/MDEField";
+import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 import { TaskFormValidation } from "../taskFields/taskFormValidation";
 
 import { AddTask } from "api/taskrequests";
@@ -14,11 +14,8 @@ import { selectUser } from "store/selectors";
 import { IAddTask } from "types/taskTypes";
 
 import "./addTask.scss";
-import TitleField from "components/taskFields/TitleField";
-import { SubtitleField } from "components/taskFields/SubtitleField";
-import { DeadlineField } from "components/taskFields/DeadlineField";
 
-const AddTaskComponent = () => {
+const AddTaskComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [mdeValue, setMdeValue] = useState("");
 
@@ -51,6 +48,7 @@ const AddTaskComponent = () => {
             .catch(error => {
                 console.warn(error.message);
                 alert("Add Task Error");
+                setLoading(false);
             });
     };
 
@@ -58,7 +56,7 @@ const AddTaskComponent = () => {
         setMdeValue(data);
     }, []);
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         navigate("/");
     };
 

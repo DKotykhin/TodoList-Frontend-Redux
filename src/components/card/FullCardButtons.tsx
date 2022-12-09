@@ -23,7 +23,7 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: string): void => {
         deleteLoading(true);
         closeModal();
         DeleteTask({ _id: id }, userdata.token)
@@ -35,10 +35,11 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
             .catch(error => {
                 console.warn(error.message);
                 alert("Delete Error");
+                deleteLoading(false);
             });
     };
 
-    const handleUpdate = (id: string) => {
+    const handleUpdate = (id: string): void => {
         navigate(`/updatetask/${id}`);
     };
 
@@ -54,6 +55,7 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
             .catch(error => {
                 console.warn(error.message);
                 alert("Complete Error");
+                setCompleteLoading(false);
             });
     };
 

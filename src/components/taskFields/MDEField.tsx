@@ -9,7 +9,7 @@ interface IMDEField {
     MDEChange: (arg0: string) => void;
 }
 
-export const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
+const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
 
     const options: EasyMDE.Options = useMemo(
         () => ({
@@ -33,3 +33,5 @@ export const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
         </Paper>
     )
 };
+
+export default MDEField;
