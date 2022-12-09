@@ -2,7 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import { Navigate } from "react-router-dom";
 
-import ProfileForm from "components/userProfileList/ProfileForm";
+import ProfileList from "components/userProfileList/ProfileList";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 
@@ -15,7 +15,7 @@ const ProfilePage: React.FC = () => {
                 <meta name="description" content="Profile Page" />
                 <title>Profile Page</title>
             </Helmet>            
-            <ProfileForm />
+            <ProfileList />
         </>
     ) : (
         <Navigate to="/" />

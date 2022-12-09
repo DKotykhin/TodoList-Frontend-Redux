@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -17,16 +17,15 @@ import { selectUser } from "store/selectors";
 import { removeUser } from "store/userSlice";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
-import "./profilelist.scss";
+import "./profileList.scss";
 
-const ProfileForm = () => {
+const ProfileList: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { userdata: { user, token } } = useAppSelector(selectUser);
-    // console.log(formatDistanceToNow(new Date(userdata.user.createdAt)));
 
     const {
         control,
@@ -49,7 +48,7 @@ const ProfileForm = () => {
         });
     }, [reset, user.email, user.name]);
 
-    const handleDelete = (data: string) => {
+    const handleDelete = (data: string): void => {
         DeleteUser(data)
             .then((response) => {
                 console.log(response.message);
@@ -80,18 +79,17 @@ const ProfileForm = () => {
     };
 
     return (
-        <Container maxWidth="xs" className="profile_form">
-            <Typography className="title" component="h2">
+        <Container maxWidth="xs" className="profile">
+            <Typography className="profile_title" component="h2">
                 User Profile
             </Typography>
-            <Typography className="subtitle">
+            <Typography>
                 {`Created: ${format(
                     new Date(user.createdAt),
                     "dd LLL yyyy 'at' H:mm"
                 )}`}
             </Typography>
             <Box
-                className="profile_box"
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"
                 noValidate
@@ -109,20 +107,20 @@ const ProfileForm = () => {
                     control={control}
                 />
 
-                <Typography className="message">
+                <Typography className="profile_message">
                     {loading ? "Loading..." : ""}
                     {loaded ? "Profile update successfully!" : ""}
                 </Typography>
                 <Button
                     type="submit"
                     variant="outlined"
-                    className="save_button"
+                    className="profile_save_button"
                 >
                     Save changes
                 </Button>
             </Box>
             <AvatarForm />
-            <Typography className="subtitle">
+            <Typography>
                 Need to delete Profile?
             </Typography>
             <DeleteDialog
@@ -130,11 +128,11 @@ const ProfileForm = () => {
                 dialogTitle={"You really want to delete user?"}
                 deleteAction={() => handleDelete(token)}
             />
-            <Button className="save_button" onClick={() => navigate("/")}>
+            <Button className="profile_save_button" onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>
     );
 };
 
-export default ProfileForm;
+export default ProfileList;

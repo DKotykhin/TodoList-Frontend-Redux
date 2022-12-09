@@ -10,7 +10,7 @@ import { UploadAvatar, DeleteAvatar } from "api/userrequests";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 
-import "./profilelist.scss";
+import "./avatarForm.scss";
 
 
 const AvatarForm: React.FC = () => {
@@ -85,8 +85,8 @@ const AvatarForm: React.FC = () => {
     };
 
     return (
-        <Box className="avatar_form">
-            <Typography className="title">Change Avatar</Typography>
+        <Box className="avatar">
+            <Typography className="avatar_title">Change Avatar</Typography>
             <Box
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"
@@ -100,15 +100,13 @@ const AvatarForm: React.FC = () => {
                 noValidate
                 autoComplete="off"
             >
-                <Box sx={{ textAlign: "center" }}>
+                <Box>
                     <Typography
                         component="label"
-                        sx={{ cursor: "pointer" }}
                         onChange={onChange}
                     >
-                        {fileName ? fileName : "load file..."}
+                        {fileName ? fileName : "choose file..."}
                         <Typography
-                            sx={{ cursor: "pointer" }}
                             component="input"
                             {...register("avatar")}
                             color="primary"
@@ -117,22 +115,17 @@ const AvatarForm: React.FC = () => {
                         />
                     </Typography>
                     {fileName && (
-                        <CloseIcon
-                            sx={{
-                                margin: "-6px 0 -6px 10px",
-                                cursor: "pointer",
-                            }}
+                        <CloseIcon className="avatar_close_icon"
                             onClick={onReset}
                         />
                     )}
                 </Box>
-                <Button type="submit" variant="outlined">
+                <Button type="submit" variant="outlined" disabled={!fileName}>
                     Upload
                 </Button>
             </Box>
-            <Typography
+            <Typography className="avatar_message"
                 color="primary"
-                sx={{ textAlign: "center", minHeight: "25px" }}
             >
                 {loadingAvatar
                     ? "Loading..."
@@ -140,9 +133,8 @@ const AvatarForm: React.FC = () => {
                         ? "Avatar loaded succesfully"
                         : ""}
             </Typography>
-            <Typography
+            <Typography className="avatar_message"
                 color="error"
-                sx={{ textAlign: "center", minHeight: "25px" }}
             >
                 {deletingAvatar
                     ? "Deleting..."

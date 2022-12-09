@@ -12,6 +12,7 @@ const SearchTask: React.FC<ISearchTask> = ({ onSearch }) => {
     return (
         <Box component="form" sx={{ textAlign: "center", m: 3 }}>
             <Input
+                sx={{ width: 240 }}
                 onChange={(e) => onSubmit(e.target.value)}
                 type="text"
                 placeholder="search task..."
