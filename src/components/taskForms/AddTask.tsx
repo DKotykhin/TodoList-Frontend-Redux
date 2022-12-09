@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { Box } from "@mui/system";
-import { Container, Typography, Button } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 import { TaskFormValidation } from "../taskFields/taskFormValidation";
@@ -13,7 +13,8 @@ import { useAppSelector } from "store/hook";
 import { selectUser } from "store/selectors";
 import { IAddTask } from "types/taskTypes";
 
-import "./addTask.scss";
+import "./task.scss";
+import SubmitCancelButtons from "./SubmitCancelButtons";
 
 const AddTaskComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);
@@ -56,13 +57,9 @@ const AddTaskComponent: React.FC = () => {
         setMdeValue(data);
     }, []);
 
-    const handleCancel = (): void => {
-        navigate("/");
-    };
-
     return (
-        <Container className="add_page" maxWidth="sm">
-            <Typography className="add_page_title">Add Task</Typography>
+        <Container className="task" maxWidth="sm">
+            <Typography className="task_title">Add Task</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component="form">
 
                 <TitleField register={register} error={errors} value={''}/>
@@ -70,17 +67,7 @@ const AddTaskComponent: React.FC = () => {
                 <MDEField MDEChange={MDEChange} />
                 <DeadlineField register={register} value={''} />
 
-                <Box className="add_page_button">
-                    <Button
-                        className="add_page_button_cancel"
-                        onClick={handleCancel}
-                    >
-                        Cancel
-                    </Button>
-                    <Button className="add_page_button_submit" type="submit">
-                        {loading ? "Loading..." : "Submit"}
-                    </Button>
-                </Box>
+                <SubmitCancelButtons loading={loading} />
             </Box>
         </Container>
     );

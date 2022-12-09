@@ -21,8 +21,7 @@ const AZSort: React.FC<IAZSort> = ({ onSelect }) => {
             spacing={3}
             sx={{
                 display: "flex",
-                flexWrap: "wrap",
-                // mt: 2,
+                flexWrap: "wrap",                
                 justifyContent: "center",
             }}
         >

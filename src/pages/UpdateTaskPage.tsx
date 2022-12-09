@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
-import UpdateTaskComponent from "components/updateTask/UpdateTask";
+import UpdateTaskComponent from "components/taskForms/UpdateTask";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 

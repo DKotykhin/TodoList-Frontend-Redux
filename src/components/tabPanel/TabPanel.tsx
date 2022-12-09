@@ -21,7 +21,7 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
     return (
-        <div
+        <Box
             role="tabpanel"
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
@@ -33,7 +33,7 @@ function TabPanel(props: TabPanelProps) {
                     <Box>{children}</Box>
                 </Box>
             )}
-        </div>
+        </Box>
     );
 }
 
@@ -50,7 +50,7 @@ function a11yProps(index: number) {
     };
 }
 
-const TaskList: React.FC = () => {
+const TabPanelComponent: React.FC = () => {
     const [value, setValue] = useState(0);
 
     const { userdata } = useAppSelector(selectUser);
@@ -102,4 +102,4 @@ const TaskList: React.FC = () => {
     );
 };
 
-export default TaskList;
+export default TabPanelComponent;

@@ -4,16 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
 
-import {
-    Container,
-    Typography,
-    InputLabel,
-    Checkbox,
-    Button,
-} from "@mui/material";
+import { Container, Typography, InputLabel, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
 
-import { TaskFormValidation } from "components/taskFields/taskFormValidation";
+import { TaskFormValidation } from "../taskFields/taskFormValidation";
+import SubmitCancelButtons from "./SubmitCancelButtons";
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 
 import { UpdateTask } from "api/taskrequests";
@@ -22,9 +17,7 @@ import { selectTask, selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 import { IUpdateTask } from "types/taskTypes";
 
-import "./updateTask.scss";
-
-
+import "./task.scss";
 
 interface IUpdateForm {
     title: string;
@@ -79,13 +72,9 @@ const UpdateTaskComponent: React.FC = () => {
         setMdeValue(data);
     }, []);
 
-    const handleCancel = (): void => {
-        navigate("/");
-    };
-
     return (
-        <Container className="update_page" maxWidth="sm">
-            <Typography className="update_page_title">Update Task</Typography>
+        <Container className="task" maxWidth="sm">
+            <Typography className="task_title">Update Task</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component="form">
 
                 <TitleField register={register} error={errors} value={title} />
@@ -93,24 +82,14 @@ const UpdateTaskComponent: React.FC = () => {
                 <MDEField MDEChange={MDEChange} description={description} />
                 <DeadlineField register={register} value={parseDeadline} />
 
-                <Box className="update_page_checkbox">
+                <Box className="task_checkbox">
                     <Checkbox
                         {...register("completed")}
                         defaultChecked={completed}
                     />
                     <InputLabel sx={{ mt: 1 }}>Completed</InputLabel>
                 </Box>
-                <Box className="update_page_button">
-                    <Button
-                        className="update_page_button_cancel"
-                        onClick={handleCancel}
-                    >
-                        Cancel
-                    </Button>
-                    <Button className="update_page_button_submit" type="submit">
-                        {loading ? "Loading..." : "Submit"}
-                    </Button>
-                </Box>
+                <SubmitCancelButtons loading={loading} />
             </Box>
         </Container>
     );

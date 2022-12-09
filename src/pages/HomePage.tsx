@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Helmet from "react-helmet";
 import { useAppDispatch } from 'store/hook';
 
-import TaskList from "components/taskList/TaskList";
+import TabPanelComponent from "components/tabPanel/TabPanel";
 import { UserLoginByToken } from "api/userrequests";
 import { createUser } from "store/userSlice";
 import Spinner from 'components/spinner/Spinner';
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
                         <meta name="description" content="Home Page" />
                         <title>Home Page</title>
                     </Helmet>                    
-                    <TaskList />
+                    <TabPanelComponent />
                 </> :
                 <Spinner />
             }
