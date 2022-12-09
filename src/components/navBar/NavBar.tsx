@@ -13,13 +13,13 @@ import { useAppSelector } from "store/hook";
 import "./navBar.scss";
 
 const NavBar = () => {
-    const [anchorElUser, setAnchorElUser] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const { userdata: { token, user } } = useAppSelector(selectUser);
 
     const userName = token ? user.name : "";
     const userAvatarURL = token ? user.avatarURL : "";
 
-    const handleOpenUserMenu = (event: any) => {
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
 

@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Box, Container, Typography, Grid, Button, Modal } from "@mui/material";
 
 import ShortCard from "components/card/ShortCard";
+import FullCard from "components/card/FullCard";
 import FieldSort from "components/cardSort/FieldSort";
 import AZSort from "components/cardSort/AZSort";
 import SortAction from "./SortAction";
-import FullCard from "components/card/FullCard";
 import SearchTask from "components/searchTask/SearchTask";
+
 import { ITask } from "types/taskTypes";
 
 import "./cardList.scss";

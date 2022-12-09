@@ -28,7 +28,7 @@ const ShortCard: React.FC<IShortCard> = ({ task, handleOpenFullCard }) => {
                     shortTitleWidth={false}
                     task={task}
                 />
-                <Divider sx={{ mb: 1 }} />
+                <Divider sx={{ mb: 2 }} />
                 <CardTime task={task} />                
             </CardContent>
         </Card>
