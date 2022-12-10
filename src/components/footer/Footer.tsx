@@ -10,8 +10,8 @@ import './footer.scss';
 const Footer: React.FC = () => {
     return (
         <Box className="footer">
-            <AssignmentTurnedInIcon className="footer_icon" />
-            <Typography className="footer_logo_text">
+            <AssignmentTurnedInIcon className="footer icon" />
+            <Typography className="footer logo_text">
                 TodoList
             </Typography>
         </Box>

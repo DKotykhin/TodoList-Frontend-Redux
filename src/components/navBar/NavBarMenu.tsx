@@ -26,7 +26,7 @@ const NavBarMenu = () => {
                 navigate("/login");
                 break;
             default:
-                navigate("/login");
+                navigate("/");
         }
     };
 

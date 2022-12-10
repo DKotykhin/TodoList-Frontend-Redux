@@ -80,7 +80,7 @@ const ProfileList: React.FC = () => {
 
     return (
         <Container maxWidth="xs" className="profile">
-            <Typography className="profile_title" component="h2">
+            <Typography className="profile title" component="h2">
                 User Profile
             </Typography>
             <Typography>
@@ -107,14 +107,14 @@ const ProfileList: React.FC = () => {
                     control={control}
                 />
 
-                <Typography className="profile_message">
+                <Typography className="profile message">
                     {loading ? "Loading..." : ""}
                     {loaded ? "Profile update successfully!" : ""}
                 </Typography>
                 <Button
                     type="submit"
                     variant="outlined"
-                    className="profile_save_button"
+                    className="profile save_button"
                 >
                     Save changes
                 </Button>
@@ -128,7 +128,7 @@ const ProfileList: React.FC = () => {
                 dialogTitle={"You really want to delete user?"}
                 deleteAction={() => handleDelete(token)}
             />
-            <Button className="profile_save_button" onClick={() => navigate("/")}>
+            <Button className="profile save_button" onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>

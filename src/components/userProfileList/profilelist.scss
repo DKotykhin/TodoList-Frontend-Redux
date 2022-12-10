@@ -1,19 +1,21 @@
+@import '../../constants/constants.scss';
+
 .profile {
     text-align: center;
-    .profile_title {
+    &.title {
         font-size: 22px;
         margin-top: 50px;
         margin-bottom: 30px;
     }       
-    .profile_save_button {        
+    &.save_button {        
         margin: 20px;           
     }
-    .profile_message {
-        color: #00a1b6;        
+    &.message {
+        color: $color_mint;        
         min-height: 25px;
     }
     label {
-        color: #808080;
+        color: $color_grey;
         text-align: left;
         margin-left: 40px;
         margin-top: 20px;

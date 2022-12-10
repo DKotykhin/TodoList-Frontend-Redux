@@ -74,7 +74,7 @@ const UpdateTaskComponent: React.FC = () => {
 
     return (
         <Container className="task" maxWidth="sm">
-            <Typography className="task_title">Update Task</Typography>
+            <Typography className="task title">Update Task</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component="form">
 
                 <TitleField register={register} error={errors} value={title} />
@@ -82,7 +82,7 @@ const UpdateTaskComponent: React.FC = () => {
                 <MDEField MDEChange={MDEChange} description={description} />
                 <DeadlineField register={register} value={parseDeadline} />
 
-                <Box className="task_checkbox">
+                <Box className="task checkbox">
                     <Checkbox
                         {...register("completed")}
                         defaultChecked={completed}

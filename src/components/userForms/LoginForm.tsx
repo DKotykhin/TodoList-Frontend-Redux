@@ -11,7 +11,7 @@ import { IUserLogin } from "types/userTypes";
 import { EmailField, PasswordField } from "components/userFields";
 import { LoginFormValidation } from "./userFormValidation";
 
-import "./style.scss";
+import "./styleForm.scss";
 
 interface IUserData extends IUserLogin {
     rememberMe: boolean
@@ -52,21 +52,15 @@ const LoginForm: React.FC = () => {
 
     return (
         <Container maxWidth="sm" className="form">
-            <Typography className="title" component="h2">
+            <Typography className="form title" component="h2">
                 {loading ? "Loading..." : "Login Form"}
             </Typography>
             {!loading && (
                 <>
                     <Box
+                        className="form field"
+                        component="form"                        
                         onSubmit={handleSubmit(onSubmit)}
-                        component="form"
-                        sx={{
-                            "& > :not(style)": {
-                                width: "300px",
-                                display: "block",
-                                m: "50px auto",
-                            },
-                        }}
                     >
                         <EmailField disabled={false} error={errors.email} control={control} />
                         <PasswordField
@@ -74,7 +68,7 @@ const LoginForm: React.FC = () => {
                             error={errors.password}
                             control={control}
                         />
-                        <InputLabel className="label">
+                        <InputLabel>
                             <Controller
                                 name="rememberMe"
                                 control={control}
@@ -85,22 +79,22 @@ const LoginForm: React.FC = () => {
                         </InputLabel>
                         <Button
                             disabled={!isValid}
-                            className="submit_button"
+                            className="form submit_button"
                             type="submit"
                         >
                             Login
                         </Button>
                     </Box>
                     {error && (
-                        <Typography className="error_title">
+                        <Typography className="form error_message">
                             {"Incorrect data!"}
                         </Typography>
                     )}
-                    <Typography className="subtitle">
+                    <Typography className="form success_message">
                         {"Don't have account?"}
                     </Typography>
                     <Button
-                        className="submit_button"
+                        className="form submit_button"
                         component={Link}
                         to="/registration"
                     >

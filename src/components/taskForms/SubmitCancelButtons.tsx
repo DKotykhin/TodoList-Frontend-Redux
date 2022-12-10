@@ -20,12 +20,12 @@ const SubmitCancelButtons: React.FC<IButtons> = ({ loading }) => {
     return (
         <Box className="button">
             <Button
-                className="button_cancel"
+                className="button cancel"
                 onClick={handleCancel}
             >
                 Cancel
             </Button>
-            <Button className="button_submit" type="submit">
+            <Button className="button submit" type="submit">
                 {loading ? "Loading..." : "Submit"}
             </Button>
         </Box>

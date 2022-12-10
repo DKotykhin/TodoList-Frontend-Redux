@@ -11,7 +11,7 @@ import { PasswordFormValidation } from "./userFormValidation";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
 
-import "./style.scss";
+import "./styleForm.scss";
 
 interface IPasswordData {
     password: string;
@@ -58,21 +58,15 @@ const PasswordForm = () => {
  
     return (
         <Container maxWidth="sm" className="form">
-            <Typography className="title" component="h2">
+            <Typography className="form title" component="h2">
                 {loading ? "Loading..." : "Change password"}
             </Typography>
             <Box
-                onSubmit={handleSubmit(onSubmit)}
+                className="form field"
                 component="form"
-                sx={{
-                    "& > :not(style)": {
-                        width: "300px",
-                        display: "block",
-                        m: "50px auto",
-                    },
-                }}
                 noValidate
                 autoComplete="off"
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <PasswordField
                     name={"Password"}
@@ -86,28 +80,28 @@ const PasswordForm = () => {
                 />
                 <Button
                     disabled={!isValid}
-                    className="submit_button"
+                    className="form submit_button"
                     type="submit"
                 >
                     Change password
                 </Button>
             </Box>
             {error && (
-                <Typography className="error_title">
+                <Typography className="form error_message">
                     {"Incorrect data!"}
                 </Typography>
             )}
             {matchPass && (
-                <Typography className="error_title">
+                <Typography className="form error_message">
                     {"Passwords don't match!"}
                 </Typography>
             )}
             {success && (
-                <Typography sx={{ mb: 3 }} className="subtitle" color={"primary"}>
+                <Typography sx={{ mb: 3 }} className="form sucsess_message" color={"primary"}>
                     {"Password successfully changed!"}
                 </Typography>
             )}
-            <Button className="submit_button" onClick={() => navigate("/")}>
+            <Button className="form submit_button" onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>

@@ -1,27 +1,28 @@
 .cardlist {
-    .cardlist_addtask {
+    &.addtask {
         text-align: center;
-        &_button {
+        &.button {
             margin: 16px;
             border-radius: 20px;            
         }
     }
-    &_fullcard {
+    &.fullcard {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 400px;
         max-width: 90%;
         max-height: 600px;
         overflow-y: auto;
         border-radius: 20px;
     }
-    &_message {
+    &.message {
         font-size: 18px;
         margin: 8px;
         text-align: center;        
     }
-    &_short_card {
+    &.short_card {
         margin: 8px;
         display: flex;
         justify-content: center;       

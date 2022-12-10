@@ -62,9 +62,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Firm grey | ![#333333](https://via.placeholder.com/10/333333?text=+) #333333 |
+| Firm grey | ![#808080](https://via.placeholder.com/10/333333?text=+) #808080 |
 | Firm mint | ![#00a1b6](https://via.placeholder.com/10/00a1b6?text=+) #00a1b6 |
-| Firm brown | ![#683b39](https://via.placeholder.com/10/683b39?text=+) #683b39 |
 
 
 ## Author

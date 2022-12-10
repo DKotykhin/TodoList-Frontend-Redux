@@ -11,12 +11,12 @@ import { RegisterFormValidation } from "./userFormValidation";
 import { RegisterUser } from "api/userrequests";
 import { IUserRegister } from "types/userTypes";
 
-import "./style.scss";
+import "./styleForm.scss";
 
 const RegisterForm = () => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+
     const navigate = useNavigate();
 
     const {
@@ -30,8 +30,8 @@ const RegisterForm = () => {
         setLoading(true);
         RegisterUser(data)
             .then(response => {
-                console.log(response.message);                
-                sessionStorage.setItem("rememberMe", response.token);                
+                console.log(response.message);
+                sessionStorage.setItem("rememberMe", response.token);
                 navigate("/");
                 reset();
             })
@@ -44,21 +44,13 @@ const RegisterForm = () => {
 
     return (
         <Container maxWidth="sm" className="form">
-            <Typography className="title" component="h2">
+            <Typography className="form title" component="h2">
                 {loading ? "Registered..." : "Registration Form"}
             </Typography>
             <Box
-                onSubmit={handleSubmit(onSubmit)}
+                className="form field"
                 component="form"
-                sx={{
-                    "& > :not(style)": {
-                        width: "300px",
-                        display: "block",
-                        m: "50px auto",
-                    },
-                }}
-            // noValidate
-            // autoComplete="off"
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <NameField label='name' error={errors.name} control={control} />
                 <EmailField disabled={false} error={errors.email} control={control} />
@@ -69,21 +61,21 @@ const RegisterForm = () => {
                 />
                 <Button
                     disabled={!isValid}
-                    className="submit_button"
+                    className="form submit_button"
                     type="submit"
                 >
                     {"Register"}
                 </Button>
             </Box>
             {error && (
-                <Typography className="error_title">
+                <Typography className="form error_message">
                     {"Can't register user"}
                 </Typography>
             )}
-            <Typography className="subtitle">
+            <Typography className="form success_message">
                 {"Already have account?"}
             </Typography>
-            <Button className="submit_button" component={Link} to="/login">
+            <Button className="form submit_button" component={Link} to="/login">
                 {"Login"}
             </Button>
         </Container>

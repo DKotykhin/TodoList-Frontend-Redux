@@ -1,22 +1,25 @@
+@import '../../constants/constants.scss';
+
 .form {
-    .title {
+    &.title {
         font-size: 22px;
         margin-top: 50px;
         text-align: center;
     }
-    .subtitle {
-        text-align: center;
-    }       
-    .loading_title {
-        text-align: center;
-        min-height: 30px;
-        margin-bottom: 30px;
-        color: #00a1b6;
+    &.field {
+        &>:not(style) {
+            width: 300px;
+            display: block;
+            margin: 50px auto;
+        }
     }
-    .error_title {
+    &.success_message {
+        text-align: center;
+    }    
+    &.error_message {
         text-align: center;
         margin-bottom: 30px;
-        color: red;
+        color: #ff0000;
     }
     input[type="checkbox"] {
         display: inline;
@@ -24,10 +27,10 @@
         height: 25px;
         margin-right: 15px;
     }
-    .submit_button {
+    &.submit_button {
         text-align: center;
         display: block;
         margin: 0 auto;
         margin-bottom: 20px;
-    } 
+    }
 }

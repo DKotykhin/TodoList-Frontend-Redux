@@ -35,7 +35,7 @@ const NavBar = () => {
                     <Typography
                         component={RouterLink}
                         to="/"
-                        className="navbar_link_text"
+                        className="navbar link_text"
                     >
                         TodoList
                     </Typography>

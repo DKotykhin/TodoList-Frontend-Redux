@@ -86,7 +86,7 @@ const AvatarForm: React.FC = () => {
 
     return (
         <Box className="avatar">
-            <Typography className="avatar_title">Change Avatar</Typography>
+            <Typography className="avatar title">Change Avatar</Typography>
             <Box
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"
@@ -115,7 +115,7 @@ const AvatarForm: React.FC = () => {
                         />
                     </Typography>
                     {fileName && (
-                        <CloseIcon className="avatar_close_icon"
+                        <CloseIcon className="avatar close_icon"
                             onClick={onReset}
                         />
                     )}
@@ -124,7 +124,7 @@ const AvatarForm: React.FC = () => {
                     Upload
                 </Button>
             </Box>
-            <Typography className="avatar_message"
+            <Typography className="avatar message"
                 color="primary"
             >
                 {loadingAvatar
@@ -133,7 +133,7 @@ const AvatarForm: React.FC = () => {
                         ? "Avatar loaded succesfully"
                         : ""}
             </Typography>
-            <Typography className="avatar_message"
+            <Typography className="avatar message"
                 color="error"
             >
                 {deletingAvatar

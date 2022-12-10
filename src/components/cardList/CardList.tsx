@@ -69,7 +69,7 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
     return (
         <Container className="cardlist" maxWidth="xl">
             <Modal open={cardFullOpen} onClose={cardFullClose}>
-                <Box sx={{ boxShadow: 24 }} className='cardlist_fullcard'>
+                <Box sx={{ boxShadow: 24 }} className='cardlist fullcard'>
                     <FullCard
                         task={updatedTask}
                         handleCloseFullCard={cardFullClose}
@@ -78,9 +78,9 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
                     />
                 </Box>
             </Modal>
-            <Box className="cardlist_addtask">
+            <Box className="cardlist addtask">
                 <Button
-                    className="cardlist_addtask_button"
+                    className="cardlist addtask button"
                     variant="contained"
                     onClick={handleAddTask}
                 >
@@ -88,11 +88,11 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
                 </Button>
             </Box>
             {loading ? (
-                <Typography className="cardlist_message">
+                <Typography className="cardlist message">
                     {"Loading..."}
                 </Typography>
             ) : (
-                <Typography color="text.secondary" className="cardlist_message">
+                <Typography color="text.secondary" className="cardlist message">
                     {taskList.length
                         ? `Total amount: ${taskList.length}`
                         : "No cards"}
@@ -108,7 +108,7 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
             <Grid container>
                 {taskList?.map((task) => (
                     <Grid item xs={12} md={6} xl={4} key={task._id}>
-                        <Box className="cardlist_short_card">
+                        <Box className="cardlist short_card">
                             <ShortCard
                                 task={task}
                                 handleOpenFullCard={() => handleOpenFullCard(task._id)}

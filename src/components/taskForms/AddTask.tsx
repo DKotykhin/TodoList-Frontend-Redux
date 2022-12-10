@@ -59,7 +59,7 @@ const AddTaskComponent: React.FC = () => {
 
     return (
         <Container className="task" maxWidth="sm">
-            <Typography className="task_title">Add Task</Typography>
+            <Typography className="task title">Add Task</Typography>
             <Box onSubmit={handleSubmit(onSubmit)} component="form">
 
                 <TitleField register={register} error={errors} value={''}/>

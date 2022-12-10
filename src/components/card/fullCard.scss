@@ -1,31 +1,29 @@
-.full_card {
-    width: 400px;
-    border: 2px solid #979797;
-    max-width: 100%;
-    border-radius: 20px;
-    &_close_icon {
+@import '../../constants/constants.scss';
+
+.full_card {    
+    &.close_icon {
         position: absolute;
         top: 22px;
         right: 22px;
-        color: #808080;
+        color: $color_grey;
         cursor: pointer;
         &:hover {
-            color: #000;
+            color: #000000;
         }
     }
-    &_subtitle {
+    &.subtitle {
         min-height: 30px;
         word-wrap: break-word;
     }
-    &_description > p {
+    &.description > p {
         margin: 0;        
     }
-    &_description {        
+    &.description {        
         min-height: 100px;
         word-wrap: break-word;
         overflow-y: auto;
     }
-    &_buttons {
+    &.buttons {
         display: flex;
         justify-content: space-around;
     }

@@ -11,11 +11,11 @@ import "./error.scss";
 const Error: React.FC = () => {
     return (
         <Box className="error">
-            <img src={img} alt="error" className="error_image" />
-            <Typography className="error_title">
+            <img src={img} alt="error" className="error image" />
+            <Typography className="error title">
                 Сторінка не знайдена
             </Typography>
-            <Link className="error_link" to="/">
+            <Link className="error link" to="/">
                 Повернутися на головну
             </Link>
         </Box>

@@ -1,6 +1,6 @@
 .avatar {
     text-align: center;
-    .avatar_title {
+    &.title {
         font-size: 22px;
         margin-top: 50px;
         margin-bottom: 30px;
@@ -9,11 +9,11 @@
         margin-left: 0;
         cursor: pointer;
     }
-    .avatar_close_icon {
+    &.close_icon {
         margin: -8px 0 -8px 10px;
         cursor: pointer;
     }
-    .avatar_message {
+    &.message {
         min-height: 25px;
     }
 }
