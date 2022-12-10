@@ -17,7 +17,7 @@ import { selectUser } from "store/selectors";
 import { removeUser } from "store/userSlice";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
-import "./profileList.scss";
+import "./profilelist.scss";
 
 const ProfileList: React.FC = () => {
     const [loading, setLoading] = useState(false);
