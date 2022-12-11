@@ -34,11 +34,11 @@ const PasswordField: React.FC<IPasswordField> = (props) => {
     return (
         <Box>
             <InputLabel>
-                {name === "confirmpassword" ? "confirm password" : name}
+                {name}
             </InputLabel>
             <FormControl sx={{ width: "300px" }}>
                 <Controller
-                    name={name.toLowerCase()}
+                    name={name.toLowerCase().split(' ').join('')}
                     control={control}
                     render={({ field }) => (
                         <Input sx={{ width: '320px' }}

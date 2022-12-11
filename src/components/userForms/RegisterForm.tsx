@@ -52,7 +52,7 @@ const RegisterForm = () => {
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <NameField label='name' error={errors.name} control={control} />
+                <NameField label='Name' error={errors.name} control={control} />
                 <EmailField disabled={false} error={errors.email} control={control} />
                 <PasswordField
                     name={"Password"}

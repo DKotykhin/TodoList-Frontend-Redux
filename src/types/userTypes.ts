@@ -39,6 +39,11 @@ export interface IUserDeleteResponse {
     message: string;
 }
 
+export interface IUserConfirmPasswordResponse {
+    status: boolean;
+    message: string;
+}
+
 export interface IUserAvatar {
     avatarURL: string;
     message: string;

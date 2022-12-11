@@ -32,8 +32,7 @@ const AvatarForm: React.FC = () => {
         return () => clearTimeout(timer);
     }, [loadedAvatar, deletedAvatar]);
 
-    const onSubmit = (data: FieldValues): void => {
-        // console.log(data);
+    const onSubmit = (data: FieldValues): void => {        
         if (data.avatar.length) {
             setLoadingAvatar(true);
             const formData = new FormData();
@@ -88,17 +87,10 @@ const AvatarForm: React.FC = () => {
         <Box className="avatar">
             <Typography className="avatar title">Change Avatar</Typography>
             <Box
-                onSubmit={handleSubmit(onSubmit)}
                 component="form"
-                sx={{
-                    "& > :not(style)": {
-                        width: "30ch",
-                        display: "block",
-                        m: "20px auto",
-                    },
-                }}
                 noValidate
                 autoComplete="off"
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <Box>
                     <Typography
@@ -120,7 +112,12 @@ const AvatarForm: React.FC = () => {
                         />
                     )}
                 </Box>
-                <Button type="submit" variant="outlined" disabled={!fileName}>
+                <Button
+                    className="avatar button"
+                    variant="outlined"
+                    type="submit"
+                    disabled={!fileName}
+                >
                     Upload
                 </Button>
             </Box>

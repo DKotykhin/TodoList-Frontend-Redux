@@ -28,7 +28,14 @@ const loginschema = yup.object({
 });
 
 const passwordschema = yup.object({
-    password: yup
+    currentpassword: yup
+        .string()
+        .required('Required field!')
+        .min(8, 'Minimum 8 characters to fill'),    
+});
+
+const newpasswordschema = yup.object({    
+    newpassword: yup
         .string()
         .required('Required field!')
         .min(8, 'Minimum 8 characters to fill'),
@@ -60,9 +67,17 @@ export const LoginFormValidation: Object = {
 
 export const PasswordFormValidation: Object = {
     defaultValues: {
-        password: '',
-        confirmpassword: ''
+        currentpassword: '',        
     },
     resolver: yupResolver(passwordschema),
+    mode: 'onChange'
+}
+
+export const NewPasswordFormValidation: Object = {
+    defaultValues: {       
+        newpassword: '',
+        confirmpassword: ''
+    },
+    resolver: yupResolver(newpasswordschema),
     mode: 'onChange'
 }

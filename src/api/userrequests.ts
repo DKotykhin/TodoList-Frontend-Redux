@@ -8,6 +8,7 @@ import {
     IUserResponse,
     IUserResponseWithoutToken,
     IUserUpdate,
+    IUserConfirmPasswordResponse,
 } from "../types/userTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -87,6 +88,25 @@ export const UserLoginByToken = async (
         headers: {
             Authorization: `Bearer ${token}`,
         },
+    };
+
+    const result = await axios(config);
+    return result.data;
+};
+
+export const UserConfirmPassword = async (
+    data: { password: string },
+    token: string
+): Promise<IUserConfirmPasswordResponse> => {
+    const config = {
+        method: "POST",
+        url: "user/password",
+        timeout: 8000,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        data: JSON.stringify(data),
     };
 
     const result = await axios(config);
