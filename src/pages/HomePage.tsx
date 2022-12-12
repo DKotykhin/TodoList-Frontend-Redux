@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
                     setLogin(true);
                 })
                 .catch(error => {
-                    console.warn(error.message);
+                    console.warn(error.response.data.message || error.message);
                     setLogin(false);
                 });
         } else {

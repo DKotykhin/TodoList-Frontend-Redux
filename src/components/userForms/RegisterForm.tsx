@@ -12,9 +12,10 @@ import { RegisterUser } from "api/userrequests";
 import { IUserRegister } from "types/userTypes";
 
 import "./styleForm.scss";
+import UserMessage from "components/userMessage/UserMessage";
 
 const RegisterForm = () => {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ const RegisterForm = () => {
 
     const onSubmit = (data: IUserRegister): void => {
         setLoading(true);
+        setError('')
         RegisterUser(data)
             .then(response => {
                 console.log(response.message);
@@ -37,7 +39,9 @@ const RegisterForm = () => {
             })
             .catch(error => {
                 console.log(error.message);
-                setError(true);
+                setError(error.response.data.message || error.message);                
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };
@@ -45,7 +49,7 @@ const RegisterForm = () => {
     return (
         <Container maxWidth="sm" className="form">
             <Typography className="form title" component="h2">
-                {loading ? "Registered..." : "Registration Form"}
+                {"Registration Form"}
             </Typography>
             <Box
                 className="form field"
@@ -67,12 +71,13 @@ const RegisterForm = () => {
                     {"Register"}
                 </Button>
             </Box>
-            {error && (
+            {/* {error && (
                 <Typography className="form error_message">
-                    {"Can't register user"}
+                    {error || 'Unexpectable error!'}
                 </Typography>
-            )}
-            <Typography className="form success_message">
+            )} */}
+            <UserMessage loading={loading} loaded={''} error={error} />
+            <Typography className="form subtitle">
                 {"Already have account?"}
             </Typography>
             <Button className="form submit_button" component={Link} to="/login">

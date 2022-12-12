@@ -32,7 +32,7 @@ const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, delet
     };
 
     return (
-        <Box sx={{ textAlign: "center", mt: 2, mb: "100px" }}>
+        <Box sx={{ textAlign: "center", mt: 2, mb: 2 }}>
             <Button color="error" variant="outlined" onClick={handleOpen}>
                 {buttonTitle}
             </Button>

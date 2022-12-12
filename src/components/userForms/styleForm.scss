@@ -6,23 +6,17 @@
         margin-top: 50px;
         text-align: center;
     }
+    &.subtitle {
+        text-align: center;
+        margin: 30px; 
+    }
     &.field {
         &>:not(style) {
             width: 300px;
             display: block;
-            margin: 50px auto;
+            margin: 40px auto;
         }
-    }
-    &.success_message {
-        text-align: center;
-        margin-bottom: 30px;
-        color: $color_mint;
     }    
-    &.error_message {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #ff0000;
-    }
     input[type="checkbox"] {
         display: inline;
         width: 25px;
@@ -32,7 +26,6 @@
     &.submit_button {
         text-align: center;
         display: block;
-        margin: 0 auto;
-        margin-bottom: 20px;
+        margin: 60px auto;        
     }
 }

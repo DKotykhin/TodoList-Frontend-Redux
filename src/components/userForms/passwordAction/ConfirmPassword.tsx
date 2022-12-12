@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { PasswordField } from "components/userFields";
+import UserMessage from "components/userMessage/UserMessage";
 import { PasswordFormValidation } from "../userFormValidation";
 import { UserConfirmPassword } from 'api/userrequests';
 
 import "../styleForm.scss";
 
 interface IConfirmPassword {
-    confirmStatus: (arg0: boolean) => void
+    confirmStatus: (arg0: boolean) => void;
 }
 
 interface IPasswordData {
@@ -21,7 +22,7 @@ interface IPasswordData {
 const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
 
     const {
         control,
@@ -31,6 +32,7 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
 
     const onSubmit = (data: IPasswordData): void => {
         setLoading(true);
+        setError('');
         const { currentpassword } = data;
         UserConfirmPassword({ password: currentpassword })
             .then(response => {
@@ -38,13 +40,15 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
                 if (response.status) {
                     confirmStatus(response.status)
                 } else {
-                    setError(true);
+                    setError(response.message);
                 }
-                setLoading(false);
             })
             .catch(error => {
                 console.log(error.message);
-                setError(true);
+                setError(error.response.data.message || error.message);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
 
@@ -70,16 +74,7 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
                     Confirm password
                 </Button>
             </Box>
-            {error && (
-                <Typography className="form error_message">
-                    {"Incorrect password!"}
-                </Typography>
-            )}
-            {loading && (
-                <Typography className="form success_message">
-                    {"Loading..."}
-                </Typography>
-            )}
+            <UserMessage loading={loading} loaded={''} error={error} />
         </>
     )
 }

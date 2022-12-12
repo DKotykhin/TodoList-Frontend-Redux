@@ -39,14 +39,14 @@ const AddTaskComponent: React.FC = () => {
         };
         AddTask(newData)
             .then(response => {
-                console.log(response.message);
-                // dispatch(addTask(response));
-                setLoading(false);
+                console.log(response.message);                
                 navigate("/");
             })
-            .catch(error => {
-                console.warn(error.message);
-                alert("Add Task Error");
+            .catch((error) => {
+                console.log(error.message);
+                alert(error.response.data.message || error.message);
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };

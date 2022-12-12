@@ -27,12 +27,13 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
         DeleteTask({ _id: id })
             .then(response => {
                 console.log(response.message);
-                dispatch(removeTask(id));
-                deleteLoading(false);
+                dispatch(removeTask(id));                
             })
-            .catch(error => {
-                console.warn(error.message);
-                alert("Delete Error");
+            .catch((error) => {
+                console.log(error.message);
+                alert(error.response.data.message || error.message);
+            })
+            .finally(() => {
                 deleteLoading(false);
             });
     };
@@ -47,12 +48,13 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
         UpdateTask(newData)
             .then(response => {
                 console.log(response.message);
-                dispatch(updateTaskCompleted(data._id));
-                setCompleteLoading(false);
+                dispatch(updateTaskCompleted(data._id));                
             })
-            .catch(error => {
-                console.warn(error.message);
-                alert("Complete Error");
+            .catch((error) => {
+                console.log(error.message);
+                alert(error.response.data.message || error.message);
+            })
+            .finally(() => {
                 setCompleteLoading(false);
             });
     };

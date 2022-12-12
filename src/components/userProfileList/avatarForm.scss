@@ -1,6 +1,7 @@
+@import '../../constants/constants.scss';
+
 .avatar {
-    text-align: center;
-    
+    text-align: center;    
     &.title {
         font-size: 22px;
         margin-top: 50px;
@@ -13,10 +14,7 @@
     &.close_icon {
         margin: -8px 0 -8px 10px;
         cursor: pointer;
-    }
-    &.message {
-        min-height: 25px;
-    }
+    }    
     &.button {
         width: 200px;
         margin: 25px;

@@ -5,6 +5,7 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 
+import UserMessage from "components/userMessage/UserMessage";
 import DeleteDialog from "./DeleteDialog";
 import { UploadAvatar, DeleteAvatar } from "api/userrequests";
 import { selectUser } from "store/selectors";
@@ -12,64 +13,67 @@ import { useAppSelector } from "store/hook";
 
 import "./avatarForm.scss";
 
-
 const AvatarForm: React.FC = () => {
-    const [loadingAvatar, setLoadingAvatar] = useState(false);
-    const [loadedAvatar, setLoadedAvatar] = useState(false);
-    const [deletingAvatar, setDeletingAvatar] = useState(false);
-    const [deletedAvatar, setDeletedAvatar] = useState(false);
-    const [fileName, setFileName] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [loaded, setLoaded] = useState('');
+    const [loadError, setLoadError] = useState('');
 
+    const [deleting, setDeleting] = useState(false);
+    const [deleted, setDeleted] = useState('');
+    const [deleteError, setDeleteError] = useState('');
+
+    const [fileName, setFileName] = useState('');
     const { userdata: { user } } = useAppSelector(selectUser);
-
     const { register, reset, handleSubmit } = useForm();
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setLoadedAvatar(false);
-            setDeletedAvatar(false);
-        }, 4000);
+            setLoaded('');
+            setDeleted('');
+        }, 5000);
         return () => clearTimeout(timer);
-    }, [loadedAvatar, deletedAvatar]);
+    }, [loaded, deleted]);
 
-    const onSubmit = (data: FieldValues): void => {        
+    const onSubmit = (data: FieldValues): void => {
         if (data.avatar.length) {
-            setLoadingAvatar(true);
+            setLoading(true);
             const formData = new FormData();
             formData.append("avatar", data.avatar[0], data.avatar[0].name);
             UploadAvatar(formData)
                 .then((response) => {
                     console.log(response.message);
-                    setLoadedAvatar(true);
-                    setLoadingAvatar(false);
+                    setLoaded(response.message);                    
                     reset();
                     setFileName("");
                 })
                 .catch((error) => {
-                    console.warn(error.message);
-                    alert("Upload Avatar Error");
+                    console.log(error.message);
+                    setLoadError(error.response.data.message || error.message);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         } else {
             console.log("Avatar: No Data");
-            alert("No File in Avatar Field");
+            setLoadError("No File in Avatar Field");            
         }
     };
 
-    const handleDelete = () => {
-        setLoadedAvatar(false);
-        setDeletingAvatar(true);
-        setDeletedAvatar(false);
+    const handleDelete = () => {       
+        setDeleting(true);       
         const data: string | undefined = user?.avatarURL;
         if (data) {
             DeleteAvatar()
                 .then((response) => {
                     console.log(response.message);
-                    setDeletedAvatar(true);
-                    setDeletingAvatar(false);
+                    setDeleted(response.message);                    
                 })
                 .catch((error) => {
-                    console.warn(error.message);
-                    alert("Deleted Avatar Error");
+                    console.log(error.message);
+                    setDeleteError(error.response.data.message || error.message);
+                })
+                .finally(() => {
+                    setDeleting(false);
                 });
         } else alert("Avatar doesn't exist");
     };
@@ -120,30 +124,14 @@ const AvatarForm: React.FC = () => {
                 >
                     Upload
                 </Button>
-            </Box>
-            <Typography className="avatar message"
-                color="primary"
-            >
-                {loadingAvatar
-                    ? "Loading..."
-                    : loadedAvatar
-                        ? "Avatar loaded succesfully"
-                        : ""}
-            </Typography>
-            <Typography className="avatar message"
-                color="error"
-            >
-                {deletingAvatar
-                    ? "Deleting..."
-                    : deletedAvatar
-                        ? "Avatar deleted succesfully"
-                        : ""}
-            </Typography>
+            </Box>           
+            <UserMessage loading={loading} loaded={loaded} error={loadError} />
             <DeleteDialog
                 buttonTitle={"delete avatar"}
                 dialogTitle={"You really want to delete avatar?"}
                 deleteAction={handleDelete}
-            />
+            />            
+            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
         </Box>
     );
 };

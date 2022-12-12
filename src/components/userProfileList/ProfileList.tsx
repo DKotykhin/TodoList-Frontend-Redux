@@ -12,6 +12,7 @@ import { ProfileFormValidation } from "./ProfileFormValidation";
 import AvatarForm from "./AvatarForm";
 import DeleteDialog from "./DeleteDialog";
 import { EmailField, NameField } from "components/userFields";
+import UserMessage from "components/userMessage/UserMessage";
 
 import { DeleteUser, UpdateUser } from "api/userrequests";
 import { selectUser } from "store/selectors";
@@ -22,7 +23,11 @@ import "./profilelist.scss";
 
 const ProfileList: React.FC = () => {
     const [loading, setLoading] = useState(false);
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState('');
+    const [updateError, setUpdateError] = useState('');
+
+    const [deleting, setDeleting] = useState(false); 
+    const [deleteError, setDeleteError] = useState('');
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -37,8 +42,8 @@ const ProfileList: React.FC = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setLoaded(false);
-        }, 4000);
+            setLoaded('');
+        }, 5000);
         return () => clearTimeout(timer);
     }, [loaded]);
 
@@ -47,9 +52,29 @@ const ProfileList: React.FC = () => {
             name: user.name,
             email: user.email,
         });
-    }, [reset, user.email, user.name]);
+    }, [reset, user.email, user.name]);   
+
+    const onSubmit = (data: { name?: string, email?: string }): void => {
+        const { name } = data;
+        setLoading(true);
+        setLoaded('');
+        setUpdateError('')
+        UpdateUser({ name })
+            .then((response) => {
+                console.log(response.message);
+                setLoaded(response.message);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setUpdateError(error.response.data.message || error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
 
     const handleDelete = (): void => {
+        setDeleteError('')
         DeleteUser()
             .then((response) => {
                 console.log(response.message);
@@ -60,22 +85,10 @@ const ProfileList: React.FC = () => {
             })
             .catch((error) => {
                 console.log(error.message);
-            });
-    };
-
-    const onSubmit = (data: { name?: string, email?: string }): void => {
-        const { name } = data;
-        setLoading(true);
-        UpdateUser({ name })
-            .then((response) => {
-                console.log(response.message);
-                setLoaded(true);
-            })
-            .catch((error) => {
-                console.log(error.message);
+                setDeleteError(error.response.data.message || error.message);
             })
             .finally(() => {
-                setLoading(false);
+                setDeleting(false);
             });
     };
 
@@ -106,22 +119,18 @@ const ProfileList: React.FC = () => {
                     label="Change your name"
                     error={errors.name}
                     control={control}
-                />
-
-                <Typography className="profile message">
-                    {loading ? "Loading..." : ""}
-                    {loaded ? "Profile update successfully!" : ""}
-                </Typography>
+                />                
+                <UserMessage loading={loading} loaded={loaded} error={updateError} />
                 <Button
                     type="submit"
                     variant="outlined"
-                    className="profile save_button"
+                    sx={{ m: 3 }}
                 >
                     Save changes
                 </Button>
             </Box>
             <AvatarForm />
-            <Typography>
+            <Typography sx={{ mt: '80px' }}>
                 Need to delete Profile?
             </Typography>
             <DeleteDialog
@@ -129,7 +138,8 @@ const ProfileList: React.FC = () => {
                 dialogTitle={"You really want to delete user?"}
                 deleteAction={handleDelete}
             />
-            <Button className="profile save_button" onClick={() => navigate("/")}>
+            <UserMessage loading={deleting} loaded={''} error={deleteError} />
+            <Button sx={{ m: 6 }} onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>

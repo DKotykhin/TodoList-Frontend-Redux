@@ -12,13 +12,14 @@ import { EmailField, PasswordField } from "components/userFields";
 import { LoginFormValidation } from "./userFormValidation";
 
 import "./styleForm.scss";
+import UserMessage from "components/userMessage/UserMessage";
 
 interface IUserData extends IUserLogin {
     rememberMe: boolean
 }
 
 const LoginForm: React.FC = () => {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);    
     const navigate = useNavigate();
 
@@ -32,6 +33,7 @@ const LoginForm: React.FC = () => {
     const onSubmit = (data: IUserData): void => {        
         const { email, password } = data;        
         setLoading(true);
+        setError('')
         LoginUser({ email, password })
             .then((response) => {                
                 console.log(response.message);                
@@ -45,7 +47,9 @@ const LoginForm: React.FC = () => {
             })
             .catch((error) => {
                 console.log(error.message);
-                setError(true);
+                setError(error.response.data.message || error.message);                
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };
@@ -53,7 +57,7 @@ const LoginForm: React.FC = () => {
     return (
         <Container maxWidth="sm" className="form">
             <Typography className="form title" component="h2">
-                {loading ? "Loading..." : "Login Form"}
+                {"Login Form"}
             </Typography>
             {!loading && (
                 <>
@@ -78,19 +82,14 @@ const LoginForm: React.FC = () => {
                             Remember me
                         </InputLabel>
                         <Button
-                            disabled={!isValid}
-                            className="form submit_button"
+                            disabled={!isValid}                           
                             type="submit"
                         >
                             Login
                         </Button>
-                    </Box>
-                    {error && (
-                        <Typography className="form error_message">
-                            {"Incorrect data!"}
-                        </Typography>
-                    )}
-                    <Typography className="form success_message">
+                    </Box>                  
+                    <UserMessage loading={loading} loaded={''} error={error} />
+                    <Typography className="form subtitle">
                         {"Don't have account?"}
                     </Typography>
                     <Button

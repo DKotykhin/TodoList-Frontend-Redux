@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { PasswordField } from "components/userFields";
@@ -9,6 +9,7 @@ import { UpdateUser } from "api/userrequests";
 import { NewPasswordFormValidation } from "../userFormValidation";
 
 import "../styleForm.scss";
+import UserMessage from "components/userMessage/UserMessage";
 
 interface IPasswordData {
     newpassword: string;
@@ -18,9 +19,8 @@ interface IPasswordData {
 const ChangePassword: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [matchPass, setMatchPass] = useState(false);
+    const [loaded, setLoaded] = useState('');
+    const [error, setError] = useState(''); 
 
     const {
         control,
@@ -30,24 +30,27 @@ const ChangePassword: React.FC = () => {
     } = useForm<IPasswordData>(NewPasswordFormValidation);
 
     const onSubmit = (data: IPasswordData): void => {
+        setError('');
+        setLoaded('');
         if (data.newpassword === data.confirmpassword) {
-            setMatchPass(false);
             setLoading(true);
             const { newpassword } = data;
             UpdateUser({ password: newpassword })
                 .then(response => {
                     console.log(response.message);
-                    setSuccess(true);
-                    setLoading(false);
+                    setLoaded('Password successfully changed!');                    
                     reset();
                 })
                 .catch(error => {
                     console.log(error.message);
-                    setError(true);
+                    setError(error.response.data.message || error.message);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         } else {
-            console.log("don`t match", data);
-            setMatchPass(true);
+            console.log("Passwords don't match");
+            setError("Passwords don't match");
         }
     };
 
@@ -77,27 +80,8 @@ const ChangePassword: React.FC = () => {
                 >
                     Change password
                 </Button>
-            </Box>
-            {error && (
-                <Typography className="form error_message">
-                    {"Incorrect data!"}
-                </Typography>
-            )}
-            {matchPass && (
-                <Typography className="form error_message">
-                    {"Passwords don't match!"}
-                </Typography>
-            )}
-            {loading && (
-                <Typography className="form success_message">
-                    {"Loading..."}
-                </Typography>
-            )}
-            {success && (
-                <Typography className="form success_message">
-                    {"Password successfully changed!"}
-                </Typography>
-            )}
+            </Box>            
+            <UserMessage loading={loading} loaded={loaded} error={error} />
         </>
     );
 }

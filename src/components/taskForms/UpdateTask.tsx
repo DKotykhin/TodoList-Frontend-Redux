@@ -56,12 +56,13 @@ const UpdateTaskComponent: React.FC = () => {
         UpdateTask(totalData)
             .then(response => {
                 console.log(response.message);
-                navigate("/", { replace: true });
-                setLoading(false);
+                navigate("/", { replace: true });                
             })
-            .catch(error => {
-                console.warn(error.message);
-                alert("Update Task Error");
+            .catch((error) => {
+                console.log(error.message);
+                alert(error.response.data.message || error.message);
+            })
+            .finally(() => {
                 setLoading(false);
             });
     };
