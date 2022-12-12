@@ -116,6 +116,7 @@ const AvatarForm: React.FC = () => {
                         />
                     )}
                 </Box>
+                <UserMessage loading={loading} loaded={loaded} error={loadError} />
                 <Button
                     className="avatar button"
                     variant="outlined"
@@ -125,13 +126,12 @@ const AvatarForm: React.FC = () => {
                     Upload
                 </Button>
             </Box>           
-            <UserMessage loading={loading} loaded={loaded} error={loadError} />
+            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
             <DeleteDialog
                 buttonTitle={"delete avatar"}
                 dialogTitle={"You really want to delete avatar?"}
                 deleteAction={handleDelete}
             />            
-            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
         </Box>
     );
 };

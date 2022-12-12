@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
 
-import { Button, Typography, Container } from "@mui/material";
+import { Button, Typography, Container, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { ProfileFormValidation } from "./ProfileFormValidation";
@@ -26,7 +26,7 @@ const ProfileList: React.FC = () => {
     const [loaded, setLoaded] = useState('');
     const [updateError, setUpdateError] = useState('');
 
-    const [deleting, setDeleting] = useState(false); 
+    const [deleting, setDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState('');
 
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ const ProfileList: React.FC = () => {
             name: user.name,
             email: user.email,
         });
-    }, [reset, user.email, user.name]);   
+    }, [reset, user.email, user.name]);
 
     const onSubmit = (data: { name?: string, email?: string }): void => {
         const { name } = data;
@@ -94,51 +94,59 @@ const ProfileList: React.FC = () => {
 
     return user._id ? (
         <Container maxWidth="xs" className="profile">
-            <Typography className="profile title" component="h2">
-                User Profile
-            </Typography>
-            <Typography>
-                {`Created: ${format(
-                    new Date(user.createdAt),
-                    "dd LLL yyyy 'at' H:mm"
-                )}`}
-            </Typography>
-            <Box
-                onSubmit={handleSubmit(onSubmit)}
-                component="form"
-                noValidate
-                autoComplete="off"
-            >
-                <EmailField
-                    disabled={true}
-                    error={errors.email}
-                    control={control}
-                />
-
-                <NameField
-                    label="Change your name"
-                    error={errors.name}
-                    control={control}
-                />                
-                <UserMessage loading={loading} loaded={loaded} error={updateError} />
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    sx={{ m: 3 }}
+            <Paper elevation={10}>
+                <Typography className="profile title" component="h2">
+                    User Profile
+                </Typography>
+                <Typography sx={{ pb: 1 }}>
+                    {`Created: ${format(
+                        new Date(user.createdAt),
+                        "dd LLL yyyy 'at' H:mm"
+                    )}`}
+                </Typography>
+            </Paper>
+            <Paper elevation={10} sx={{ mt: 1 }}>
+                <Box sx={{ pt: 1 }}
+                    onSubmit={handleSubmit(onSubmit)}
+                    component="form"
+                    noValidate
+                    autoComplete="off"
                 >
-                    Save changes
-                </Button>
-            </Box>
-            <AvatarForm />
-            <Typography sx={{ mt: '80px' }}>
-                Need to delete Profile?
-            </Typography>
-            <DeleteDialog
-                buttonTitle={"delete user"}
-                dialogTitle={"You really want to delete user?"}
-                deleteAction={handleDelete}
-            />
-            <UserMessage loading={deleting} loaded={''} error={deleteError} />
+                    <EmailField
+                        disabled={true}
+                        error={errors.email}
+                        control={control}
+                    />
+
+                    <NameField
+                        label="Change your name"
+                        error={errors.name}
+                        control={control}
+                    />
+                    <UserMessage loading={loading} loaded={loaded} error={updateError} />
+                    <Button
+                        type="submit"
+                        variant="outlined"
+                        sx={{ m: 3 }}
+                    >
+                        Save changes
+                    </Button>
+                </Box>
+            </Paper>
+            <Paper elevation={10}>
+                <AvatarForm />
+            </Paper>
+            <Paper elevation={10}>
+                <Typography className="profile subtitle">
+                    Need to delete Profile?
+                </Typography>
+                <UserMessage loading={deleting} loaded={''} error={deleteError} />
+                <DeleteDialog
+                    buttonTitle={"delete user"}
+                    dialogTitle={"You really want to delete user?"}
+                    deleteAction={handleDelete}
+                />
+            </Paper>
             <Button sx={{ m: 6 }} onClick={() => navigate("/")}>
                 Main Page
             </Button>

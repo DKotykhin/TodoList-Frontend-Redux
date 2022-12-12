@@ -1,0 +1,28 @@
+@import '../../constants/constants.scss';
+
+.dialog {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    &.button {       
+        margin-bottom: 16px;
+    }    
+}
+.modal {
+    &.box {
+        border: 2px solid #ff0000;
+    }
+    &.title {
+        font-size: 18px;
+        margin: 16px 0;
+    }
+    &.actions {
+        margin: 0 16px;
+    }
+    &.cancel_button {
+        color: $color_grey;
+    }
+    &.submit_button {
+        color: #ff0000;
+    }
+}

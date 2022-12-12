@@ -16,8 +16,7 @@ const NavBar = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const { userdata: { user } } = useAppSelector(selectUser);
 
-    // const userName = token ? user.name : "";
-    // const userAvatarURL = token ? user.avatarURL : "";
+    const userAvatarURL = user.avatarURL ? `https://todolist-new17.herokuapp.com/api${user.avatarURL}` : "/";
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -48,7 +47,7 @@ const NavBar = () => {
                             >
                                 <Avatar
                                     alt={user.name || "TodoList"}
-                                    src={`https://todolist-new17.herokuapp.com/api${user?.avatarURL}` || '/'}
+                                    src={userAvatarURL}
                                 />
                             </IconButton>
                         </Tooltip>

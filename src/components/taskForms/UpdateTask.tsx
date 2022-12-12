@@ -39,7 +39,7 @@ const UpdateTaskComponent: React.FC = () => {
     const { title, subtitle, description, deadline, _id, completed } =
         currentTask[0];
 
-    const parseDeadline = deadline ? format(new Date(deadline), "yyyy-LL-dd") : '';
+    const parseDeadline = deadline ? format(new Date(deadline), "yyyy-LL-dd HH:mm") : '';
 
     const onSubmit = (data: IUpdateForm): void => {
         const { title, subtitle, deadline, completed } = data;

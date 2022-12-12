@@ -9,13 +9,15 @@ import {
     DialogContentText,
 } from "@mui/material";
 
+import './deleteDialog.scss';
+
 interface IDeleteDialog {
     buttonTitle: string;
     dialogTitle: string;
     deleteAction: () => void
 }
 
-const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, deleteAction }) => {    
+const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, deleteAction }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -32,13 +34,22 @@ const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, delet
     };
 
     return (
-        <Box sx={{ textAlign: "center", mt: 2, mb: 2 }}>
-            <Button color="error" variant="outlined" onClick={handleOpen}>
+        <Box className="dialog">
+            <Button
+                className="dialog button"
+                color="error"
+                variant="outlined"
+                onClick={handleOpen}
+            >
                 {buttonTitle}
             </Button>
-            <Dialog open={open} onClose={handleClose}>
-                <Box sx={{ border: "2px solid #ff0000" }}>
-                    <DialogTitle sx={{ fontSize: "18px", my: 2 }}>
+            <Dialog
+                className="modal"
+                open={open}
+                onClose={handleClose}
+            >
+                <Box className="modal box">
+                    <DialogTitle className="modal title">
                         {dialogTitle}
                     </DialogTitle>
                     <DialogContent>
@@ -47,15 +58,18 @@ const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, delet
                         </DialogContentText>
                     </DialogContent>
                     <Divider variant="middle" />
-                    <DialogActions sx={{ mx: 2 }}>
+                    <DialogActions className="modal actions">
                         <Button
-                            sx={{ color: "#808080" }}
+                            className="modal cancel_button"
                             onClick={handleClose}
                             autoFocus
                         >
                             Cancel
                         </Button>
-                        <Button color="error" onClick={handleDelete}>
+                        <Button
+                            className="modal submit_button"
+                            onClick={handleDelete}
+                        >
                             Delete
                         </Button>
                     </DialogActions>

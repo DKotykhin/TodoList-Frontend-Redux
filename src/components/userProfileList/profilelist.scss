@@ -3,15 +3,19 @@
 .profile {
     text-align: center;
     &.title {
-        font-size: 22px;
-        margin-top: 50px;
+        font-size: 25px;
+        margin-top: 30px;
         margin-bottom: 30px;
-    }   
+        padding-top: 10px;
+    }
+    &.subtitle {       
+        padding-top: 10px;
+    }  
     label {
         color: $color_grey;
         text-align: left;
         margin-left: 40px;
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 20px;
     }
 }
