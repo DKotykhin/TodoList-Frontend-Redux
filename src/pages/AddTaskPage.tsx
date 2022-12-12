@@ -3,13 +3,11 @@ import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import AddTaskComponent from "components/taskForms/AddTask";
-import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
+import { getToken } from "api/getToken";
 
 const AddTaskPage: React.FC = () => {
-    const { userdata } = useAppSelector(selectUser);
 
-    return userdata.token ? (
+    return getToken() ? (
         <>
             <Helmet>
                 <meta name="description" content="Add Task Page" />

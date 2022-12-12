@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import PropTypes from "prop-types";
-
 import { Box, Tab, Tabs, Container } from "@mui/material";
-
-import { fetchTasks } from "store/taskSlice";
-import { selectUser, selectTask } from "store/selectors";
-import { useAppDispatch, useAppSelector } from "store/hook";
 
 import CardList from "components/cardList/CardList";
 import Spinner from "components/spinner/Spinner";
+
+import { fetchTasks } from "store/taskSlice";
+import { selectTask } from "store/selectors";
+import { useAppDispatch, useAppSelector } from "store/hook";
+
+import PropTypes from "prop-types";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,7 +53,6 @@ function a11yProps(index: number) {
 const TabPanelComponent: React.FC = () => {
     const [value, setValue] = useState(0);
 
-    const { userdata } = useAppSelector(selectUser);
     const { taskdata, fetching } = useAppSelector(selectTask);
     const dispatch = useAppDispatch();
 
@@ -63,8 +62,8 @@ const TabPanelComponent: React.FC = () => {
     const isLoading = fetching === "loading";
 
     useEffect(() => {
-        dispatch(fetchTasks(userdata.token));
-    }, [dispatch, userdata.token]);
+        dispatch(fetchTasks());
+    }, [dispatch]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);

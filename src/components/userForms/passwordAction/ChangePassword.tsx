@@ -10,16 +10,12 @@ import { NewPasswordFormValidation } from "../userFormValidation";
 
 import "../styleForm.scss";
 
-interface IChangePassword {
-    token: string;
-}
-
 interface IPasswordData {
     newpassword: string;
     confirmpassword: string
 }
 
-const ChangePassword: React.FC<IChangePassword> = ({ token }) => {
+const ChangePassword: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -38,7 +34,7 @@ const ChangePassword: React.FC<IChangePassword> = ({ token }) => {
             setMatchPass(false);
             setLoading(true);
             const { newpassword } = data;
-            UpdateUser({ password: newpassword }, token)
+            UpdateUser({ password: newpassword })
                 .then(response => {
                     console.log(response.message);
                     setSuccess(true);

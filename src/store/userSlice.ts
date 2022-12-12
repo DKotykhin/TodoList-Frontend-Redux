@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserWithToken } from "types/userTypes";
+import { IUser } from "types/userTypes";
 
 interface IUserdata {
-    userdata: IUserWithToken;
+    userdata: {
+        user: IUser;
+    }
 }
 
 const initialState: IUserdata = {
-    userdata: {
-        token: "",
+    userdata: {        
         user: { _id: "", email: "", name: "", createdAt: "" },
     },
 };
@@ -16,12 +17,11 @@ const UserSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        createUser: (state, action: PayloadAction<IUserWithToken>) => {
+        createUser: (state, action: PayloadAction<{user: IUser}>) => {
             state.userdata = action.payload;
         },
         removeUser: (state) => {
-            state.userdata = {
-                token: "",
+            state.userdata = {                
                 user: { _id: "", email: "", name: "", createdAt: "" },
             };
         },

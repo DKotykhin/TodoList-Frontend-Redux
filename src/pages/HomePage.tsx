@@ -4,9 +4,11 @@ import Helmet from "react-helmet";
 import { useAppDispatch } from 'store/hook';
 
 import TabPanelComponent from "components/tabPanel/TabPanel";
-import { UserLoginByToken } from "api/userrequests";
-import { createUser } from "store/userSlice";
 import Spinner from 'components/spinner/Spinner';
+
+import { UserLoginByToken } from "api/userrequests";
+import { getToken } from 'api/getToken';
+import { createUser } from "store/userSlice";
 import { IUser } from 'types/userTypes';
 
 const HomePage: React.FC = () => {
@@ -14,20 +16,18 @@ const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const localToken = localStorage.getItem("rememberMe");
-        const sessionToken = sessionStorage.getItem("rememberMe");
-        const token = localToken || sessionToken;
+    useEffect(() => {        
+        const token = getToken();
         if (token) {
-            UserLoginByToken(token)
-                .then((response) => {
+            UserLoginByToken()
+                .then(response => {
                     console.log(response.message);                                        
                     const { avatarURL, createdAt, email, name, _id } = response;
                     const user: IUser = { avatarURL, createdAt, email, name, _id }                    
-                    dispatch(createUser({ token, user }));
+                    dispatch(createUser({ user }));
                     setLogin(true);
                 })
-                .catch(function (error) {
+                .catch(error => {
                     console.warn(error.message);
                     setLogin(false);
                 });

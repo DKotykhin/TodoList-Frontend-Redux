@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import { Button, Container, Typography } from "@mui/material";
 
@@ -13,27 +13,28 @@ import "./styleForm.scss";
 
 const PasswordForm: React.FC = () => {
 
-    const [confirmCurrentPassword, setConfirmCurrentPassword] = useState(false);
-    const { userdata } = useAppSelector(selectUser);
-    const { token } = userdata;
+    const { userdata: { user } } = useAppSelector(selectUser);
 
+    const [confirmCurrentPassword, setConfirmCurrentPassword] = useState(false);
     const navigate = useNavigate();
 
     const confirmStatus = (data: boolean): void => {
         setConfirmCurrentPassword(data)
     }
 
-    return (
+    return user._id ? (
         <Container maxWidth="sm" className="form">
             <Typography className="form title" component="h2">
                 {confirmCurrentPassword ? 'Change password' : 'Confirm current password'}
             </Typography>
-            {!confirmCurrentPassword && <ConfirmPassword token={token} confirmStatus={confirmStatus} />}
-            {confirmCurrentPassword && <ChangePassword token={token} />}
+            {!confirmCurrentPassword && <ConfirmPassword confirmStatus={confirmStatus} />}
+            {confirmCurrentPassword && <ChangePassword />}
             <Button className="form submit_button" onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>
+    ) : (
+        <Navigate to="/" />
     );
 }
 

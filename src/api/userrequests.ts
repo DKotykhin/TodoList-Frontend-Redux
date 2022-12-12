@@ -1,15 +1,20 @@
 import axios from "axios";
 
+import { getToken } from "./getToken";
+
 import {
-    IUserAvatar,
-    IUserDeleteResponse,
-    IUserLogin,
     IUserRegister,
-    IUserResponse,
-    IUserResponseWithoutToken,
+    IUserLogin,
     IUserUpdate,
-    IUserConfirmPasswordResponse,
+    IUserAvatar,
 } from "../types/userTypes";
+
+import {
+    IUserResponse,
+    IUserDeleteResponse,
+    IUserWithoutTokenResponse,
+    IUserConfirmPasswordResponse,
+} from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -45,16 +50,13 @@ export const LoginUser = async (data: IUserLogin): Promise<IUserResponse> => {
     return result.data;
 };
 
-export const UpdateUser = async (
-    data: IUserUpdate,
-    token: string
-): Promise<IUserResponse> => {
+export const UpdateUser = async (data: IUserUpdate): Promise<IUserResponse> => {
     const config = {
         method: "PATCH",
         url: "user/me",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
         },
         data: JSON.stringify(data),
     };
@@ -63,14 +65,12 @@ export const UpdateUser = async (
     return result.data;
 };
 
-export const DeleteUser = async (
-    token: string
-): Promise<IUserDeleteResponse> => {
+export const DeleteUser = async (): Promise<IUserDeleteResponse> => {
     const config = {
         method: "DELETE",
         url: "user/me",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
         },
     };
 
@@ -78,33 +78,29 @@ export const DeleteUser = async (
     return result.data;
 };
 
-export const UserLoginByToken = async (
-    token: string
-): Promise<IUserResponseWithoutToken> => {
-    const config = {
-        method: "GET",
-        url: "user/me",
-        timeout: 8000,
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
+export const UserLoginByToken =
+    async (): Promise<IUserWithoutTokenResponse> => {
+        const config = {
+            method: "GET",
+            url: "user/me",
+            headers: {
+                Authorization: `Bearer ${getToken()}`,
+            },
+        };
+
+        const result = await axios(config);
+        return result.data;
     };
 
-    const result = await axios(config);
-    return result.data;
-};
-
-export const UserConfirmPassword = async (
-    data: { password: string },
-    token: string
-): Promise<IUserConfirmPasswordResponse> => {
+export const UserConfirmPassword = async (data: {
+    password: string;
+}): Promise<IUserConfirmPasswordResponse> => {
     const config = {
         method: "POST",
         url: "user/password",
-        timeout: 8000,
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
         },
         data: JSON.stringify(data),
     };
@@ -113,15 +109,13 @@ export const UserConfirmPassword = async (
     return result.data;
 };
 
-export const UploadAvatar = async (
-    data: FormData,
-    token: string
-): Promise<IUserAvatar> => {
+export const UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
     const config = {
         method: "POST",
         url: "upload",
         headers: {
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${getToken()}`,
         },
         data: data,
     };
@@ -130,15 +124,12 @@ export const UploadAvatar = async (
     return result.data;
 };
 
-export const DeleteAvatar = async (
-    data: string,
-    token: string
-): Promise<IUserAvatar> => {
+export const DeleteAvatar = async (): Promise<IUserAvatar> => {
     const config = {
         method: "DELETE",
-        url: `${data}`,
+        url: "upload",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
         },
     };
 

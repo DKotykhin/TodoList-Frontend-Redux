@@ -1,24 +1,19 @@
 import axios from "axios";
-import {
-    IAddTask,
-    ICompleteTask,
-    ITask,
-    ITaskResponse,
-    ITaskResponseStatus,
-    IUpdateTask,
-} from "types/taskTypes";
+
+import { getToken } from "./getToken";
+
+import { IAddTask, ICompleteTask, ITask, IUpdateTask } from "types/taskTypes";
+import { ITaskResponse, ITaskStatusResponse } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
-
 axios.defaults.baseURL = Base_URL;
 
-export const GetAllTasks = async (token: string): Promise<ITask[]> => {
+export const GetAllTasks = async (): Promise<ITask[]> => {
     const config = {
         method: "GET",
         url: "task",
         headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
         },
     };
 
@@ -26,15 +21,12 @@ export const GetAllTasks = async (token: string): Promise<ITask[]> => {
     return result.data;
 };
 
-export const AddTask = async (
-    data: IAddTask,
-    token: string
-): Promise<ITaskResponse> => {
+export const AddTask = async (data: IAddTask): Promise<ITaskResponse> => {
     const config = {
         method: "POST",
         url: "task",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",
         },
         data: JSON.stringify(data),
@@ -45,14 +37,13 @@ export const AddTask = async (
 };
 
 export const UpdateTask = async (
-    data: IUpdateTask | ICompleteTask,
-    token: string
-): Promise<ITaskResponseStatus> => {
+    data: IUpdateTask | ICompleteTask
+): Promise<ITaskStatusResponse> => {
     const config = {
         method: "PATCH",
         url: "task",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",
         },
         data: JSON.stringify(data),
@@ -62,15 +53,14 @@ export const UpdateTask = async (
     return result.data;
 };
 
-export const DeleteTask = async (
-    id: { _id: string },
-    token: string
-): Promise<ITaskResponseStatus> => {
+export const DeleteTask = async (id: {
+    _id: string;
+}): Promise<ITaskStatusResponse> => {
     const config = {
         method: "DELETE",
         url: "task",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",
         },
         data: JSON.stringify(id),

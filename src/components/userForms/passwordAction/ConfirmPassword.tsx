@@ -11,7 +11,6 @@ import { UserConfirmPassword } from 'api/userrequests';
 import "../styleForm.scss";
 
 interface IConfirmPassword {
-    token: string
     confirmStatus: (arg0: boolean) => void
 }
 
@@ -19,7 +18,7 @@ interface IPasswordData {
     currentpassword: string
 }
 
-const ConfirmPassword: React.FC<IConfirmPassword> = ({ token, confirmStatus }) => {
+const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -33,7 +32,7 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ token, confirmStatus }) =
     const onSubmit = (data: IPasswordData): void => {
         setLoading(true);
         const { currentpassword } = data;
-        UserConfirmPassword({ password: currentpassword }, token)
+        UserConfirmPassword({ password: currentpassword })
             .then(response => {
                 console.log(response.message);
                 if (response.status) {

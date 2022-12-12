@@ -3,11 +3,11 @@ export interface IAddTask {
     subtitle?: string;
     description?: string;
     deadline?: string;
+    completed: boolean;
 }
 
 export interface IUpdateTask extends IAddTask {
     _id: string;
-    completed: boolean;
 }
 
 export interface ICompleteTask {
@@ -17,13 +17,4 @@ export interface ICompleteTask {
 
 export interface ITask extends IUpdateTask {
     createdAt: string;
-}
-
-export interface ITaskResponse extends ITask {
-    message: string;
-}
-
-export interface ITaskResponseStatus {
-    status: object;
-    message: string;
 }

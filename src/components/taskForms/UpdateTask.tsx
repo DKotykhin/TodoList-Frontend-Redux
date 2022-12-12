@@ -12,8 +12,7 @@ import SubmitCancelButtons from "./SubmitCancelButtons";
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 
 import { UpdateTask } from "api/taskrequests";
-// import { updateTaskAll } from "store/taskSlice";
-import { selectTask, selectUser } from "store/selectors";
+import { selectTask } from "store/selectors";
 import { useAppSelector } from "store/hook";
 import { IUpdateTask } from "types/taskTypes";
 
@@ -31,10 +30,9 @@ const UpdateTaskComponent: React.FC = () => {
     const [mdeValue, setMdeValue] = useState("");
 
     const { taskdata } = useAppSelector(selectTask);
-    const { userdata } = useAppSelector(selectUser);
-
     const params = useParams();;
     const navigate = useNavigate();
+
     const { handleSubmit, register, formState: { errors } } = useForm<IUpdateForm>(TaskFormValidation);
 
     const currentTask = taskdata.filter((task) => task._id === params.taskId);
@@ -55,7 +53,7 @@ const UpdateTaskComponent: React.FC = () => {
             deadline: newDeadline,
         };
         setLoading(true);
-        UpdateTask(totalData, userdata.token)
+        UpdateTask(totalData)
             .then(response => {
                 console.log(response.message);
                 navigate("/", { replace: true });

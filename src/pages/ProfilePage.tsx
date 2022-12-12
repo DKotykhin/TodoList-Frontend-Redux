@@ -3,13 +3,11 @@ import Helmet from "react-helmet";
 import { Navigate } from "react-router-dom";
 
 import ProfileList from "components/userProfileList/ProfileList";
-import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
+import { getToken } from "api/getToken";
 
 const ProfilePage: React.FC = () => {
-    const { userdata } = useAppSelector(selectUser);
-    
-    return userdata.token ? (
+     
+    return getToken() ? (
         <>
             <Helmet>
                 <meta name="description" content="Profile Page" />

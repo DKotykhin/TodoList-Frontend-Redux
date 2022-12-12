@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
@@ -25,7 +26,7 @@ const ProfileList: React.FC = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { userdata: { user, token } } = useAppSelector(selectUser);
+    const { userdata: { user } } = useAppSelector(selectUser);
 
     const {
         control,
@@ -48,8 +49,8 @@ const ProfileList: React.FC = () => {
         });
     }, [reset, user.email, user.name]);
 
-    const handleDelete = (data: string): void => {
-        DeleteUser(data)
+    const handleDelete = (): void => {
+        DeleteUser()
             .then((response) => {
                 console.log(response.message);
                 sessionStorage.removeItem("rememberMe");
@@ -65,7 +66,7 @@ const ProfileList: React.FC = () => {
     const onSubmit = (data: { name?: string, email?: string }): void => {
         const { name } = data;
         setLoading(true);
-        UpdateUser({ name }, token)
+        UpdateUser({ name })
             .then((response) => {
                 console.log(response.message);
                 setLoaded(true);
@@ -78,7 +79,7 @@ const ProfileList: React.FC = () => {
             });
     };
 
-    return (
+    return user._id ? (
         <Container maxWidth="xs" className="profile">
             <Typography className="profile title" component="h2">
                 User Profile
@@ -126,12 +127,14 @@ const ProfileList: React.FC = () => {
             <DeleteDialog
                 buttonTitle={"delete user"}
                 dialogTitle={"You really want to delete user?"}
-                deleteAction={() => handleDelete(token)}
+                deleteAction={handleDelete}
             />
             <Button className="profile save_button" onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>
+    ) : (
+        <Navigate to="/" />
     );
 };
 

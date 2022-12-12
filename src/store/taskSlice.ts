@@ -4,8 +4,8 @@ import { ITask } from "../types/taskTypes"
 
 export const fetchTasks = createAsyncThunk(
     'task/fetch',
-    async (token: string) => {
-        const data = await GetAllTasks(token);
+    async () => {
+        const data = await GetAllTasks();
         return data
     }
 );
