@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { AppBar, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip } from "@mui/material";
@@ -12,7 +12,7 @@ import { useAppSelector } from "store/hook";
 
 import "./navBar.scss";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const { userdata: { user } } = useAppSelector(selectUser);
 

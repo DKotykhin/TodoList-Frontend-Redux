@@ -20,8 +20,9 @@ const TitleField: React.FC<ITitleField> = ({ register, error, value }) => {
                 error={error.title ? true : false}
                 variant="standard"
                 placeholder="Add title..."
-                fullWidth
                 defaultValue={value}
+                fullWidth
+                autoFocus
             />
         </Paper>
     )

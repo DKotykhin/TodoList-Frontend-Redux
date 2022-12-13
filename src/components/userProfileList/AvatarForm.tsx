@@ -9,7 +9,8 @@ import UserMessage from "components/userMessage/UserMessage";
 import DeleteDialog from "./DeleteDialog";
 import { UploadAvatar, DeleteAvatar } from "api/userrequests";
 import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
+import { useAppSelector, useAppDispatch } from "store/hook";
+import { addAvatar } from "store/userSlice";
 
 import "./avatarForm.scss";
 
@@ -23,7 +24,9 @@ const AvatarForm: React.FC = () => {
     const [deleteError, setDeleteError] = useState('');
 
     const [fileName, setFileName] = useState('');
+
     const { userdata: { user } } = useAppSelector(selectUser);
+    const dispatch = useAppDispatch();
     const { register, reset, handleSubmit } = useForm();
 
     useEffect(() => {
@@ -42,7 +45,8 @@ const AvatarForm: React.FC = () => {
             UploadAvatar(formData)
                 .then((response) => {
                     console.log(response.message);
-                    setLoaded(response.message);                    
+                    setLoaded(response.message);
+                    dispatch(addAvatar(`/upload/${user._id}-${data.avatar[0].name}`));                    
                     reset();
                     setFileName("");
                 })
@@ -66,7 +70,8 @@ const AvatarForm: React.FC = () => {
             DeleteAvatar()
                 .then((response) => {
                     console.log(response.message);
-                    setDeleted(response.message);                    
+                    setDeleted(response.message);
+                    dispatch(addAvatar(''))                    
                 })
                 .catch((error) => {
                     console.log(error.message);

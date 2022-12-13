@@ -86,18 +86,12 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
                 >
                     Add Task
                 </Button>
-            </Box>
-            {loading ? (
-                <Typography className="cardlist message">
-                    {"Loading..."}
-                </Typography>
-            ) : (
-                <Typography color="text.secondary" className="cardlist message">
-                    {taskList.length
-                        ? `Total amount: ${taskList.length}`
-                        : "No cards"}
-                </Typography>
-            )}
+            </Box>            
+            <Typography className="cardlist subtitle">
+                {loading ? "Loading..." : taskList.length
+                    ? `Total amount: ${taskList.length}`
+                    : "No cards"}
+            </Typography>
             {taskList.length > 1 && (
                 <>
                     <FieldSort onSelect={FieldSelect} />

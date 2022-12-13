@@ -24,11 +24,12 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
                 addSuffix: true,
             });
             setDaysLeft(result);
-            const newDate: string = new Date().toLocaleString();
+            const newDate: string = new Date().toISOString();
             const isOverdue: number = Date.parse(deadline) - Date.parse(newDate);
             if (isOverdue < 0) setOverdue(true);
         }
     }, [deadline]);
+
 
     return (
         <Box sx={{ display: "flex" }}>

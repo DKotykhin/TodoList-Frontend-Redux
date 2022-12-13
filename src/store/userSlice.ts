@@ -20,6 +20,9 @@ const UserSlice = createSlice({
         createUser: (state, action: PayloadAction<{user: IUser}>) => {
             state.userdata = action.payload;
         },
+        addAvatar: (state, action: PayloadAction<string>) => {
+            state.userdata.user.avatarURL = action.payload;
+        },
         removeUser: (state) => {
             state.userdata = {                
                 user: { _id: "", email: "", name: "", createdAt: "" },
@@ -31,4 +34,4 @@ const UserSlice = createSlice({
 const { actions, reducer } = UserSlice;
 
 export default reducer;
-export const { createUser, removeUser } = actions;
+export const { createUser, addAvatar, removeUser } = actions;

@@ -16,9 +16,9 @@ import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
 import CardTime from "./CardTime";
 import CardTitle from "./CardTitle";
 import FullCardButtons from "./FullCardButtons";
+import { ITask } from "types/taskTypes";
 
 import "./fullCard.scss";
-import { ITask } from "types/taskTypes";
 
 interface IFullCard {
     task: ITask;
@@ -44,11 +44,7 @@ const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal, handle
                 <Divider sx={{ mb: 1 }} />
                 <Box sx={{ display: "flex" }}>
                     <SubjectIcon sx={{ mr: 1 }} />
-                    <Typography
-                        className="full_card description"
-                        component="div"
-                        variant="body2"
-                    >
+                    <Typography className="full_card description">
                         {description && <ReactMarkdown children={description} />}
                     </Typography>
                 </Box>
