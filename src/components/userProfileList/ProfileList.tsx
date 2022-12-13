@@ -31,7 +31,7 @@ const ProfileList: React.FC = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { userdata: { user } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
 
     const {
         control,
@@ -49,10 +49,10 @@ const ProfileList: React.FC = () => {
 
     useEffect(() => {
         reset({
-            name: user.name,
-            email: user.email,
+            name: userdata.name,
+            email: userdata.email,
         });
-    }, [reset, user.email, user.name]);
+    }, [reset, userdata.email, userdata.name]);
 
     const onSubmit = (data: { name?: string, email?: string }): void => {
         const { name } = data;
@@ -92,7 +92,7 @@ const ProfileList: React.FC = () => {
             });
     };
 
-    return user._id ? (
+    return userdata._id ? (
         <Container maxWidth="xs" className="profile">
             <Paper elevation={10}>
                 <Typography className="profile title" component="h2">
@@ -100,7 +100,7 @@ const ProfileList: React.FC = () => {
                 </Typography>
                 <Typography sx={{ pb: 1 }}>
                     {`Created: ${format(
-                        new Date(user.createdAt),
+                        new Date(userdata.createdAt),
                         "dd LLL yyyy 'at' H:mm"
                     )}`}
                 </Typography>

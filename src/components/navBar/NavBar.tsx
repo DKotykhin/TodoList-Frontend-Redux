@@ -14,9 +14,9 @@ import "./navBar.scss";
 
 const NavBar: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const { userdata: { user } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
 
-    const userAvatarURL = user.avatarURL ? `https://todolist-new17.herokuapp.com/api${user.avatarURL}` : "/";
+    const userAvatarURL = userdata.avatarURL ? `https://todolist-new17.herokuapp.com/api${userdata.avatarURL}` : "/";
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
                     >
                         TodoList
                     </Typography>
-                    <Typography sx={{ mr: 3 }}>{user?.name}</Typography>
+                    <Typography sx={{ mr: 3 }}>{userdata?.name}</Typography>
                     <Box>
                         <Tooltip title="Open settings">
                             <IconButton
@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
                                 sx={{ p: 0 }}
                             >
                                 <Avatar
-                                    alt={user.name || "TodoList"}
+                                    alt={userdata.name || "TodoList"}
                                     src={userAvatarURL}
                                 />
                             </IconButton>

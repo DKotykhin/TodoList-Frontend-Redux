@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { Container, Typography, InputLabel, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
 
-import { TaskFormValidation } from "../taskFields/taskFormValidation";
+import { UpdateTaskFormValidation } from "../taskFields/taskFormValidation";
 import SubmitCancelButtons from "./SubmitCancelButtons";
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 
@@ -33,7 +33,11 @@ const UpdateTaskComponent: React.FC = () => {
     const params = useParams();;
     const navigate = useNavigate();
 
-    const { handleSubmit, register, formState: { errors } } = useForm<IUpdateForm>(TaskFormValidation);
+    const {
+        handleSubmit,
+        register,
+        formState: { errors }
+    } = useForm<IUpdateForm>(UpdateTaskFormValidation);
 
     const currentTask = taskdata.filter((task) => task._id === params.taskId);
     const { title, subtitle, description, deadline, _id, completed } =
@@ -56,7 +60,7 @@ const UpdateTaskComponent: React.FC = () => {
         UpdateTask(totalData)
             .then(response => {
                 console.log(response.message);
-                navigate("/", { replace: true });                
+                navigate("/", { replace: true });
             })
             .catch((error) => {
                 console.log(error.message);

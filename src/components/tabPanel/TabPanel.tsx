@@ -16,7 +16,7 @@ interface TabPanelProps {
     dir?: string;
     index: number;
     value: number;
-  }
+}
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -59,7 +59,7 @@ const TabPanelComponent: React.FC = () => {
     const activeTasks = taskdata.filter((task) => task.completed === false);
     const completedTasks = taskdata.filter((task) => task.completed === true);
 
-    const isLoading = fetching === "loading";
+    const isLoaded = fetching === "loaded";
 
     useEffect(() => {
         dispatch(fetchTasks());
@@ -71,15 +71,12 @@ const TabPanelComponent: React.FC = () => {
 
     return (
         <Container maxWidth="xl">
-            {isLoading ? (
-                <Spinner />
-            ) : (
+            {isLoaded ?
                 <>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            aria-label="basic tabs example"
                         >
                             <Tab label="All" {...a11yProps(0)} />
                             <Tab label="Active" {...a11yProps(1)} />
@@ -96,7 +93,7 @@ const TabPanelComponent: React.FC = () => {
                         <CardList taskdata={completedTasks} />
                     </TabPanel>
                 </>
-            )}
+                : <Spinner />}
         </Container>
     );
 };

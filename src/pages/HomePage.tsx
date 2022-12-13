@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Helmet from "react-helmet";
-import { useAppDispatch } from 'store/hook';
+import { useAppDispatch, useAppSelector } from 'store/hook';
 
 import TabPanelComponent from "components/tabPanel/TabPanel";
 import Spinner from 'components/spinner/Spinner';
 
-import { UserLoginByToken } from "api/userrequests";
 import { getToken } from 'api/getToken';
-import { createUser } from "store/userSlice";
-import { IUser } from 'types/userTypes';
+import { fetchUser } from "store/userSlice";
+import { selectUser } from 'store/selectors';
 
 const HomePage: React.FC = () => {
-    const [login, setLogin] = useState(false);    
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {        
+    const { fetching } = useAppSelector(selectUser);
+    const isLoaded = fetching === "loaded";
+
+    useEffect(() => {
         const token = getToken();
         if (token) {
-            UserLoginByToken()
-                .then(response => {
-                    console.log(response.message);                                        
-                    const { avatarURL, createdAt, email, name, _id } = response;
-                    const user: IUser = { avatarURL, createdAt, email, name, _id }                    
-                    dispatch(createUser({ user }));
-                    setLogin(true);
-                })
-                .catch(error => {
-                    console.warn(error.response.data.message || error.message);
-                    setLogin(false);
-                });
+            dispatch(fetchUser())
         } else {
             navigate('/login')
         }
@@ -38,12 +28,12 @@ const HomePage: React.FC = () => {
 
     return (
         <>
-            {login ?
+            {isLoaded ?
                 <>
                     <Helmet>
                         <meta name="description" content="Home Page" />
                         <title>Home Page</title>
-                    </Helmet>                    
+                    </Helmet>
                     <TabPanelComponent />
                 </> :
                 <Spinner />

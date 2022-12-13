@@ -17,13 +17,8 @@ export interface IUser {
     email: string;
     name: string;
     createdAt: string; 
-    avatarURL?: string;    
+    avatarURL: string;    
 }
-
-// export interface IUserWithToken {
-//     user: IUser;
-//     token: string;
-// }
 
 export interface IUserAvatar {
     avatarURL: string;

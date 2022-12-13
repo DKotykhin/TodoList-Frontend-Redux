@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import { Container, Typography } from "@mui/material";
 
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
-import { TaskFormValidation } from "../taskFields/taskFormValidation";
+import { AddTaskFormValidation } from "../taskFields/taskFormValidation";
 
 import { AddTask } from "api/taskrequests";
 import { IAddTask } from "types/taskTypes";
@@ -24,7 +24,7 @@ const AddTaskComponent: React.FC = () => {
         handleSubmit,
         register,
         formState: { errors },
-    } = useForm<IAddTask>(TaskFormValidation);
+    } = useForm<IAddTask>(AddTaskFormValidation);
 
     const onSubmit = (data: IAddTask): void => {
         const { title, subtitle, deadline } = data;

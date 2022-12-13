@@ -6,13 +6,13 @@ import { useForm, Controller } from "react-hook-form";
 import { Button, Container, Typography, Box } from "@mui/material";
 import { InputLabel, Checkbox } from "@mui/material";
 
-import { LoginUser } from "api/userrequests";
-import { IUserLogin } from "types/userTypes";
+import UserMessage from "components/userMessage/UserMessage";
 import { EmailField, PasswordField } from "components/userFields";
 import { LoginFormValidation } from "./userFormValidation";
+import { LoginUser } from "api/userrequests";
+import { IUserLogin } from "types/userTypes";
 
 import "./styleForm.scss";
-import UserMessage from "components/userMessage/UserMessage";
 
 interface IUserData extends IUserLogin {
     rememberMe: boolean
@@ -20,7 +20,7 @@ interface IUserData extends IUserLogin {
 
 const LoginForm: React.FC = () => {
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);    
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -30,24 +30,24 @@ const LoginForm: React.FC = () => {
         reset,
     } = useForm<IUserData>(LoginFormValidation);
 
-    const onSubmit = (data: IUserData): void => {        
-        const { email, password } = data;        
+    const onSubmit = (data: IUserData): void => {
+        const { email, password } = data;
         setLoading(true);
         setError('')
         LoginUser({ email, password })
-            .then((response) => {                
-                console.log(response.message);                
+            .then((response) => {
+                console.log(response.message);
                 const { token } = response;
                 if (data.rememberMe) {
                     localStorage.setItem("rememberMe", token);
                 }
-                sessionStorage.setItem("rememberMe", token);                
+                sessionStorage.setItem("rememberMe", token);
                 navigate("/");
                 reset();
             })
             .catch((error) => {
                 console.log(error.message);
-                setError(error.response.data.message || error.message);                
+                setError(error.response.data.message || error.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
                 <>
                     <Box
                         className="form field"
-                        component="form"                        
+                        component="form"
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <EmailField disabled={false} error={errors.email} control={control} />
@@ -82,12 +82,12 @@ const LoginForm: React.FC = () => {
                             Remember me
                         </InputLabel>
                         <Button
-                            disabled={!isValid}                           
+                            disabled={!isValid}
                             type="submit"
                         >
                             Login
                         </Button>
-                    </Box>                  
+                    </Box>
                     <UserMessage loading={loading} loaded={''} error={error} />
                     <Typography className="form subtitle">
                         {"Don't have account?"}

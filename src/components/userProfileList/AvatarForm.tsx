@@ -25,7 +25,7 @@ const AvatarForm: React.FC = () => {
 
     const [fileName, setFileName] = useState('');
 
-    const { userdata: { user } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
     const { register, reset, handleSubmit } = useForm();
 
@@ -46,7 +46,7 @@ const AvatarForm: React.FC = () => {
                 .then((response) => {
                     console.log(response.message);
                     setLoaded(response.message);
-                    dispatch(addAvatar(`/upload/${user._id}-${data.avatar[0].name}`));                    
+                    dispatch(addAvatar(`/upload/${userdata._id}-${data.avatar[0].name}`));                    
                     reset();
                     setFileName("");
                 })
@@ -65,7 +65,7 @@ const AvatarForm: React.FC = () => {
 
     const handleDelete = () => {       
         setDeleting(true);       
-        const data: string | undefined = user?.avatarURL;
+        const data: string | undefined = userdata?.avatarURL;
         if (data) {
             DeleteAvatar()
                 .then((response) => {

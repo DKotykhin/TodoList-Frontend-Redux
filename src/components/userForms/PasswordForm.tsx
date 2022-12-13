@@ -13,7 +13,7 @@ import "./styleForm.scss";
 
 const PasswordForm: React.FC = () => {
 
-    const { userdata: { user } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
 
     const [confirmCurrentPassword, setConfirmCurrentPassword] = useState(false);
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const PasswordForm: React.FC = () => {
         setConfirmCurrentPassword(data)
     }
 
-    return user._id ? (
+    return userdata._id ? (
         <Container maxWidth="sm" className="form">
             <Typography className="form title" component="h2">
                 {confirmCurrentPassword ? 'Change password' : 'Confirm current password'}
