@@ -40,7 +40,7 @@ const NavBar: React.FC = () => {
                     </Typography>
                     <Typography sx={{ mr: 3 }}>{userdata?.name}</Typography>
                     <Box>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Open settings" arrow>
                             <IconButton
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}

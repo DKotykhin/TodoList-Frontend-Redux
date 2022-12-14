@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from "react-helmet";
 
-import RegisterForm from "components/userForms/RegisterForm";
+import RegisterForm from "components/userAuthForms/RegisterForm";
 
 const RegistrationPage: React.FC = () => {
   

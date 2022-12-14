@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import React, { useState, useEffect } from 'react';
+import { useForm, FieldValues } from "react-hook-form";
 
-import { Button, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Avatar, Box, Tooltip, IconButton } from '@mui/material';
 import CloseIcon from "@mui/icons-material/Close";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import UserMessage from "components/userMessage/UserMessage";
-import DeleteDialog from "./DeleteDialog";
+import DeleteDialog from "../userDeleteForm/DeleteDialog";
+
 import { UploadAvatar, DeleteAvatar } from "api/userrequests";
 import { selectUser } from "store/selectors";
 import { useAppSelector, useAppDispatch } from "store/hook";
 import { addAvatar } from "store/userSlice";
 
-import "./avatarForm.scss";
-
 const AvatarForm: React.FC = () => {
+
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState('');
     const [loadError, setLoadError] = useState('');
@@ -24,18 +24,28 @@ const AvatarForm: React.FC = () => {
     const [deleteError, setDeleteError] = useState('');
 
     const [fileName, setFileName] = useState('');
-
     const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
+
     const { register, reset, handleSubmit } = useForm();
+
+    const userAvatarURL = userdata.avatarURL ? `https://todolist-new17.herokuapp.com/api${userdata.avatarURL}` : "/";
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoaded('');
             setDeleted('');
-        }, 5000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, [loaded, deleted]);
+
+    const onChange = (e: any) => {
+        setFileName(e.target.files[0].name);
+    };
+    const onReset = () => {
+        reset();
+        setFileName("");
+    };
 
     const onSubmit = (data: FieldValues): void => {
         if (data.avatar.length) {
@@ -46,7 +56,7 @@ const AvatarForm: React.FC = () => {
                 .then((response) => {
                     console.log(response.message);
                     setLoaded(response.message);
-                    dispatch(addAvatar(`/upload/${userdata._id}-${data.avatar[0].name}`));                    
+                    dispatch(addAvatar(`/upload/${userdata._id}-${data.avatar[0].name}`));
                     reset();
                     setFileName("");
                 })
@@ -59,19 +69,19 @@ const AvatarForm: React.FC = () => {
                 });
         } else {
             console.log("Avatar: No Data");
-            setLoadError("No File in Avatar Field");            
+            setLoadError("No File in Avatar Field");
         }
-    };
+    }
 
-    const handleDelete = () => {       
-        setDeleting(true);       
+    const handleDelete = (): void => {
+        setDeleting(true);
         const data: string | undefined = userdata?.avatarURL;
         if (data) {
             DeleteAvatar()
                 .then((response) => {
                     console.log(response.message);
                     setDeleted(response.message);
-                    dispatch(addAvatar(''))                    
+                    dispatch(addAvatar(''))
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -81,64 +91,51 @@ const AvatarForm: React.FC = () => {
                     setDeleting(false);
                 });
         } else alert("Avatar doesn't exist");
-    };
-
-    const onChange = (e: any) => {
-        setFileName(e.target.files[0].name);
-    };
-
-    const onReset = () => {
-        reset();
-        setFileName("");
-    };
+    }
 
     return (
-        <Box className="avatar">
-            <Typography className="avatar title">Change Avatar</Typography>
-            <Box
-                component="form"
-                noValidate
-                autoComplete="off"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-                <Box>
-                    <Typography
-                        component="label"
-                        onChange={onChange}
-                    >
-                        {fileName ? fileName : "choose file..."}
-                        <Typography
-                            component="input"
-                            {...register("avatar")}
-                            color="primary"
-                            type="file"
-                            hidden
-                        />
-                    </Typography>
-                    {fileName && (
-                        <CloseIcon className="avatar close_icon"
-                            onClick={onReset}
-                        />
-                    )}
-                </Box>
-                <UserMessage loading={loading} loaded={loaded} error={loadError} />
-                <Button
-                    className="avatar button"
-                    variant="outlined"
-                    type="submit"
-                    disabled={!fileName}
-                >
-                    Upload
-                </Button>
-            </Box>           
-            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
-            <DeleteDialog
-                buttonTitle={"delete avatar"}
+        <Box
+            component="form"
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <Box sx={{ cursor: 'pointer' }} onChange={onChange} component="label">
+                <Tooltip title="Change Avatar" placement="left" arrow>
+                    <Avatar
+                        sx={{ width: 150, height: 150, margin: '0 auto' }}
+                        src={userAvatarURL}
+                    />
+                </Tooltip>
+                <Box
+                    component="input"
+                    {...register("avatar")}
+                    type="file"
+                    hidden
+                />
+            </Box>
+            {fileName ? (
+                <>
+                    {fileName}
+                    <IconButton onClick={onReset}>
+                        <Tooltip title="Cancel" placement="top" arrow>
+                            <CloseIcon />
+                        </Tooltip>
+                    </IconButton>
+                    <IconButton type="submit">
+                        <Tooltip title="Upload" placement="top" arrow>
+                            <FileUploadIcon color='primary' />
+                        </Tooltip>
+                    </IconButton>
+                </>
+            ) : <DeleteDialog
                 dialogTitle={"You really want to delete avatar?"}
                 deleteAction={handleDelete}
-            />            
+            />}
+            <UserMessage loading={loading} loaded={loaded} error={loadError} />
+            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
         </Box>
-    );
-};
+    )
+}
 
 export default AvatarForm;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from "react-helmet";
 
-import LoginForm from "components/userForms/LoginForm";
+import LoginForm from "components/userAuthForms/LoginForm";
 
 const LoginPage: React.FC = () => {
   return (

@@ -3,12 +3,18 @@
 .form {
     &.title {
         font-size: 22px;
-        margin-top: 50px;
+        margin-top: 20px;
         text-align: center;
     }
     &.subtitle {
         text-align: center;
         margin: 30px; 
+    }
+    &.avatar {
+        width: 60px; 
+        height: 60px; 
+        margin: 0 auto;
+        margin-top: 40px;
     }
     &.field {
         &>:not(style) {

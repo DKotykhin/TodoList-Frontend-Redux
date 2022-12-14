@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
-import PasswordForm from "components/userForms/PasswordForm";
+import PasswordForm from "components/userAuthForms/PasswordForm";
 import { getToken } from "api/getToken";
 
 const ChangePasswordPage: React.FC = () => {

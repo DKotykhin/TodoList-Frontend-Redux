@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
-import { Button, Container, Typography, Box } from "@mui/material";
+import { Button, Container, Typography, Box, Avatar } from "@mui/material";
 import { InputLabel, Checkbox } from "@mui/material";
 
 import UserMessage from "components/userMessage/UserMessage";
 import { EmailField, PasswordField } from "components/userFields";
 import { LoginFormValidation } from "./userFormValidation";
+
 import { LoginUser } from "api/userrequests";
 import { IUserLogin } from "types/userTypes";
 
@@ -56,51 +57,48 @@ const LoginForm: React.FC = () => {
 
     return (
         <Container maxWidth="sm" className="form">
+            <Avatar className="form avatar" />
             <Typography className="form title" component="h2">
-                {"Login Form"}
+                {"Login"}
             </Typography>
-            {!loading && (
-                <>
-                    <Box
-                        className="form field"
-                        component="form"
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <EmailField disabled={false} error={errors.email} control={control} />
-                        <PasswordField
-                            name={"Password"}
-                            error={errors.password}
-                            control={control}
-                        />
-                        <InputLabel>
-                            <Controller
-                                name="rememberMe"
-                                control={control}
-                                render={({ field }) => <Checkbox {...field} />}
-                                defaultValue={false}
-                            />
-                            Remember me
-                        </InputLabel>
-                        <Button
-                            disabled={!isValid}
-                            type="submit"
-                        >
-                            Login
-                        </Button>
-                    </Box>
-                    <UserMessage loading={loading} loaded={''} error={error} />
-                    <Typography className="form subtitle">
-                        {"Don't have account?"}
-                    </Typography>
-                    <Button
-                        className="form submit_button"
-                        component={Link}
-                        to="/registration"
-                    >
-                        Registration
-                    </Button>
-                </>
-            )}
+            <Box
+                className="form field"
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <EmailField disabled={false} error={errors.email} control={control} />
+                <PasswordField
+                    name={"Password"}
+                    error={errors.password}
+                    control={control}
+                />
+                <InputLabel>
+                    <Controller
+                        name="rememberMe"
+                        control={control}
+                        render={({ field }) => <Checkbox {...field} />}
+                        defaultValue={false}
+                    />
+                    Remember me
+                </InputLabel>
+                <Button
+                    disabled={!isValid}
+                    type="submit"
+                >
+                    Login
+                </Button>
+            </Box>
+            <UserMessage loading={loading} loaded={''} error={error} />
+            <Typography className="form subtitle">
+                {"Don't have account?"}
+            </Typography>
+            <Button
+                className="form submit_button"
+                component={Link}
+                to="/registration"
+            >
+                Registration
+            </Button>
         </Container>
     );
 };

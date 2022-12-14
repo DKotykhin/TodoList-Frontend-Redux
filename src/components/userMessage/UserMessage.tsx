@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Box, Typography } from "@mui/material";
 
-import './userMessage.scss'
-
 interface IUserMessage {
     loading: boolean;
     loaded: string;
@@ -12,11 +10,11 @@ interface IUserMessage {
 
 const UserMessage: React.FC<IUserMessage> = ({ loading, loaded, error }) => {
     return (
-        <Box className="message">
-            <Typography className="message success">
+        <Box sx={{ minHeight: 25, textAlign: 'center' }}>
+            <Typography color='primary'>
                 {loading ? "Loading..." : loaded ? loaded : ""}
             </Typography>
-            <Typography className="message error">
+            <Typography color='error'>
                 {error ? error || 'Unexpectable error!' : ""}
             </Typography>
         </Box>

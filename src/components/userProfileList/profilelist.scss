@@ -1,4 +1,4 @@
-@import '../../constants/constants.scss';
+@import "../../constants/constants.scss";
 
 .profile {
     text-align: center;
@@ -8,14 +8,17 @@
         margin-bottom: 30px;
         padding-top: 10px;
     }
-    &.subtitle {       
-        padding-top: 10px;
-    }  
+    &.subtitle {
+        padding: 20px;
+        color: #ff0000;
+        font-size: 20px;
+        text-decoration: underline;
+    }
     label {
         color: $color_grey;
         text-align: left;
         margin-left: 40px;
         margin-top: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
     }
 }

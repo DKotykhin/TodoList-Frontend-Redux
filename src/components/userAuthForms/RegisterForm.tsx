@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography, Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { EmailField, NameField, PasswordField } from "components/userFields";
 import { RegisterFormValidation } from "./userFormValidation";
+import UserMessage from "components/userMessage/UserMessage";
 
 import { RegisterUser } from "api/userrequests";
 import { IUserRegister } from "types/userTypes";
 
 import "./styleForm.scss";
-import UserMessage from "components/userMessage/UserMessage";
 
 const RegisterForm = () => {
     const [error, setError] = useState('');
@@ -48,8 +48,9 @@ const RegisterForm = () => {
 
     return (
         <Container maxWidth="sm" className="form">
+            <Avatar className="form avatar" />
             <Typography className="form title" component="h2">
-                {"Registration Form"}
+                {"Registration"}
             </Typography>
             <Box
                 className="form field"
@@ -70,12 +71,7 @@ const RegisterForm = () => {
                 >
                     {"Register"}
                 </Button>
-            </Box>
-            {/* {error && (
-                <Typography className="form error_message">
-                    {error || 'Unexpectable error!'}
-                </Typography>
-            )} */}
+            </Box>            
             <UserMessage loading={loading} loaded={''} error={error} />
             <Typography className="form subtitle">
                 {"Already have account?"}

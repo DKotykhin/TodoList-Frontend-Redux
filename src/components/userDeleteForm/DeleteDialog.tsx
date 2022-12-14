@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Box, Divider } from "@mui/material";
+import { Button, Box, Divider, IconButton, Tooltip } from "@mui/material";
 import {
     Dialog,
     DialogTitle,
@@ -8,16 +8,16 @@ import {
     DialogContent,
     DialogContentText,
 } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import './deleteDialog.scss';
 
-interface IDeleteDialog {
-    buttonTitle: string;
+interface IDeleteDialog {    
     dialogTitle: string;
     deleteAction: () => void
 }
 
-const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, deleteAction }) => {
+const DeleteDialog: React.FC<IDeleteDialog> = ({ dialogTitle, deleteAction }) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -34,15 +34,12 @@ const DeleteDialog: React.FC<IDeleteDialog> = ({ buttonTitle, dialogTitle, delet
     };
 
     return (
-        <Box className="dialog">
-            <Button
-                className="dialog button"
-                color="error"
-                variant="outlined"
-                onClick={handleOpen}
-            >
-                {buttonTitle}
-            </Button>
+        <Box className="dialog">            
+            <IconButton onClick={handleOpen}>
+                <Tooltip title="Delete" placement="left" arrow>
+                    <DeleteForeverIcon color="error" />
+                </Tooltip>
+            </IconButton>
             <Dialog
                 className="modal"
                 open={open}
