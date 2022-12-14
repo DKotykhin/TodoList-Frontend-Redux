@@ -16,7 +16,7 @@ const ProfilePage: React.FC = () => {
             <ProfileList />
         </>
     ) : (
-        <Navigate to="/" />
+        <Navigate to="/login" />
     );
 };
 

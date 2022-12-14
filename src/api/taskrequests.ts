@@ -11,7 +11,7 @@ axios.defaults.baseURL = Base_URL;
 export const GetAllTasks = async (): Promise<ITask[]> => {
     const config = {
         method: "GET",
-        url: "task",
+        url: "/task",
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },
@@ -24,7 +24,7 @@ export const GetAllTasks = async (): Promise<ITask[]> => {
 export const AddTask = async (data: IAddTask): Promise<ITaskResponse> => {
     const config = {
         method: "POST",
-        url: "task",
+        url: "/task",
         headers: {
             Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const UpdateTask = async (
 ): Promise<ITaskStatusResponse> => {
     const config = {
         method: "PATCH",
-        url: "task",
+        url: "/task",
         headers: {
             Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const DeleteTask = async (id: {
 }): Promise<ITaskStatusResponse> => {
     const config = {
         method: "DELETE",
-        url: "task",
+        url: "/task",
         headers: {
             Authorization: `Bearer ${getToken()}`,
             "Content-Type": "application/json",

@@ -17,7 +17,7 @@ const MDEField: React.FC<IMDEField> = ({ description, MDEChange }) => {
             hideIcons: ["preview", "side-by-side", "quote"],
             maxHeight: "200px",
             // autofocus: true,
-            placeholder: "Введите текст...",
+            placeholder: "type text...",
             status: false,
             autosave: {
                 enabled: true,

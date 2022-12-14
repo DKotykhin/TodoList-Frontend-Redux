@@ -16,7 +16,7 @@ const ChangePasswordPage: React.FC = () => {
             <PasswordForm />
         </>
     ) : (
-        <Navigate to="/" />
+        <Navigate to="/login" />
     );
 }
 

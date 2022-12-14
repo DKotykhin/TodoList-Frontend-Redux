@@ -2,8 +2,7 @@
 
 .form {
     &.title {
-        font-size: 22px;
-        margin-top: 20px;
+        font-size: 22px;              
         text-align: center;
     }
     &.subtitle {
@@ -14,13 +13,13 @@
         width: 60px; 
         height: 60px; 
         margin: 0 auto;
-        margin-top: 40px;
+        margin-top: 20px;
     }
     &.field {
         &>:not(style) {
             width: 300px;
             display: block;
-            margin: 40px auto;
+            margin: 30px auto;
         }
     }    
     input[type="checkbox"] {
@@ -32,6 +31,6 @@
     &.submit_button {
         text-align: center;
         display: block;
-        margin: 60px auto;        
+        margin: 0 auto;        
     }
 }

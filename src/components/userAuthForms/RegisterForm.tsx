@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { Button, Container, Typography, Avatar } from "@mui/material";
+import { Button, Container, Typography, Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { EmailField, NameField, PasswordField } from "components/userFields";
@@ -39,7 +39,7 @@ const RegisterForm = () => {
             })
             .catch(error => {
                 console.log(error.message);
-                setError(error.response.data.message || error.message);                
+                setError(error.response.data.message || error.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -47,32 +47,34 @@ const RegisterForm = () => {
     };
 
     return (
-        <Container maxWidth="sm" className="form">
-            <Avatar className="form avatar" />
-            <Typography className="form title" component="h2">
-                {"Registration"}
-            </Typography>
-            <Box
-                className="form field"
-                component="form"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-                <NameField label='Name' error={errors.name} control={control} />
-                <EmailField disabled={false} error={errors.email} control={control} />
-                <PasswordField
-                    name={"Password"}
-                    error={errors.password}
-                    control={control}
-                />
-                <Button
-                    disabled={!isValid}
-                    className="form submit_button"
-                    type="submit"
+        <Container maxWidth="xs" className="form">
+            <Paper elevation={10} sx={{ p: 2, mt: 4 }}>
+                <Typography className="form title" component="h2">
+                    {"Registration"}
+                </Typography>
+                <Avatar className="form avatar" />
+                <Box
+                    className="form field"
+                    component="form"
+                    onSubmit={handleSubmit(onSubmit)}
                 >
-                    {"Register"}
-                </Button>
-            </Box>            
-            <UserMessage loading={loading} loaded={''} error={error} />
+                    <NameField label='Name' error={errors.name} control={control} />
+                    <EmailField disabled={false} error={errors.email} control={control} />
+                    <PasswordField
+                        name={"Password"}
+                        error={errors.password}
+                        control={control}
+                    />
+                    <Button
+                        disabled={!isValid}
+                        className="form submit_button"
+                        type="submit"
+                    >
+                        {"Register"}
+                    </Button>
+                </Box>
+                <UserMessage loading={loading} loaded={''} error={error} />
+            </Paper>
             <Typography className="form subtitle">
                 {"Already have account?"}
             </Typography>

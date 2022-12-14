@@ -47,16 +47,17 @@ const AvatarForm: React.FC = () => {
         setFileName("");
     };
 
-    const onSubmit = (data: FieldValues): void => {
+    const onSubmit = (data: FieldValues): void => {        
         if (data.avatar.length) {
             setLoading(true);
+            setLoadError('')
             const formData = new FormData();
             formData.append("avatar", data.avatar[0], data.avatar[0].name);
             UploadAvatar(formData)
                 .then((response) => {
                     console.log(response.message);
                     setLoaded(response.message);
-                    dispatch(addAvatar(`/upload/${userdata._id}-${data.avatar[0].name}`));
+                    dispatch(addAvatar(response.avatarURL));                    
                     reset();
                     setFileName("");
                 })
@@ -68,7 +69,7 @@ const AvatarForm: React.FC = () => {
                     setLoading(false);
                 });
         } else {
-            console.log("Avatar: No Data");
+            console.log("No File in Avatar Field");
             setLoadError("No File in Avatar Field");
         }
     }
@@ -100,17 +101,17 @@ const AvatarForm: React.FC = () => {
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Box sx={{ cursor: 'pointer' }} onChange={onChange} component="label">
+            <Box sx={{ cursor: 'pointer' }} component="label" onChange={onChange}>
                 <Tooltip title="Change Avatar" placement="left" arrow>
                     <Avatar
                         sx={{ width: 150, height: 150, margin: '0 auto' }}
                         src={userAvatarURL}
                     />
                 </Tooltip>
-                <Box
-                    component="input"
+                <Box 
                     {...register("avatar")}
-                    type="file"
+                    component="input"
+                    type="file"                    
                     hidden
                 />
             </Box>

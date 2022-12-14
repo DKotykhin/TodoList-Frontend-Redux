@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
-import { Button, Container, Typography, Box, Avatar } from "@mui/material";
+import { Button, Container, Typography, Box, Avatar, Paper } from "@mui/material";
 import { InputLabel, Checkbox } from "@mui/material";
 
 import UserMessage from "components/userMessage/UserMessage";
@@ -56,39 +56,41 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <Container maxWidth="sm" className="form">
-            <Avatar className="form avatar" />
-            <Typography className="form title" component="h2">
-                {"Login"}
-            </Typography>
-            <Box
-                className="form field"
-                component="form"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-                <EmailField disabled={false} error={errors.email} control={control} />
-                <PasswordField
-                    name={"Password"}
-                    error={errors.password}
-                    control={control}
-                />
-                <InputLabel>
-                    <Controller
-                        name="rememberMe"
-                        control={control}
-                        render={({ field }) => <Checkbox {...field} />}
-                        defaultValue={false}
-                    />
-                    Remember me
-                </InputLabel>
-                <Button
-                    disabled={!isValid}
-                    type="submit"
+        <Container maxWidth="xs" className="form">
+            <Paper elevation={10} sx={{ p: 2, mt: 4 }}>
+                <Typography className="form title" component="h2">
+                    {"Login"}
+                </Typography>
+                <Avatar className="form avatar" />
+                <Box
+                    className="form field"
+                    component="form"
+                    onSubmit={handleSubmit(onSubmit)}
                 >
-                    Login
-                </Button>
-            </Box>
-            <UserMessage loading={loading} loaded={''} error={error} />
+                    <EmailField disabled={false} error={errors.email} control={control} />
+                    <PasswordField
+                        name={"Password"}
+                        error={errors.password}
+                        control={control}
+                    />
+                    <InputLabel>
+                        <Controller
+                            name="rememberMe"
+                            control={control}
+                            render={({ field }) => <Checkbox {...field} />}
+                            defaultValue={false}
+                        />
+                        Remember me
+                    </InputLabel>
+                    <Button
+                        disabled={!isValid}
+                        type="submit"
+                    >
+                        Login
+                    </Button>
+                </Box>
+                <UserMessage loading={loading} loaded={''} error={error} />
+            </Paper>
             <Typography className="form subtitle">
                 {"Don't have account?"}
             </Typography>

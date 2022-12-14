@@ -24,16 +24,15 @@ interface IFullCard {
     task: ITask;
     deleteLoading: (arg0: boolean) => void;
     closeModal: () => void;
-    handleCloseFullCard: () => void;
 }
 
-const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal, handleCloseFullCard }) => {
+const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
     const { subtitle, description } = task;
 
     return (
         <Card className="full_card" variant="outlined">
             <CardContent>
-                <CloseIcon className="full_card close_icon" onClick={handleCloseFullCard} />
+                <CloseIcon className="full_card close_icon" onClick={closeModal} />
                 <CardTitle shortTitleWidth={true} task={task} />
                 <Box sx={{ display: "flex" }}>
                     <SubtitlesOutlinedIcon sx={{ mr: 1 }} />

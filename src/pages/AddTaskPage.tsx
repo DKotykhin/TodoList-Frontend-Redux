@@ -16,7 +16,7 @@ const AddTaskPage: React.FC = () => {
             <AddTaskComponent />
         </>
     ) : (
-        <Navigate to="/" />
+        <Navigate to="/login" />
     );
 };
 

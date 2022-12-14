@@ -12,11 +12,13 @@ import { useAppSelector } from "store/hook";
 
 import "./navBar.scss";
 
+const Base_URL = process.env.REACT_APP_BACKEND_URL;
+
 const NavBar: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const { userdata } = useAppSelector(selectUser);
 
-    const userAvatarURL = userdata.avatarURL ? `https://todolist-new17.herokuapp.com/api${userdata.avatarURL}` : "/";
+    const userAvatarURL = userdata.avatarURL ? Base_URL + userdata.avatarURL : "/";
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);

@@ -25,7 +25,7 @@ export const RegisterUser = async (
 ): Promise<IUserResponse> => {
     const config = {
         method: "POST",
-        url: "user/register",
+        url: "/user/register",
         headers: {
             "Content-Type": "application/json",
         },
@@ -39,7 +39,7 @@ export const RegisterUser = async (
 export const LoginUser = async (data: IUserLogin): Promise<IUserResponse> => {
     const config = {
         method: "POST",
-        url: "user/login",
+        url: "/user/login",
         headers: {
             "Content-Type": "application/json",
         },
@@ -53,7 +53,7 @@ export const LoginUser = async (data: IUserLogin): Promise<IUserResponse> => {
 export const UpdateUser = async (data: IUserUpdate): Promise<IUserResponse> => {
     const config = {
         method: "PATCH",
-        url: "user/me",
+        url: "/user/me",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getToken()}`,
@@ -68,7 +68,7 @@ export const UpdateUser = async (data: IUserUpdate): Promise<IUserResponse> => {
 export const DeleteUser = async (): Promise<IUserDeleteResponse> => {
     const config = {
         method: "DELETE",
-        url: "user/me",
+        url: "/user/me",
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },
@@ -82,7 +82,7 @@ export const UserLoginByToken =
     async (): Promise<IUserWithoutTokenResponse> => {
         const config = {
             method: "GET",
-            url: "user/me",
+            url: "/user/me",
             headers: {
                 Authorization: `Bearer ${getToken()}`,
             },
@@ -97,7 +97,7 @@ export const UserConfirmPassword = async (data: {
 }): Promise<IUserConfirmPasswordResponse> => {
     const config = {
         method: "POST",
-        url: "user/password",
+        url: "/user/password",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getToken()}`,
@@ -112,7 +112,7 @@ export const UserConfirmPassword = async (data: {
 export const UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
     const config = {
         method: "POST",
-        url: "upload",
+        url: "/upload",
         headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${getToken()}`,
@@ -127,7 +127,7 @@ export const UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
 export const DeleteAvatar = async (): Promise<IUserAvatar> => {
     const config = {
         method: "DELETE",
-        url: "upload",
+        url: "/upload",
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },

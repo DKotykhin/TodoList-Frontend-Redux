@@ -71,8 +71,7 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
             <Modal open={cardFullOpen} onClose={cardFullClose}>
                 <Box sx={{ boxShadow: 24 }} className='cardlist fullcard'>
                     <FullCard
-                        task={updatedTask}
-                        handleCloseFullCard={cardFullClose}
+                        task={updatedTask}                        
                         deleteLoading={deleteLoading}
                         closeModal={cardFullClose}
                     />
