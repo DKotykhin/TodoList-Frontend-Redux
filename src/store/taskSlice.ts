@@ -2,19 +2,28 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { GetAllTasks } from "api/taskrequests";
 import { ITask } from "../types/taskTypes";
 
-export const fetchTasks = createAsyncThunk("task/fetch", async () => {
-    const data = await GetAllTasks();
-    return data;
-});
+export const fetchTasks = createAsyncThunk(
+    "task/fetch",
+    async (_, { rejectWithValue }) => {
+        try {
+            const data = await GetAllTasks();
+            return data;
+        } catch (err: any) {
+            return rejectWithValue(err.response.data.message);
+        }
+    }
+);
 
 interface ITaskdata {
     taskdata: ITask[];
     fetching: string;
+    error: unknown;
 }
 
 const initialState: ITaskdata = {
     taskdata: [],
     fetching: "waiting",
+    error: "",
 };
 
 const TasksSlice = createSlice({
@@ -48,10 +57,14 @@ const TasksSlice = createSlice({
                     state.fetching = "loaded";
                 }
             )
-            .addCase(fetchTasks.rejected, (state) => {
-                state.taskdata = [];
-                state.fetching = "error";
-            });
+            .addCase(
+                fetchTasks.rejected,
+                (state, action: PayloadAction<unknown>) => {
+                    state.taskdata = [];
+                    state.fetching = "error";
+                    state.error = action.payload;
+                }
+            );
     },
 });
 

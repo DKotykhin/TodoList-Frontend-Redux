@@ -2,14 +2,22 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "types/userTypes";
 import { UserLoginByToken } from "api/userrequests";
 
-export const fetchUser = createAsyncThunk("user/fetch", async () => {
-    const data = await UserLoginByToken();
-    return data;
-});
+export const fetchUser = createAsyncThunk(
+    "user/fetch",
+    async (_, { rejectWithValue }) => {
+        try {
+            const data = await UserLoginByToken();
+            return data;
+        } catch (err: any) {            
+            return rejectWithValue(err.response.data.message);
+        }
+    }
+);
 
 interface IUserdata {
     userdata: IUser;
     fetching: string;
+    error: unknown;
 }
 const emptyUser: IUser = {
     _id: "",
@@ -22,6 +30,7 @@ const emptyUser: IUser = {
 const initialState: IUserdata = {
     userdata: emptyUser,
     fetching: "waiting",
+    error: ''
 };
 
 const UserSlice = createSlice({
@@ -52,9 +61,10 @@ const UserSlice = createSlice({
                     state.fetching = "loaded";
                 }
             )
-            .addCase(fetchUser.rejected, (state) => {
+            .addCase(fetchUser.rejected, (state, action: PayloadAction<unknown>) => {
                 state.userdata = emptyUser;
                 state.fetching = "error";
+                state.error = action.payload;                               
             });
     },
 });

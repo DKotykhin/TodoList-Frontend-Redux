@@ -14,9 +14,10 @@ const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { fetching } = useAppSelector(selectUser);
+    const { fetching, error } = useAppSelector(selectUser);
     const isLoaded = fetching === "loaded";
     const isError = fetching === "error";
+    error && console.log(error);
 
     useEffect(() => {
         const token = getToken();
@@ -29,16 +30,15 @@ const HomePage: React.FC = () => {
 
     return (
         <>
-            {isError ? <Navigate to="/login" />
-                : isLoaded ?
-                    <>
-                        <Helmet>
-                            <meta name="description" content="Home Page" />
-                            <title>Home Page</title>
-                        </Helmet>
-                        <TabPanelComponent />
-                    </>
-                    : <Spinner />
+            {isLoaded ?
+                <>
+                    <Helmet>
+                        <meta name="description" content="Home Page" />
+                        <title>Home Page</title>
+                    </Helmet>
+                    <TabPanelComponent />
+                </>
+                : isError ? <Navigate to="/login" /> : <Spinner />
             }
         </>
     )

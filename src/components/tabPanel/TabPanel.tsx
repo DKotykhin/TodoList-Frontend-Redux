@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 import { Box, Tab, Tabs, Container } from "@mui/material";
 
@@ -53,13 +54,15 @@ function a11yProps(index: number) {
 const TabPanelComponent: React.FC = () => {
     const [value, setValue] = useState(0);
 
-    const { taskdata, fetching } = useAppSelector(selectTask);
+    const { taskdata, fetching, error } = useAppSelector(selectTask);
     const dispatch = useAppDispatch();
 
     const activeTasks = taskdata.filter((task) => task.completed === false);
     const completedTasks = taskdata.filter((task) => task.completed === true);
 
     const isLoaded = fetching === "loaded";
+    const isError = fetching === "error";
+    error && console.log(error);
 
     useEffect(() => {
         dispatch(fetchTasks());
@@ -93,7 +96,7 @@ const TabPanelComponent: React.FC = () => {
                         <CardList taskdata={completedTasks} />
                     </TabPanel>
                 </>
-                : <Spinner />}
+                : isError ? <Navigate to='/login' /> : <Spinner />}
         </Container>
     );
 };
