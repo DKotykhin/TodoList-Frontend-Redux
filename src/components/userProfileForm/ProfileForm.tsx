@@ -5,13 +5,14 @@ import { Button, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { ProfileFormValidation } from "./ProfileFormValidation";
-import AvatarForm from "./AvatarForm";
+import AvatarUploadForm from "./AvatarUploadForm";
 import { EmailField, NameField } from "components/userFields";
 import UserMessage from "components/userMessage/UserMessage";
 
 import { UpdateUser } from "api/userrequests";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/hook";
+
 
 const ProfileForm: React.FC = () => {
 
@@ -59,8 +60,8 @@ const ProfileForm: React.FC = () => {
     };
 
     return (
-        <Paper elevation={10} sx={{ my: 2 }}>
-            <AvatarForm />
+        <Paper elevation={10} sx={{ my: 2 }}>            
+            <AvatarUploadForm />            
             <Box
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"

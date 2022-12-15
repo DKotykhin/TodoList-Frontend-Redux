@@ -57,7 +57,7 @@ const LoginForm: React.FC = () => {
 
     return (
         <Container maxWidth="xs" className="form">
-            <Paper elevation={10} sx={{ p: 2, mt: 4 }}>
+            <Paper elevation={10} className="form paper">
                 <Typography className="form title" component="h2">
                     {"Login"}
                 </Typography>
@@ -67,7 +67,11 @@ const LoginForm: React.FC = () => {
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <EmailField disabled={false} error={errors.email} control={control} />
+                    <EmailField 
+                        disabled={false} 
+                        error={errors.email} 
+                        control={control} 
+                    />
                     <PasswordField
                         name={"Password"}
                         error={errors.password}

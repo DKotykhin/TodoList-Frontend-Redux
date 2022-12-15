@@ -1,13 +1,20 @@
 @import '../../constants/constants.scss';
 
 .form {
+    &.paper {
+        margin-top: 32px;
+        padding: 16px 0;
+    }
     &.title {
         font-size: 22px;              
         text-align: center;
     }
+    &.password {
+        margin-top: 50px;
+    }
     &.subtitle {
         text-align: center;
-        margin: 30px; 
+        margin: 30px 0 10px 0; 
     }
     &.avatar {
         width: 60px; 
@@ -31,6 +38,7 @@
     &.submit_button {
         text-align: center;
         display: block;
-        margin: 0 auto;        
+        margin: 0 auto;
+        margin-bottom: 20px;       
     }
 }

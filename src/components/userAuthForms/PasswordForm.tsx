@@ -24,7 +24,7 @@ const PasswordForm: React.FC = () => {
 
     return userdata._id ? (
         <Container maxWidth="sm" className="form">
-            <Typography className="form title" component="h2">
+            <Typography className="form title password" component="h2">
                 {confirmCurrentPassword ? 'Change password' : 'Confirm current password'}
             </Typography>
             {!confirmCurrentPassword && <ConfirmPassword confirmStatus={confirmStatus} />}

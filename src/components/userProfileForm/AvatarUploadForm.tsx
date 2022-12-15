@@ -6,22 +6,23 @@ import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import UserMessage from "components/userMessage/UserMessage";
-import DeleteDialog from "../userDeleteForm/DeleteDialog";
+import AvatarDeleteForm from './AvatarDeleteForm';
 
-import { UploadAvatar, DeleteAvatar } from "api/userrequests";
 import { selectUser } from "store/selectors";
+import { UploadAvatar } from "api/userrequests";
 import { useAppSelector, useAppDispatch } from "store/hook";
 import { addAvatar } from "store/userSlice";
 
-const AvatarForm: React.FC = () => {
+const checkFileType = (type: string): boolean => {
+    return (type === 'image/jpeg' || type === 'image/png' || type === 'image/webp');
+};
+const Base_URL = process.env.REACT_APP_BACKEND_URL;
+
+const AvatarUploadForm: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState('');
     const [loadError, setLoadError] = useState('');
-
-    const [deleting, setDeleting] = useState(false);
-    const [deleted, setDeleted] = useState('');
-    const [deleteError, setDeleteError] = useState('');
 
     const [fileName, setFileName] = useState('');
     const { userdata } = useAppSelector(selectUser);
@@ -29,35 +30,43 @@ const AvatarForm: React.FC = () => {
 
     const { register, reset, handleSubmit } = useForm();
 
-    const userAvatarURL = userdata.avatarURL ? `https://todolist-new17.herokuapp.com/api${userdata.avatarURL}` : "/";
+    const userAvatarURL = userdata.avatarURL ? Base_URL + userdata.avatarURL : "/";
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoaded('');
-            setDeleted('');
-        }, 3000);
+            setLoadError('');           
+        }, 4000);
         return () => clearTimeout(timer);
-    }, [loaded, deleted]);
+    }, [loadError, loaded]);
 
-    const onChange = (e: any) => {
-        setFileName(e.target.files[0].name);
+    const onChange = (e: any) => {        
+        setFileName(e.target.files[0].name);        
+        const isApproved = checkFileType(e.target.files[0].type);
+        if (!isApproved) setLoadError("Incorrect file type");
+        if (e.target.files[0].size > 1024000) setLoadError("File shoul be less then 1Mb");
     };
     const onReset = () => {
+        setLoadError('')
         reset();
         setFileName("");
     };
 
     const onSubmit = (data: FieldValues): void => {        
-        if (data.avatar.length) {
+        const isApproved = checkFileType(data.avatar[0].type);
+        if (!isApproved) {            
+            setLoadError("Can't upload this type of file");
+        } else if (data.avatar[0].size > 1024000) {           
+            setLoadError("Too large file to upload!");
+        } else if (data.avatar.length) {
             setLoading(true);
-            setLoadError('')
             const formData = new FormData();
             formData.append("avatar", data.avatar[0], data.avatar[0].name);
             UploadAvatar(formData)
                 .then((response) => {
                     console.log(response.message);
                     setLoaded(response.message);
-                    dispatch(addAvatar(response.avatarURL));                    
+                    dispatch(addAvatar(response.avatarURL));
                     reset();
                     setFileName("");
                 })
@@ -68,30 +77,9 @@ const AvatarForm: React.FC = () => {
                 .finally(() => {
                     setLoading(false);
                 });
-        } else {
-            console.log("No File in Avatar Field");
+        } else {           
             setLoadError("No File in Avatar Field");
         }
-    }
-
-    const handleDelete = (): void => {
-        setDeleting(true);
-        const data: string | undefined = userdata?.avatarURL;
-        if (data) {
-            DeleteAvatar()
-                .then((response) => {
-                    console.log(response.message);
-                    setDeleted(response.message);
-                    dispatch(addAvatar(''))
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                    setDeleteError(error.response.data.message || error.message);
-                })
-                .finally(() => {
-                    setDeleting(false);
-                });
-        } else alert("Avatar doesn't exist");
     }
 
     return (
@@ -108,10 +96,10 @@ const AvatarForm: React.FC = () => {
                         src={userAvatarURL}
                     />
                 </Tooltip>
-                <Box 
+                <Box
                     {...register("avatar")}
                     component="input"
-                    type="file"                    
+                    type="file"
                     hidden
                 />
             </Box>
@@ -129,14 +117,10 @@ const AvatarForm: React.FC = () => {
                         </Tooltip>
                     </IconButton>
                 </>
-            ) : <DeleteDialog
-                dialogTitle={"You really want to delete avatar?"}
-                deleteAction={handleDelete}
-            />}
-            <UserMessage loading={loading} loaded={loaded} error={loadError} />
-            <UserMessage loading={deleting} loaded={deleted} error={deleteError} />
+            ) : <AvatarDeleteForm />}
+            <UserMessage loading={loading} loaded={loaded} error={loadError} />            
         </Box>
     )
 }
 
-export default AvatarForm;
+export default AvatarUploadForm

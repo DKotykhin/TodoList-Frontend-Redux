@@ -48,7 +48,7 @@ const RegisterForm = () => {
 
     return (
         <Container maxWidth="xs" className="form">
-            <Paper elevation={10} sx={{ p: 2, mt: 4 }}>
+            <Paper elevation={10} className="form paper">
                 <Typography className="form title" component="h2">
                     {"Registration"}
                 </Typography>
@@ -58,8 +58,15 @@ const RegisterForm = () => {
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <NameField label='Name' error={errors.name} control={control} />
-                    <EmailField disabled={false} error={errors.email} control={control} />
+                    <NameField 
+                        label='Name' 
+                        error={errors.name} 
+                        control={control} />
+                    <EmailField 
+                        disabled={false} 
+                        error={errors.email} 
+                        control={control} 
+                    />
                     <PasswordField
                         name={"Password"}
                         error={errors.password}

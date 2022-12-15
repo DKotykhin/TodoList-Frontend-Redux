@@ -10,7 +10,8 @@ const profileschema = yup.object({
 
 export const ProfileFormValidation: Object = {
     defaultValues: {
-        name: '',        
+        name: '',
+        email: ''        
     },
     resolver: yupResolver(profileschema),
     mode: 'onBlur'
