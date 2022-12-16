@@ -3,11 +3,11 @@ import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import PasswordForm from "components/userAuthForms/PasswordForm";
-import { getToken } from "api/getToken";
+import { useAuth } from "hooks/isAuth";
 
 const ChangePasswordPage: React.FC = () => {
 
-    return getToken() ? (
+    return useAuth() ? (
         <>
             <Helmet>
                 <meta name="description" content="Change Password Page" />
@@ -16,7 +16,7 @@ const ChangePasswordPage: React.FC = () => {
             <PasswordForm />
         </>
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 }
 

@@ -7,8 +7,9 @@ export const fetchUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const data = await UserLoginByToken();
+            console.log('login via token')
             return data;
-        } catch (err: any) {            
+        } catch (err: any) {
             return rejectWithValue(err.response.data.message);
         }
     }
@@ -30,7 +31,7 @@ const emptyUser: IUser = {
 const initialState: IUserdata = {
     userdata: emptyUser,
     fetching: "waiting",
-    error: ''
+    error: "",
 };
 
 const UserSlice = createSlice({
@@ -42,6 +43,9 @@ const UserSlice = createSlice({
         },
         addAvatar: (state, action: PayloadAction<string>) => {
             state.userdata.avatarURL = action.payload;
+        },
+        updateName: (state, action: PayloadAction<string>) => {
+            state.userdata.name = action.payload;
         },
         removeUser: (state) => {
             state.userdata = emptyUser;
@@ -61,15 +65,18 @@ const UserSlice = createSlice({
                     state.fetching = "loaded";
                 }
             )
-            .addCase(fetchUser.rejected, (state, action: PayloadAction<unknown>) => {
-                state.userdata = emptyUser;
-                state.fetching = "error";
-                state.error = action.payload;                               
-            });
+            .addCase(
+                fetchUser.rejected,
+                (state, action: PayloadAction<unknown>) => {
+                    state.userdata = emptyUser;
+                    state.fetching = "error";
+                    state.error = action.payload;
+                }
+            );
     },
 });
 
 const { actions, reducer } = UserSlice;
 
 export default reducer;
-export const { createUser, addAvatar, removeUser } = actions;
+export const { createUser, addAvatar, updateName, removeUser } = actions;

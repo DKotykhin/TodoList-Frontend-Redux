@@ -11,7 +11,8 @@ import UserMessage from "components/userMessage/UserMessage";
 
 import { UpdateUser } from "api/userrequests";
 import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
+import { useAppSelector, useAppDispatch } from "store/hook";
+import { updateName } from "store/userSlice";
 
 
 const ProfileForm: React.FC = () => {
@@ -21,6 +22,7 @@ const ProfileForm: React.FC = () => {
     const [updateError, setUpdateError] = useState('');
     ;
     const { userdata: { name, email } } = useAppSelector(selectUser);
+    const dispatch = useAppDispatch();
 
     const {
         control,
@@ -49,6 +51,7 @@ const ProfileForm: React.FC = () => {
             .then((response) => {
                 console.log(response.message);
                 setLoaded(response.message);
+                dispatch(updateName(response.name));
             })
             .catch((error) => {
                 console.log(error.message);
@@ -60,8 +63,8 @@ const ProfileForm: React.FC = () => {
     };
 
     return (
-        <Paper elevation={10} sx={{ my: 2 }}>            
-            <AvatarUploadForm />            
+        <Paper elevation={10} sx={{ my: 2 }}>
+            <AvatarUploadForm />
             <Box
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"

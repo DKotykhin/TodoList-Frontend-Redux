@@ -3,11 +3,11 @@ import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import UpdateTaskComponent from "components/taskForms/UpdateTask";
-import { getToken } from "api/getToken";
+import { useAuth } from "hooks/isAuth";
 
 const UpdateTaskPage: React.FC = () => {
-    
-    return getToken() ? (
+
+    return useAuth() ? (
         <>
             <Helmet>
                 <meta name="description" content="Update Task Page" />
@@ -16,7 +16,7 @@ const UpdateTaskPage: React.FC = () => {
             <UpdateTaskComponent />
         </>
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 };
 

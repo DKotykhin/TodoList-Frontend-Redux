@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { format } from "date-fns";
 import { Button, Typography, Container, Paper } from "@mui/material";
@@ -15,9 +15,9 @@ import "./profilelist.scss";
 const ProfileList: React.FC = () => {
 
     const navigate = useNavigate();
-    const { userdata: { _id, createdAt } } = useAppSelector(selectUser);   
+    const { userdata: { createdAt } } = useAppSelector(selectUser);
 
-    return _id ? (
+    return (
         <Container maxWidth="xs" className="profile">
             <Paper elevation={10}>
                 <Typography className="profile title" component="h2">
@@ -29,16 +29,14 @@ const ProfileList: React.FC = () => {
                         "dd LLL yyyy 'at' H:mm"
                     )}`}
                 </Typography>
-            </Paper>            
+            </Paper>
             <ProfileForm />
             <DeleteForm />
             <Button sx={{ m: 6 }} onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>
-    ) : (
-        <Navigate to="/" />
-    );
+    )
 };
 
 export default ProfileList;

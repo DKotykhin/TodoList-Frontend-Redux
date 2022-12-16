@@ -36,7 +36,7 @@ const AddTaskComponent: React.FC = () => {
             description: mdeValue,
             deadline: newDeadline,
             completed: false
-        };
+        };        
         AddTask(newData)
             .then(response => {
                 console.log(response.message);                

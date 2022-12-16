@@ -43,9 +43,9 @@ const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
                 <Divider sx={{ mb: 1 }} />
                 <Box sx={{ display: "flex" }}>
                     <SubjectIcon sx={{ mr: 1 }} />
-                    <Typography className="full_card description">
+                    <Box className="full_card description">
                         {description && <ReactMarkdown children={description} />}
-                    </Typography>
+                    </Box>
                 </Box>
                 <Divider sx={{ my: 1 }} />
                 <CardTime task={task} />

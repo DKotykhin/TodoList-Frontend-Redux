@@ -3,20 +3,20 @@ import Helmet from "react-helmet";
 import { Navigate } from "react-router-dom";
 
 import ProfileList from "components/userProfileList/ProfileList";
-import { getToken } from "api/getToken";
+import { useAuth } from "hooks/isAuth";
 
 const ProfilePage: React.FC = () => {
-     
-    return getToken() ? (
+
+    return useAuth() ? (
         <>
             <Helmet>
                 <meta name="description" content="Profile Page" />
                 <title>Profile Page</title>
-            </Helmet>            
+            </Helmet>
             <ProfileList />
         </>
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 };
 

@@ -9,28 +9,33 @@ import { getToken } from 'api/getToken';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { fetchUser } from "store/userSlice";
 import { selectUser } from 'store/selectors';
+import { useAuth } from "hooks/isAuth";
+import { useError } from 'hooks/isError';
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { fetching, error } = useAppSelector(selectUser);
-    const isLoaded = fetching === "loaded";
-    const isError = fetching === "error";
+    const isAuth = useAuth();
+    const isError = useError();
+
+    const { error } = useAppSelector(selectUser);
     error && console.log(error);
 
     useEffect(() => {
-        const token = getToken();
-        if (token) {
-            dispatch(fetchUser())
-        } else {
-            navigate('/login')
+        if (!isAuth) {
+            const token = getToken();
+            if (token) {
+                dispatch(fetchUser());
+            } else {
+                navigate('/login')
+            }
         }
-    }, [dispatch, navigate]);
+    }, [dispatch, isAuth, navigate]);
 
     return (
         <>
-            {isLoaded ?
+            {isAuth ?
                 <>
                     <Helmet>
                         <meta name="description" content="Home Page" />
