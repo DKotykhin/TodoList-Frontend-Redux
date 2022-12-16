@@ -7,7 +7,7 @@ import Spinner from 'components/spinner/Spinner';
 
 import { getToken } from 'api/getToken';
 import { useAppDispatch, useAppSelector } from 'store/hook';
-import { fetchUser } from "store/userSlice";
+import { fetchUserByToken } from "store/userSlice";
 import { selectUser } from 'store/selectors';
 import { useAuth } from "hooks/isAuth";
 import { useError } from 'hooks/isError';
@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
         if (!isAuth) {
             const token = getToken();
             if (token) {
-                dispatch(fetchUser());
+                dispatch(fetchUserByToken());
             } else {
                 navigate('/login')
             }

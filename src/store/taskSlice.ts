@@ -6,10 +6,10 @@ export const fetchTasks = createAsyncThunk(
     "task/fetch",
     async (_, { rejectWithValue }) => {
         try {
-            const data = await GetAllTasks();
+            const data: ITask[] = await GetAllTasks();
             return data;
         } catch (err: any) {
-            return rejectWithValue(err.response.data.message);
+            return rejectWithValue(err.response.data.message || err.message);
         }
     }
 );

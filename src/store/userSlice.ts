@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "types/userTypes";
-import { UserLoginByToken } from "api/userrequests";
+import { LoginUserByToken } from "api/userrequests";
 
-export const fetchUser = createAsyncThunk(
+export const fetchUserByToken = createAsyncThunk(
     "user/fetch",
     async (_, { rejectWithValue }) => {
         try {
-            const data = await UserLoginByToken();
+            const data: IUser = await LoginUserByToken();
             console.log('login via token')
             return data;
         } catch (err: any) {
-            return rejectWithValue(err.response.data.message);
+            return rejectWithValue(err.response.data.message || err.message);
         }
     }
 );
@@ -54,19 +54,19 @@ const UserSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchUser.pending, (state) => {
+            .addCase(fetchUserByToken.pending, (state) => {
                 state.userdata = emptyUser;
                 state.fetching = "loading";
             })
             .addCase(
-                fetchUser.fulfilled,
+                fetchUserByToken.fulfilled,
                 (state, action: PayloadAction<IUser>) => {
                     state.userdata = action.payload;
                     state.fetching = "loaded";
                 }
             )
             .addCase(
-                fetchUser.rejected,
+                fetchUserByToken.rejected,
                 (state, action: PayloadAction<unknown>) => {
                     state.userdata = emptyUser;
                     state.fetching = "error";

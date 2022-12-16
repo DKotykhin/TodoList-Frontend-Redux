@@ -78,7 +78,7 @@ export const DeleteUser = async (): Promise<IUserDeleteResponse> => {
     return result.data;
 };
 
-export const UserLoginByToken =
+export const LoginUserByToken =
     async (): Promise<IUserWithoutTokenResponse> => {
         const config = {
             method: "GET",
