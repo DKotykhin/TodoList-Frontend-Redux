@@ -1,28 +1,23 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Button, Container, Typography } from "@mui/material";
 
 import ChangePassword from "./passwordAction/ChangePassword";
 import ConfirmPassword from "./passwordAction/ConfirmPassword";
 
-import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
-
 import "./styleForm.scss";
 
 const PasswordForm: React.FC = () => {
-
-    const { userdata } = useAppSelector(selectUser);
 
     const [confirmCurrentPassword, setConfirmCurrentPassword] = useState(false);
     const navigate = useNavigate();
 
     const confirmStatus = (data: boolean): void => {
-        setConfirmCurrentPassword(data)
+        setConfirmCurrentPassword(data);
     }
 
-    return userdata._id ? (
+    return (
         <Container maxWidth="sm" className="form">
             <Typography className="form title password" component="h2">
                 {confirmCurrentPassword ? 'Change password' : 'Confirm current password'}
@@ -33,9 +28,7 @@ const PasswordForm: React.FC = () => {
                 Main Page
             </Button>
         </Container>
-    ) : (
-        <Navigate to="/" />
-    );
+    )
 }
 
 export default PasswordForm;

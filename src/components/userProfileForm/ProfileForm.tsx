@@ -13,6 +13,7 @@ import { UpdateUser } from "api/userrequests";
 import { selectUser } from "store/selectors";
 import { useAppSelector, useAppDispatch } from "store/hook";
 import { updateName } from "store/userSlice";
+import { IUserUpdate } from "types/userTypes";
 
 
 const ProfileForm: React.FC = () => {
@@ -42,7 +43,7 @@ const ProfileForm: React.FC = () => {
         reset({ name, email });
     }, [reset, email, name]);
 
-    const onSubmit = (data: { name?: string, email?: string }): void => {
+    const onSubmit = (data: IUserUpdate): void => {
         const { name } = data;
         setLoading(true);
         setLoaded('');
