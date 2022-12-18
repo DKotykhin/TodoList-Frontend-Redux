@@ -44,7 +44,7 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
 
     const handleComplete = (data: ITask) => {
         setCompleteLoading(true);
-        const newData: ICompleteTask = { completed: !data.completed, _id: data._id };
+        const newData: ICompleteTask = { completed: !data.completed, _id: data._id, title: data.title };
         UpdateTask(newData)
             .then(response => {
                 console.log(response.message);

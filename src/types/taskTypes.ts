@@ -12,6 +12,7 @@ export interface IUpdateTask extends IAddTask {
 
 export interface ICompleteTask {
     _id: string;
+    title: string;
     completed: boolean;
 }
 
