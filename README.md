@@ -20,11 +20,11 @@ To run this project, you will need to add the following environment variables to
 
 
 
-## Deploy on Netlify
+## Deploy on Vercel
 
 
 
-  [https://kotykhin-todolist.netlify.app](https://kotykhin-todolist.netlify.app)
+  [https://todo-list-frontend-lemon.vercel.app](https://todo-list-frontend-lemon.vercel.app)
 
 
 

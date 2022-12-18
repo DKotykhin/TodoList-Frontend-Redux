@@ -15,9 +15,7 @@ const ProfilePage: React.FC = () => {
             </Helmet>
             <ProfileList />
         </>
-    ) : (
-        <Navigate to="/" />
-    );
+    ) : <Navigate to="/" />
 };
 
 export default ProfilePage;

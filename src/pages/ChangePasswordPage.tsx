@@ -15,9 +15,7 @@ const ChangePasswordPage: React.FC = () => {
             </Helmet>
             <PasswordForm />
         </>
-    ) : (
-        <Navigate to="/" />
-    );
+    ) : <Navigate to="/" />
 }
 
 export default ChangePasswordPage;

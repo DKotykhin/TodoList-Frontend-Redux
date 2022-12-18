@@ -15,9 +15,7 @@ const AddTaskPage: React.FC = () => {
             </Helmet>
             <AddTaskComponent />
         </>
-    ) : (
-        <Navigate to="/" />
-    );
+    ) : <Navigate to="/" />
 };
 
 export default AddTaskPage;

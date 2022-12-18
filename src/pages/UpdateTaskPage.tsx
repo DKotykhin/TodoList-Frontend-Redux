@@ -15,9 +15,7 @@ const UpdateTaskPage: React.FC = () => {
             </Helmet>
             <UpdateTaskComponent />
         </>
-    ) : (
-        <Navigate to="/" />
-    );
+    ) : <Navigate to="/" />
 };
 
 export default UpdateTaskPage;
