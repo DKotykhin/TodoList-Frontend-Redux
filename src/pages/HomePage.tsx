@@ -6,21 +6,19 @@ import TabPanelComponent from "components/tabPanel/TabPanel";
 import Spinner from 'components/spinner/Spinner';
 
 import { getToken } from 'api/getToken';
-import { useAppDispatch, useAppSelector } from 'store/hook';
+import { useAppDispatch } from 'store/hook';
 import { fetchUserByToken } from "store/userSlice";
-import { selectUser } from 'store/selectors';
+
 import { useAuth } from "hooks/isAuth";
 import { useError } from 'hooks/isError';
 
 const HomePage: React.FC = () => {
+    
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const isAuth = useAuth();
-    const isError = useError();
-
-    const { error } = useAppSelector(selectUser);
-    error && console.log(error);
+    const isError = useError(); 
 
     useEffect(() => {
         if (!isAuth) {

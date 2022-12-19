@@ -22,7 +22,7 @@ const ProfileForm: React.FC = () => {
     const [loaded, setLoaded] = useState('');
     const [updateError, setUpdateError] = useState('');
     ;
-    const { userdata: { name, email } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
     const {
@@ -40,27 +40,29 @@ const ProfileForm: React.FC = () => {
     }, [loaded]);
 
     useEffect(() => {
-        reset({ name, email });
-    }, [reset, email, name]);
+        reset({ name: userdata.name, email: userdata.email });
+    }, [reset, userdata.name, userdata.email]);
 
     const onSubmit = (data: IUserUpdate): void => {
         const { name } = data;
-        setLoading(true);
-        setLoaded('');
-        setUpdateError('')
-        UpdateUser({ name })
-            .then((response) => {
-                console.log(response.message);
-                setLoaded(response.message);
-                dispatch(updateName(response.name));
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setUpdateError(error.response.data.message || error.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        if(name !== userdata.name) {
+            setLoading(true);
+            setLoaded('');
+            setUpdateError('')
+            UpdateUser({ name })
+                .then((response) => {
+                    console.log(response.message);
+                    setLoaded(response.message);
+                    dispatch(updateName(response.name));
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                    setUpdateError(error.response.data.message || error.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else setUpdateError('The same name!')
     };
 
     return (

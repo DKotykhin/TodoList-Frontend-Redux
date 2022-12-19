@@ -17,6 +17,7 @@ export interface IUser {
     name: string;
     createdAt: string;
     avatarURL: string;
+    message: string | unknown;
 }
 
 export interface IUserAvatar {

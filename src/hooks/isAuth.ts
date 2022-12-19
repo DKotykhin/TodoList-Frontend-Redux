@@ -1,8 +1,6 @@
 import { useAppSelector } from "store/hook";
-import { selectUser } from "store/selectors";
+import { selectAuthSuccess } from "store/selectors";
 
 export const useAuth = (): boolean => {
-    const { fetching } = useAppSelector(selectUser);
-    const isLoaded = fetching === "loaded";
-    return isLoaded;
+    return Boolean(useAppSelector(selectAuthSuccess));
 };

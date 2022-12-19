@@ -17,8 +17,7 @@ export const fetchUserByToken = createAsyncThunk(
 
 interface IUserdata {
     userdata: IUser;
-    fetching: string;
-    error: unknown;
+    fetching: string;    
 }
 const emptyUser: IUser = {
     _id: "",
@@ -26,12 +25,12 @@ const emptyUser: IUser = {
     name: "",
     createdAt: "",
     avatarURL: "",
+    message: ""
 };
 
 const initialState: IUserdata = {
     userdata: emptyUser,
-    fetching: "waiting",
-    error: "",
+    fetching: "waiting",    
 };
 
 const UserSlice = createSlice({
@@ -70,7 +69,7 @@ const UserSlice = createSlice({
                 (state, action: PayloadAction<unknown>) => {
                     state.userdata = emptyUser;
                     state.fetching = "error";
-                    state.error = action.payload;
+                    state.userdata.message = action.payload;
                 }
             );
     },

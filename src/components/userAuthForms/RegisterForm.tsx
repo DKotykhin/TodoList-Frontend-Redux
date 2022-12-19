@@ -10,6 +10,8 @@ import { RegisterFormValidation } from "./userFormValidation";
 import UserMessage from "components/userMessage/UserMessage";
 
 import { RegisterUser } from "api/userrequests";
+import { useAppDispatch } from 'store/hook';
+import { createUser } from "store/userSlice";
 import { IUserRegister } from "types/userTypes";
 
 import "./styleForm.scss";
@@ -19,6 +21,7 @@ const RegisterForm = () => {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const {
         control,
@@ -33,6 +36,7 @@ const RegisterForm = () => {
         RegisterUser(data)
             .then(response => {
                 console.log(response.message);
+                dispatch(createUser(response));
                 sessionStorage.setItem("rememberMe", response.token);
                 navigate("/");
                 reset();
@@ -58,14 +62,14 @@ const RegisterForm = () => {
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <NameField 
-                        label='Name' 
-                        error={errors.name} 
+                    <NameField
+                        label='Name'
+                        error={errors.name}
                         control={control} />
-                    <EmailField 
-                        disabled={false} 
-                        error={errors.email} 
-                        control={control} 
+                    <EmailField
+                        disabled={false}
+                        error={errors.email}
+                        control={control}
                     />
                     <PasswordField
                         name={"Password"}

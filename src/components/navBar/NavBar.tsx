@@ -40,43 +40,47 @@ const NavBar: React.FC = () => {
                     >
                         TodoList
                     </Typography>
-                    <Typography sx={{ mr: 3 }}>{userdata?.name}</Typography>
-                    <Box>
-                        <Tooltip title="Open settings" arrow>
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar
-                                    alt={userdata.name || "TodoList"}
-                                    src={userAvatarURL}
-                                />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            <Box
-                                sx={{ display: "block" }}
-                                onClick={handleCloseUserMenu}
-                            >
-                                <NavBarMenu />
+                    {userdata.name &&
+                        <>
+                            <Typography sx={{ mr: 3 }}>{userdata?.name}</Typography>
+                            <Box>
+                                <Tooltip title="Open settings" arrow>
+                                    <IconButton
+                                        onClick={handleOpenUserMenu}
+                                        sx={{ p: 0 }}
+                                    >
+                                        <Avatar
+                                            alt={userdata.name || "TodoList"}
+                                            src={userAvatarURL}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: "45px" }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right",
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right",
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    <Box
+                                        sx={{ display: "block" }}
+                                        onClick={handleCloseUserMenu}
+                                    >
+                                        <NavBarMenu />
+                                    </Box>
+                                </Menu>
                             </Box>
-                        </Menu>
-                    </Box>
+                        </>
+                    }
                 </Toolbar>
             </Container>
         </AppBar>

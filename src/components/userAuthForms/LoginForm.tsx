@@ -11,6 +11,8 @@ import { EmailField, PasswordField } from "components/userFields";
 import { LoginFormValidation } from "./userFormValidation";
 
 import { LoginUser } from "api/userrequests";
+import { useAppDispatch } from 'store/hook';
+import { createUser } from "store/userSlice";
 import { IUserLogin } from "types/userTypes";
 
 import "./styleForm.scss";
@@ -23,6 +25,7 @@ const LoginForm: React.FC = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const {
         control,
@@ -38,6 +41,7 @@ const LoginForm: React.FC = () => {
         LoginUser({ email, password })
             .then((response) => {
                 console.log(response.message);
+                dispatch(createUser(response));
                 const { token } = response;
                 if (data.rememberMe) {
                     localStorage.setItem("rememberMe", token);
