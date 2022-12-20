@@ -21,7 +21,6 @@ const ProfileForm: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState('');
     const [updateError, setUpdateError] = useState('');
-    ;
     const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
@@ -62,7 +61,7 @@ const ProfileForm: React.FC = () => {
                 .finally(() => {
                     setLoading(false);
                 });
-        } else setUpdateError('The same name!')
+        } else setUpdateError('The same name!');
     };
 
     return (

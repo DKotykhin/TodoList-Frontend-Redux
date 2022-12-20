@@ -1,13 +1,11 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import UpdateTaskComponent from "components/taskForms/UpdateTask";
-import { useAuth } from "hooks/isAuth";
 
 const UpdateTaskPage: React.FC = () => {
 
-    return useAuth() ? (
+    return (
         <>
             <Helmet>
                 <meta name="description" content="Update Task Page" />
@@ -15,7 +13,7 @@ const UpdateTaskPage: React.FC = () => {
             </Helmet>
             <UpdateTaskComponent />
         </>
-    ) : <Navigate to="/" />
+    )
 };
 
 export default UpdateTaskPage;

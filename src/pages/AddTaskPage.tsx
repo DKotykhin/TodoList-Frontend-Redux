@@ -1,13 +1,11 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import Helmet from "react-helmet";
 
 import AddTaskComponent from "components/taskForms/AddTask";
-import { useAuth } from "hooks/isAuth";
 
 const AddTaskPage: React.FC = () => {
 
-    return useAuth() ? (
+    return (
         <>
             <Helmet>
                 <meta name="description" content="Add Task Page" />
@@ -15,7 +13,7 @@ const AddTaskPage: React.FC = () => {
             </Helmet>
             <AddTaskComponent />
         </>
-    ) : <Navigate to="/" />
+    )
 };
 
 export default AddTaskPage;
