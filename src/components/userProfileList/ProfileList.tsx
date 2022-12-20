@@ -15,13 +15,13 @@ import "./profilelist.scss";
 const ProfileList: React.FC = () => {
 
     const navigate = useNavigate();
-    const { userdata: { createdAt } } = useAppSelector(selectUser);
+    const { userdata: { createdAt, name } } = useAppSelector(selectUser);
 
     return (
         <Container maxWidth="xs" className="profile">
             <Paper elevation={10}>
                 <Typography className="profile title" component="h2">
-                    User Profile
+                    {name}
                 </Typography>
                 <Typography sx={{ pb: 1 }}>
                     {`Created: ${format(

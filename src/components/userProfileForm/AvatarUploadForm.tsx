@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm, FieldValues } from "react-hook-form";
 
 import { Avatar, Box, Tooltip, IconButton } from '@mui/material';
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-import UserMessage from "components/userMessage/UserMessage";
 import AvatarDeleteForm from './AvatarDeleteForm';
+import SnackBar from 'components/snackBar/SnackBar';
 
 import { selectUser } from "store/selectors";
 import { UploadAvatar } from "api/userrequests";
@@ -32,31 +32,22 @@ const AvatarUploadForm: React.FC = () => {
 
     const userAvatarURL = userdata.avatarURL ? Base_URL + userdata.avatarURL : "/";
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoaded('');
-            setLoadError('');           
-        }, 4000);
-        return () => clearTimeout(timer);
-    }, [loadError, loaded]);
-
-    const onChange = (e: any) => {        
-        setFileName(e.target.files[0].name);        
+    const onChange = (e: any) => {
+        setFileName(e.target.files[0].name);
         const isApproved = checkFileType(e.target.files[0].type);
         if (!isApproved) setLoadError("Incorrect file type");
         if (e.target.files[0].size > 1024000) setLoadError("File shoul be less then 1Mb");
     };
     const onReset = () => {
-        setLoadError('')
         reset();
         setFileName("");
     };
 
-    const onSubmit = (data: FieldValues): void => {        
+    const onSubmit = (data: FieldValues): void => {
         const isApproved = checkFileType(data.avatar[0].type);
-        if (!isApproved) {            
+        if (!isApproved) {
             setLoadError("Can't upload this type of file");
-        } else if (data.avatar[0].size > 1024000) {           
+        } else if (data.avatar[0].size > 1024000) {
             setLoadError("Too large file to upload!");
         } else if (data.avatar.length) {
             setLoading(true);
@@ -77,7 +68,7 @@ const AvatarUploadForm: React.FC = () => {
                 .finally(() => {
                     setLoading(false);
                 });
-        } else {           
+        } else {
             setLoadError("No File in Avatar Field");
         }
     }
@@ -103,7 +94,7 @@ const AvatarUploadForm: React.FC = () => {
                     hidden
                 />
             </Box>
-            {fileName ? (
+            {loading ? 'Loading...' : fileName ? (
                 <>
                     {fileName}
                     <IconButton onClick={onReset}>
@@ -118,7 +109,7 @@ const AvatarUploadForm: React.FC = () => {
                     </IconButton>
                 </>
             ) : <AvatarDeleteForm />}
-            <UserMessage loading={loading} loaded={loaded} error={loadError} />            
+            <SnackBar successMessage={loaded} errorMessage={loadError} />
         </Box>
     )
 }

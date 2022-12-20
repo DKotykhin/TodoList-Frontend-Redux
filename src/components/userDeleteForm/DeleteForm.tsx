@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Typography, Paper } from "@mui/material";
 
 import DeleteDialog from "./DeleteDialog";
-import UserMessage from "components/userMessage/UserMessage";
+import SnackBar from "components/snackBar/SnackBar";
 
 import { DeleteUser } from "api/userrequests";
 import { removeUser } from "store/userSlice";
@@ -19,7 +19,7 @@ const DeleteForm: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const handleDelete = (): void => {
-        setDeleteError('')
+        setDeleteError('');
         DeleteUser()
             .then((response) => {
                 console.log(response.message);
@@ -29,7 +29,7 @@ const DeleteForm: React.FC = () => {
                 navigate("/login");
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log(error.response.data.message || error.message);
                 setDeleteError(error.response.data.message || error.message);
             })
             .finally(() => {
@@ -38,11 +38,11 @@ const DeleteForm: React.FC = () => {
     };
 
     return (
-        <Paper elevation={10} sx={{ border: '1px solid #ff0000' }}>
+        <Paper elevation={10} sx={{ border: '2px solid #ff0000' }}>
             <Typography className="profile subtitle">
-                Need to delete Profile?
-            </Typography>
-            <UserMessage loading={deleting} loaded={''} error={deleteError} />
+                {deleting ? 'Deleting...' : 'Need to delete Profile?'}
+            </Typography>            
+            <SnackBar successMessage="" errorMessage={deleteError} />
             <DeleteDialog
                 dialogTitle={"You really want to delete user?"}
                 deleteAction={handleDelete}

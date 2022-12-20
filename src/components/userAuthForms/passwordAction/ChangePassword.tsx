@@ -5,11 +5,11 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { PasswordField } from "components/userFields";
+import SnackBar from "components/snackBar/SnackBar";
 import { UpdateUser } from "api/userrequests";
 import { NewPasswordFormValidation } from "../userFormValidation";
 
 import "../styleForm.scss";
-import UserMessage from "components/userMessage/UserMessage";
 
 interface IPasswordData {
     newpassword: string;
@@ -20,7 +20,7 @@ const ChangePassword: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState('');
-    const [error, setError] = useState(''); 
+    const [error, setError] = useState('');
 
     const {
         control,
@@ -38,11 +38,11 @@ const ChangePassword: React.FC = () => {
             UpdateUser({ password: newpassword })
                 .then(response => {
                     console.log(response.message);
-                    setLoaded('Password successfully changed!');                    
+                    setLoaded('Password successfully changed!');
                     reset();
                 })
                 .catch(error => {
-                    console.log(error.message);
+                    console.log(error.response.data.message || error.message);
                     setError(error.response.data.message || error.message);
                 })
                 .finally(() => {
@@ -78,10 +78,10 @@ const ChangePassword: React.FC = () => {
                     className="form submit_button"
                     type="submit"
                 >
-                    Change password
+                    {loading ? 'Loading...' : "Change password"}
                 </Button>
             </Box>            
-            <UserMessage loading={loading} loaded={loaded} error={error} />
+            <SnackBar successMessage={loaded} errorMessage={error} />
         </>
     );
 }

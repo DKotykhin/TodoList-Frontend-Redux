@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { ProfileFormValidation } from "./ProfileFormValidation";
 import AvatarUploadForm from "./AvatarUploadForm";
 import { EmailField, NameField } from "components/userFields";
-import UserMessage from "components/userMessage/UserMessage";
+import SnackBar from "components/snackBar/SnackBar";
 
 import { UpdateUser } from "api/userrequests";
 import { selectUser } from "store/selectors";
@@ -32,13 +32,6 @@ const ProfileForm: React.FC = () => {
     } = useForm(ProfileFormValidation);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoaded('');
-        }, 5000);
-        return () => clearTimeout(timer);
-    }, [loaded]);
-
-    useEffect(() => {
         reset({ name: userdata.name, email: userdata.email });
     }, [reset, userdata.name, userdata.email]);
 
@@ -55,7 +48,7 @@ const ProfileForm: React.FC = () => {
                     dispatch(updateName(response.name));
                 })
                 .catch((error) => {
-                    console.log(error.message);
+                    console.log(error.response.data.message || error.message);
                     setUpdateError(error.response.data.message || error.message);
                 })
                 .finally(() => {
@@ -84,16 +77,15 @@ const ProfileForm: React.FC = () => {
                         error={errors.name}
                         control={control}
                     />
-                </Box>
-
-                <UserMessage loading={loading} loaded={loaded} error={updateError} />
+                </Box>                
                 <Button
                     type="submit"
                     variant="outlined"
                     sx={{ m: 3 }}
                 >
-                    Save name
+                    {loading ? 'Loading...' : 'Save name'}
                 </Button>
+                <SnackBar successMessage={loaded} errorMessage={updateError} />
             </Box>
         </Paper>
     )

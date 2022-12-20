@@ -6,8 +6,8 @@ import { Button, Container, Typography, Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { EmailField, NameField, PasswordField } from "components/userFields";
+import SnackBar from "components/snackBar/SnackBar";
 import { RegisterFormValidation } from "./userFormValidation";
-import UserMessage from "components/userMessage/UserMessage";
 
 import { RegisterUser } from "api/userrequests";
 import { useAppDispatch } from 'store/hook';
@@ -42,7 +42,7 @@ const RegisterForm = () => {
                 reset();
             })
             .catch(error => {
-                console.log(error.message);
+                console.log(error.response.data.message || error.message);
                 setError(error.response.data.message || error.message);
             })
             .finally(() => {
@@ -81,10 +81,10 @@ const RegisterForm = () => {
                         className="form submit_button"
                         type="submit"
                     >
-                        {"Register"}
+                        {loading ? 'Loading...' : "Register"}
                     </Button>
                 </Box>
-                <UserMessage loading={loading} loaded={''} error={error} />
+                <SnackBar successMessage="" errorMessage={error} />
             </Paper>
             <Typography className="form subtitle">
                 {"Already have account?"}
