@@ -2,7 +2,12 @@ import axios from "axios";
 
 import { getToken } from "./getToken";
 
-import { IAddTask, ICompleteTask, IUpdateTask } from "types/taskTypes";
+import {
+    IAddTask,
+    ICompleteTask,
+    IQueryData,
+    IUpdateTask,
+} from "types/taskTypes";
 import {
     IAddTaskResponse,
     ITaskResponse,
@@ -12,12 +17,9 @@ import {
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
 axios.defaults.baseURL = Base_URL;
 
-interface IGetAllTask {
-    limit: number;
-    page: number
-}
-
-export const GetAllTasks = async (queryData: IGetAllTask): Promise<ITaskResponse> => {
+export const GetAllTasks = async (
+    queryData: IQueryData
+): Promise<ITaskResponse> => {
     const config = {
         method: "GET",
         url: "/task",
@@ -26,8 +28,9 @@ export const GetAllTasks = async (queryData: IGetAllTask): Promise<ITaskResponse
         },
         params: {
             limit: queryData.limit,
-            page: queryData.page
-        }
+            page: queryData.page,
+            key: queryData.key,
+        },
     };
 
     const result = await axios(config);

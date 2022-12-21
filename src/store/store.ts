@@ -1,11 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import user from './userSlice';
-import task from './taskSlice';
+import user from "./userSlice";
+import task from "./taskSlice";
+import query from "./querySlice";
 
 const store = configureStore({
-    reducer: { user, task },
-    devTools: process.env.NODE_ENV !== 'production'
+    reducer: { user, task, query },
+    devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;

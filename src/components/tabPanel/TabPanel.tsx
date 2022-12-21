@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import { Box, Tab, Tabs, Container } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 import CardList from "components/cardList/CardList";
 import Spinner from "components/spinner/Spinner";
+import PaginationControlled from "./PaginationControlled";
 
 import { fetchTasks } from "store/taskSlice";
-import { selectTask } from "store/selectors";
+import { setQuery } from 'store/querySlice';
+import { selectTask, selectQuery } from "store/selectors";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
 import PropTypes from "prop-types";
-import PaginationControlled from "./PaginationControlled";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,22 +55,36 @@ function a11yProps(index: number) {
 }
 
 const TabPanelComponent: React.FC = () => {
-    const [value, setValue] = useState(0);
-    const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
-    const { taskdata, fetching, error } = useAppSelector(selectTask);
+    const { query } = useAppSelector(selectQuery);
+
+    const [value, setValue] = useState(query.key);
+    const [currentPageNumber, setCurrentPageNumber] = useState(query.page);
+    const [showSearchPanel, setShowSearchPanel] = useState(false);
+
+    const { taskdata, fetching } = useAppSelector(selectTask);
     const dispatch = useAppDispatch();
-
-    const activeTasks = taskdata.tasks.filter((task) => task.completed === false);
-    const completedTasks = taskdata.tasks.filter((task) => task.completed === true);
 
     const isLoaded = fetching === "loaded";
     const isError = fetching === "error";
-    error && console.log(error);
 
     useEffect(() => {
-        dispatch(fetchTasks({ limit: 6, page: currentPageNumber }));
-    }, [currentPageNumber, dispatch]);
+        if (taskdata.tasksOnPageQty === 0) {
+            setCurrentPageNumber(prev => prev - 1);
+        }
+    }, [taskdata.tasksOnPageQty]);
+
+    useEffect(() => {
+        setCurrentPageNumber(1);
+    }, [value]);
+
+    useEffect(() => {
+        dispatch(fetchTasks({ limit: 6, page: currentPageNumber, key: value }));
+    }, [currentPageNumber, dispatch, value]);
+
+    useEffect(() => {
+        dispatch(setQuery({ query: { limit: 6, page: currentPageNumber, key: value } }));
+    }, [currentPageNumber, dispatch, value]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -76,41 +92,50 @@ const TabPanelComponent: React.FC = () => {
 
     const currentPage = (value: number) => {
         setCurrentPageNumber(value)
-    }
+    };
 
-    return (
+    const handleClick = () => {
+        setShowSearchPanel(prev => !prev);
+    };
+
+    return isLoaded ? (
         <Container maxWidth="xl">
-            {isLoaded ?
-                <>
-                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                        >
-                            <Tab label="All" {...a11yProps(0)} />
-                            <Tab label="Active" {...a11yProps(1)} />
-                            <Tab label="Done" {...a11yProps(2)} />
-                        </Tabs>
+            <Box sx={{ minHeight: 'calc(100vh - 230px)' }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider", display: 'flex', justifyContent: 'space-between' }}>
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                    >
+                        <Tab label="All" {...a11yProps(0)} />
+                        <Tab label="Active" {...a11yProps(1)} />
+                        <Tab label="Done" {...a11yProps(2)} />
+                    </Tabs>
+                    <Box sx={{ color: '#808080', mt: 2 }}>
+                        <SearchIcon onClick={handleClick} />
                     </Box>
-                    <TabPanel value={value} index={0}>
-                        <CardList taskdata={taskdata.tasks} />
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <CardList taskdata={activeTasks} />
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        <CardList taskdata={completedTasks} />
-                    </TabPanel>
-                    {taskdata.totalPagesQty > 1 &&
-                        <PaginationControlled
-                            totalPagesQty={taskdata.totalPagesQty}
-                            currentPage={currentPage}
-                            currentPageNumber={currentPageNumber} />
-                    }
-                </>
-                : isError ? <Navigate to='/login' /> : <Spinner />}
+                </Box>
+                <TabPanel value={value} index={0}>
+                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
+                </TabPanel>
+            </Box>
+            <Box>
+                {taskdata.totalPagesQty > 1 &&
+                    <PaginationControlled
+                        totalPagesQty={taskdata.totalPagesQty}
+                        currentPage={currentPage}
+                        currentPageNumber={currentPageNumber}
+                    />
+                }
+            </Box>
         </Container>
-    );
+    )
+        : isError ? <Navigate to='/login' /> : <Spinner />
 };
 
 export default TabPanelComponent;

@@ -23,6 +23,7 @@ const AZSort: React.FC<IAZSort> = ({ onSelect }) => {
                 display: "flex",
                 flexWrap: "wrap",                
                 justifyContent: "center",
+                mb: 2
             }}
         >
             {sortItems.map((item) => (

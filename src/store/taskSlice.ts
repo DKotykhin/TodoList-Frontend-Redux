@@ -1,11 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { GetAllTasks } from "api/taskrequests";
 import { ITaskResponse } from "types/responseTypes";
-
-interface IQueryData {
-    limit: number;
-    page: number
-}
+import { IQueryData } from "types/taskTypes";
 
 export const fetchTasks = createAsyncThunk(
     "task/fetch",
@@ -42,21 +38,7 @@ const initialState: ITaskdata = {
 const TasksSlice = createSlice({
     name: "task",
     initialState,
-    reducers: {
-        removeTask: (state, action: PayloadAction<string>) => {
-            const newTasks = state.taskdata.tasks.filter(
-                (task) => task._id !== action.payload
-            );
-            state.taskdata.tasks = newTasks;
-        },
-        updateTaskCompleted: (state, action: PayloadAction<string>) => {
-            state.taskdata.tasks.forEach((item) => {
-                if (item._id === action.payload) {
-                    item.completed = !item.completed;
-                }
-            });
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchTasks.pending, (state) => {
@@ -81,7 +63,4 @@ const TasksSlice = createSlice({
     },
 });
 
-const { actions, reducer } = TasksSlice;
-
-export default reducer;
-export const { removeTask, updateTaskCompleted } = actions;
+export default TasksSlice.reducer;

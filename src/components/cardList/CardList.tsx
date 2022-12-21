@@ -16,9 +16,10 @@ import "./cardList.scss";
 
 interface ICardList {
     taskdata: ITask[];
+    showSearchPanel: boolean;
 }
 
-const CardList: React.FC<ICardList> = ({ taskdata }) => {
+const CardList: React.FC<ICardList> = ({ taskdata, showSearchPanel }) => {
     const [loading, setLoading] = useState(false);
     const [sortOrder, setSortOrder] = useState("A-z");
     const [sortField, setSortField] = useState("created");
@@ -97,7 +98,9 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
                     <AZSort onSelect={AZSelect} />
                 </>
             )}
-            <SearchTask onSearch={onSearch} />
+            {showSearchPanel &&
+                <SearchTask onSearch={onSearch} />
+            }
             <Grid container sx={{mb: 4}}>
                 {taskList?.map((task) => (
                     <Grid item xs={12} md={6} xl={4} key={task._id}>

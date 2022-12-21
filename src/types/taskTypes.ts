@@ -19,3 +19,9 @@ export interface ICompleteTask {
 export interface ITask extends IUpdateTask {
     createdAt: string;
 }
+
+export interface IQueryData {
+    limit: number;
+    page: number;
+    key: number;
+}
