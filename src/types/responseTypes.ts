@@ -20,7 +20,20 @@ export interface IUserConfirmPasswordResponse {
     message: string;
 }
 
-export interface ITaskResponse extends ITask {
+export interface IUserAvatarResponse {
+    avatarURL: string;
+    message: string;
+}
+
+export interface IAddTaskResponse extends ITask {    
+    message: string;
+}
+
+export interface ITaskResponse {
+    totalTasksQty: number; 
+    totalPagesQty: number; 
+    tasksOnPageQty: number; 
+    tasks: ITask[];
     message: string;
 }
 

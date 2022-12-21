@@ -39,7 +39,7 @@ const UpdateTaskComponent: React.FC = () => {
         formState: { errors }
     } = useForm<IUpdateForm>(UpdateTaskFormValidation);
 
-    const currentTask = taskdata.filter((task) => task._id === params.taskId);
+    const currentTask = taskdata.tasks.filter((task) => task._id === params.taskId);
     const { title, subtitle, description, deadline, _id, completed } =
         currentTask[0];
 

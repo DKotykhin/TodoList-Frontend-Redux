@@ -1,12 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { GetAllTasks } from "api/taskrequests";
-import { ITask } from "../types/taskTypes";
+import { ITaskResponse } from "types/responseTypes";
+
+interface IQueryData {
+    limit: number;
+    page: number
+}
 
 export const fetchTasks = createAsyncThunk(
     "task/fetch",
-    async (_, { rejectWithValue }) => {
+    async (queryData: IQueryData, { rejectWithValue }) => {
         try {
-            const data: ITask[] = await GetAllTasks();
+            const data: ITaskResponse = await GetAllTasks(queryData);
             return data;
         } catch (err: any) {
             return rejectWithValue(err.response.data.message || err.message);
@@ -15,13 +20,21 @@ export const fetchTasks = createAsyncThunk(
 );
 
 interface ITaskdata {
-    taskdata: ITask[];
+    taskdata: ITaskResponse;
     fetching: string;
     error: unknown;
 }
 
+const emptyTask: ITaskResponse = {
+    totalTasksQty: 0,
+    totalPagesQty: 0,
+    tasksOnPageQty: 0,
+    tasks: [],
+    message: "",
+};
+
 const initialState: ITaskdata = {
-    taskdata: [],
+    taskdata: emptyTask,
     fetching: "waiting",
     error: "",
 };
@@ -31,13 +44,13 @@ const TasksSlice = createSlice({
     initialState,
     reducers: {
         removeTask: (state, action: PayloadAction<string>) => {
-            const newTasks = state.taskdata.filter(
+            const newTasks = state.taskdata.tasks.filter(
                 (task) => task._id !== action.payload
             );
-            state.taskdata = newTasks;
+            state.taskdata.tasks = newTasks;
         },
         updateTaskCompleted: (state, action: PayloadAction<string>) => {
-            state.taskdata.forEach((item) => {
+            state.taskdata.tasks.forEach((item) => {
                 if (item._id === action.payload) {
                     item.completed = !item.completed;
                 }
@@ -47,12 +60,12 @@ const TasksSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchTasks.pending, (state) => {
-                state.taskdata = [];
+                state.taskdata.tasks = [];
                 state.fetching = "loading";
             })
             .addCase(
                 fetchTasks.fulfilled,
-                (state, action: PayloadAction<ITask[]>) => {
+                (state, action: PayloadAction<ITaskResponse>) => {
                     state.taskdata = action.payload;
                     state.fetching = "loaded";
                 }
@@ -60,7 +73,7 @@ const TasksSlice = createSlice({
             .addCase(
                 fetchTasks.rejected,
                 (state, action: PayloadAction<unknown>) => {
-                    state.taskdata = [];
+                    state.taskdata.tasks = [];
                     state.fetching = "error";
                     state.error = action.payload;
                 }

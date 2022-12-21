@@ -2,18 +2,14 @@ import axios from "axios";
 
 import { getToken } from "./getToken";
 
-import {
-    IUserRegister,
-    IUserLogin,
-    IUserUpdate,
-    IUserAvatar,
-} from "../types/userTypes";
+import { IUserRegister, IUserLogin, IUserUpdate } from "../types/userTypes";
 
 import {
     IUserResponse,
     IUserDeleteResponse,
     IUserWithoutTokenResponse,
     IUserConfirmPasswordResponse,
+    IUserAvatarResponse,
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -109,7 +105,9 @@ export const UserConfirmPassword = async (data: {
     return result.data;
 };
 
-export const UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
+export const UploadAvatar = async (
+    data: FormData
+): Promise<IUserAvatarResponse> => {
     const config = {
         method: "POST",
         url: "/upload",
@@ -124,7 +122,7 @@ export const UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
     return result.data;
 };
 
-export const DeleteAvatar = async (): Promise<IUserAvatar> => {
+export const DeleteAvatar = async (): Promise<IUserAvatarResponse> => {
     const config = {
         method: "DELETE",
         url: "/upload",

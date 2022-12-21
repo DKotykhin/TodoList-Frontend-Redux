@@ -11,6 +11,7 @@ import { selectTask } from "store/selectors";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
 import PropTypes from "prop-types";
+import PaginationControlled from "./PaginationControlled";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,24 +54,29 @@ function a11yProps(index: number) {
 
 const TabPanelComponent: React.FC = () => {
     const [value, setValue] = useState(0);
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
     const { taskdata, fetching, error } = useAppSelector(selectTask);
     const dispatch = useAppDispatch();
 
-    const activeTasks = taskdata.filter((task) => task.completed === false);
-    const completedTasks = taskdata.filter((task) => task.completed === true);
+    const activeTasks = taskdata.tasks.filter((task) => task.completed === false);
+    const completedTasks = taskdata.tasks.filter((task) => task.completed === true);
 
     const isLoaded = fetching === "loaded";
     const isError = fetching === "error";
     error && console.log(error);
 
     useEffect(() => {
-        dispatch(fetchTasks());
-    }, [dispatch]);
+        dispatch(fetchTasks({ limit: 6, page: currentPageNumber }));
+    }, [currentPageNumber, dispatch]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+
+    const currentPage = (value: number) => {
+        setCurrentPageNumber(value)
+    }
 
     return (
         <Container maxWidth="xl">
@@ -87,7 +93,7 @@ const TabPanelComponent: React.FC = () => {
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <CardList taskdata={taskdata} />
+                        <CardList taskdata={taskdata.tasks} />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <CardList taskdata={activeTasks} />
@@ -95,6 +101,12 @@ const TabPanelComponent: React.FC = () => {
                     <TabPanel value={value} index={2}>
                         <CardList taskdata={completedTasks} />
                     </TabPanel>
+                    {taskdata.totalPagesQty > 1 &&
+                        <PaginationControlled
+                            totalPagesQty={taskdata.totalPagesQty}
+                            currentPage={currentPage}
+                            currentPageNumber={currentPageNumber} />
+                    }
                 </>
                 : isError ? <Navigate to='/login' /> : <Spinner />}
         </Container>

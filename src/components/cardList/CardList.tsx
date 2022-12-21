@@ -98,7 +98,7 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
                 </>
             )}
             <SearchTask onSearch={onSearch} />
-            <Grid container>
+            <Grid container sx={{mb: 4}}>
                 {taskList?.map((task) => (
                     <Grid item xs={12} md={6} xl={4} key={task._id}>
                         <Box className="cardlist short_card">
