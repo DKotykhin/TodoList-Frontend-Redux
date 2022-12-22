@@ -68,26 +68,24 @@ const CardList: React.FC<ICardList> = ({ taskdata, showSearchPanel }) => {
     };
 
     return (
-        <Container className="cardlist" maxWidth="xl">
+        <Container className="cardList" maxWidth="xl">
             <Modal open={cardFullOpen} onClose={cardFullClose}>
-                <Box sx={{ boxShadow: 24 }} className='cardlist fullcard'>
+                <Box sx={{ boxShadow: 24 }} className='cardList fullCard'>
                     <FullCard
-                        task={updatedTask}                        
+                        task={updatedTask}
                         deleteLoading={deleteLoading}
                         closeModal={cardFullClose}
                     />
                 </Box>
             </Modal>
-            <Box className="cardlist addtask">
-                <Button
-                    className="cardlist addtask button"
-                    variant="contained"
-                    onClick={handleAddTask}
-                >
-                    Add Task
-                </Button>
-            </Box>            
-            <Typography className="cardlist subtitle">
+            <Button
+                className="cardList button"
+                variant="contained"
+                onClick={handleAddTask}
+            >
+                Add Task
+            </Button>
+            <Typography className="cardList subtitle">
                 {loading ? "Loading..." : taskList.length
                     ? `Total amount: ${taskList.length}`
                     : "No cards"}
@@ -101,15 +99,13 @@ const CardList: React.FC<ICardList> = ({ taskdata, showSearchPanel }) => {
             {showSearchPanel &&
                 <SearchTask onSearch={onSearch} />
             }
-            <Grid container sx={{mb: 4}}>
+            <Grid container sx={{ mb: 4 }}>
                 {taskList?.map((task) => (
-                    <Grid item xs={12} md={6} xl={4} key={task._id}>
-                        <Box className="cardlist short_card">
-                            <ShortCard
-                                task={task}
-                                handleOpenFullCard={() => handleOpenFullCard(task._id)}
-                            />
-                        </Box>
+                    <Grid item xs={12} md={6} xl={4} key={task._id} className="cardList shortCard">
+                        <ShortCard
+                            task={task}
+                            handleOpenFullCard={() => handleOpenFullCard(task._id)}
+                        />
                     </Grid>
                 ))}
             </Grid>

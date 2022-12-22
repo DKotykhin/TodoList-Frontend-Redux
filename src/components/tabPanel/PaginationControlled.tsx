@@ -22,7 +22,7 @@ const PaginationControlled: React.FC<IPaginationControlled> =
                     justifyContent: "center",
                 }
             }}>
-                <Typography>Page: {currentPageNumber}</Typography>
+                <Typography sx={{color: '#808080'}}>Page: {currentPageNumber}</Typography>
                 <Pagination
                     count={totalPagesQty}
                     page={currentPageNumber}

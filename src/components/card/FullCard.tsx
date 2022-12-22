@@ -30,27 +30,27 @@ const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
     const { subtitle, description } = task;
 
     return (
-        <Card className="full_card" variant="outlined">
+        <Card className="fullCard" variant="outlined">
             <CardContent>
-                <CloseIcon className="full_card close_icon" onClick={closeModal} />
+                <CloseIcon className="fullCard close_icon" onClick={closeModal} />
                 <CardTitle shortTitleWidth={true} task={task} />
                 <Box sx={{ display: "flex" }}>
                     <SubtitlesOutlinedIcon sx={{ mr: 1 }} />
-                    <Typography className="full_card subtitle" color="text.secondary">
+                    <Typography className="fullCard subtitle" color="text.secondary">
                         {subtitle}
                     </Typography>
                 </Box>
                 <Divider sx={{ mb: 1 }} />
                 <Box sx={{ display: "flex" }}>
                     <SubjectIcon sx={{ mr: 1 }} />
-                    <Box className="full_card description">
+                    <Box className="fullCard description">
                         {description && <ReactMarkdown children={description} />}
                     </Box>
                 </Box>
                 <Divider sx={{ my: 1 }} />
                 <CardTime task={task} />
             </CardContent>
-            <CardActions className="full_card buttons">
+            <CardActions className="fullCard buttons">
                 <FullCardButtons
                     task={task}
                     closeModal={closeModal}

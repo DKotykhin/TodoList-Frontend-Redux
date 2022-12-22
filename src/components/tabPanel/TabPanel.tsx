@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-import { Box, Tab, Tabs, Container } from "@mui/material";
+import { Box, Tab, Tabs, Container, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 import CardList from "components/cardList/CardList";
 import Spinner from "components/spinner/Spinner";
 import PaginationControlled from "./PaginationControlled";
+import SelectTaskCount from "./SelectTaskCount";
 
 import { fetchTasks } from "store/taskSlice";
 import { setQuery } from 'store/querySlice';
@@ -61,6 +62,7 @@ const TabPanelComponent: React.FC = () => {
     const [value, setValue] = useState(query.key);
     const [currentPageNumber, setCurrentPageNumber] = useState(query.page);
     const [showSearchPanel, setShowSearchPanel] = useState(false);
+    const [totalTasks, setTotalTasks] = useState('6');
 
     const { taskdata, fetching } = useAppSelector(selectTask);
     const dispatch = useAppDispatch();
@@ -79,23 +81,27 @@ const TabPanelComponent: React.FC = () => {
     }, [value]);
 
     useEffect(() => {
-        dispatch(fetchTasks({ limit: 6, page: currentPageNumber, key: value }));
-    }, [currentPageNumber, dispatch, value]);
+        dispatch(fetchTasks({ limit: parseInt(totalTasks), page: currentPageNumber, key: value }));
+    }, [currentPageNumber, dispatch, totalTasks, value]);
 
     useEffect(() => {
-        dispatch(setQuery({ query: { limit: 6, page: currentPageNumber, key: value } }));
-    }, [currentPageNumber, dispatch, value]);
+        dispatch(setQuery({ query: { limit: parseInt(totalTasks), page: currentPageNumber, key: value } }));
+    }, [currentPageNumber, dispatch, totalTasks, value]);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
-    const currentPage = (value: number) => {
+    const handleCurrentPageNumber = (value: number) => {
         setCurrentPageNumber(value)
     };
 
-    const handleClick = () => {
+    const handleShowSearchPanel = () => {
         setShowSearchPanel(prev => !prev);
+    };
+
+    const handleTotalTasks = (data: string) => {
+        setTotalTasks(data);
     };
 
     return isLoaded ? (
@@ -104,14 +110,14 @@ const TabPanelComponent: React.FC = () => {
                 <Box sx={{ borderBottom: 1, borderColor: "divider", display: 'flex', justifyContent: 'space-between' }}>
                     <Tabs
                         value={value}
-                        onChange={handleChange}
+                        onChange={handleChangeTab}
                     >
                         <Tab label="All" {...a11yProps(0)} />
                         <Tab label="Active" {...a11yProps(1)} />
                         <Tab label="Done" {...a11yProps(2)} />
                     </Tabs>
                     <Box sx={{ color: '#808080', mt: 2 }}>
-                        <SearchIcon onClick={handleClick} />
+                        <SearchIcon onClick={handleShowSearchPanel} />
                     </Box>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -124,11 +130,15 @@ const TabPanelComponent: React.FC = () => {
                     <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
                 </TabPanel>
             </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+                <Typography sx={{ mt: 1, mr: 2, color: '#808080' }}>tasks on page:</Typography>
+                <SelectTaskCount totalTasks={totalTasks} setTotalTasks={handleTotalTasks} />
+            </Box>
             <Box>
                 {taskdata.totalPagesQty > 1 &&
                     <PaginationControlled
                         totalPagesQty={taskdata.totalPagesQty}
-                        currentPage={currentPage}
+                        currentPage={handleCurrentPageNumber}
                         currentPageNumber={currentPageNumber}
                     />
                 }

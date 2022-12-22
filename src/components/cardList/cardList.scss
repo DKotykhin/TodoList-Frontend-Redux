@@ -1,14 +1,12 @@
 @import '../../constants/constants.scss';
 
-.cardlist {
-    &.addtask {
-        text-align: center;
-        &.button {
-            margin: 16px;
-            border-radius: 20px;            
-        }
-    }
-    &.fullcard {
+.cardList {   
+    &.button {
+        display: block;
+        margin: 16px auto;
+        border-radius: 20px;            
+    }   
+    &.fullCard {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -25,8 +23,9 @@
         text-align: center;
         color: $color_grey;            
     }
-    &.short_card {
-        margin: 8px;
+    &.shortCard {
+        margin-top: 8px;
+        margin-bottom: 8px;
         display: flex;
         justify-content: center;       
     }
