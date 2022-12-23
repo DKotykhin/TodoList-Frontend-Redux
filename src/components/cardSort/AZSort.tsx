@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Chip } from "@mui/material";
 
 interface IAZSort {
-    onSelect: (arg0: string) => void
+    chipLabel: string;
+    onSelect: (arg0: string) => void;
 }
 
 const sortItems = ["A-z", "Z-a"];
 
-const AZSort: React.FC<IAZSort> = ({ onSelect }) => {
-    const [chipLabel, setChipLabel] = useState("A-z");
+const AZSort: React.FC<IAZSort> = ({ onSelect, chipLabel }) => {
 
     const handleSelect = (label: string) => {
-        setChipLabel(label);
         onSelect(label);
     };
 
@@ -21,7 +20,7 @@ const AZSort: React.FC<IAZSort> = ({ onSelect }) => {
             spacing={3}
             sx={{
                 display: "flex",
-                flexWrap: "wrap",                
+                flexWrap: "wrap",
                 justifyContent: "center",
                 mb: 2
             }}

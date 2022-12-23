@@ -92,8 +92,8 @@ const CardList: React.FC<ICardList> = ({ taskdata, showSearchPanel }) => {
             </Typography>
             {taskList.length > 1 && (
                 <>
-                    <FieldSort onSelect={FieldSelect} />
-                    <AZSort onSelect={AZSelect} />
+                    <FieldSort onSelect={FieldSelect} chipLabel={sortField} />
+                    <AZSort onSelect={AZSelect} chipLabel={sortOrder} />
                 </>
             )}
             {showSearchPanel &&

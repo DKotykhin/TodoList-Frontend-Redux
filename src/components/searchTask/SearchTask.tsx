@@ -15,7 +15,7 @@ const SearchTask: React.FC<ISearchTask> = ({ onSearch }) => {
                 sx={{ width: 240 }}
                 onChange={(e) => onSubmit(e.target.value)}
                 type="text"
-                placeholder="search task..."
+                placeholder="search task by title..."
             />
         </Box>
     );

@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Chip } from "@mui/material";
 
 interface IFieldSort {
-    onSelect: (arg0: string) => void
+    chipLabel: string;
+    onSelect: (arg0: string) => void;
 }
 
 const sortItems = ["created", "deadline", "title"];
 
-const FieldSort: React.FC<IFieldSort> = ({ onSelect }) => {
-    const [chipLabel, setChipLabel] = useState("created");
+const FieldSort: React.FC<IFieldSort> = ({ onSelect, chipLabel }) => {
 
     const handleSelect = (label: string) => {
-        setChipLabel(label);
         onSelect(label);
     };
 
