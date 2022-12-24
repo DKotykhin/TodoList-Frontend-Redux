@@ -29,7 +29,10 @@ export const GetAllTasks = async (
         params: {
             limit: queryData.limit,
             page: queryData.page,
-            key: queryData.key,
+            tabKey: queryData.tabKey,
+            sortField: queryData.sortField,
+            sortOrder: queryData.sortOrder,
+            search: queryData.search,
         },
     };
 

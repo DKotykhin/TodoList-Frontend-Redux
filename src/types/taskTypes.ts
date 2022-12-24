@@ -21,7 +21,10 @@ export interface ITask extends IUpdateTask {
 }
 
 export interface IQueryData {
-    limit: number;
+    limit: string;
     page: number;
-    key: number;
+    tabKey: number;
+    sortField: string;
+    sortOrder: number;
+    search: string;
 }

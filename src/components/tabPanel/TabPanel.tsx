@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
-import { Box, Tab, Tabs, Container, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Button, Container } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-import CardList from "components/cardList/CardList";
-import Spinner from "components/spinner/Spinner";
-import PaginationControlled from "./PaginationControlled";
-import SelectTaskCount from "./SelectTaskCount";
+import FieldSort from 'components/cardSort/FieldSort';
+import AZSort from 'components/cardSort/AZSort';
+import SearchTask from 'components/searchTask/SearchTask';
+import CardList from 'components/cardList/CardList';
 
-import { fetchTasks } from "store/taskSlice";
-import { setQuery } from 'store/querySlice';
-import { selectTask, selectQuery } from "store/selectors";
-import { useAppDispatch, useAppSelector } from "store/hook";
+import { useAppSelector } from "store/hook";
+import { selectQuery } from "store/selectors";
 
 import PropTypes from "prop-types";
+
+import './tabPanel.scss'
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -56,96 +56,104 @@ function a11yProps(index: number) {
 }
 
 const TabPanelComponent: React.FC = () => {
+    const { query: { tabKey } } = useAppSelector(selectQuery);
 
-    const { query } = useAppSelector(selectQuery);
+    const [tabIndex, setTabIndex] = useState(tabKey);
 
-    const [value, setValue] = useState(query.key);
-    const [currentPageNumber, setCurrentPageNumber] = useState(query.page);
     const [showSearchPanel, setShowSearchPanel] = useState(false);
-    const [totalTasks, setTotalTasks] = useState('6');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
-    const { taskdata, fetching } = useAppSelector(selectTask);
-    const dispatch = useAppDispatch();
+    const [fieldData, setFieldData] = useState('created');
+    const [AZData, setAZData] = useState('A-z');
 
-    const isLoaded = fetching === "loaded";
-    const isError = fetching === "error";
-
-    useEffect(() => {
-        if (taskdata.tasksOnPageQty === 0) {
-            setCurrentPageNumber(prev => prev - 1);
-        }
-    }, [taskdata.tasksOnPageQty]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setCurrentPageNumber(1);
-    }, [value]);
-
-    useEffect(() => {
-        dispatch(fetchTasks({ limit: parseInt(totalTasks), page: currentPageNumber, key: value }));
-    }, [currentPageNumber, dispatch, totalTasks, value]);
-
-    useEffect(() => {
-        dispatch(setQuery({ query: { limit: parseInt(totalTasks), page: currentPageNumber, key: value } }));
-    }, [currentPageNumber, dispatch, totalTasks, value]);
-
-    const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
-
-    const handleCurrentPageNumber = (value: number) => {
-        setCurrentPageNumber(value)
-    };
+        const delayDebounceFn = setTimeout(() => {
+            setSearchQuery(searchTerm);
+        }, 300);
+        return () => clearTimeout(delayDebounceFn)
+    }, [searchTerm]);
 
     const handleShowSearchPanel = () => {
         setShowSearchPanel(prev => !prev);
     };
 
-    const handleTotalTasks = (data: string) => {
-        setTotalTasks(data);
+    const handleAddTask = (): void => {
+        navigate("/addtask");
     };
 
-    return isLoaded ? (
-        <Container maxWidth="xl">
-            <Box sx={{ minHeight: 'calc(100vh - 230px)' }}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider", display: 'flex', justifyContent: 'space-between' }}>
-                    <Tabs
-                        value={value}
-                        onChange={handleChangeTab}
-                    >
-                        <Tab label="All" {...a11yProps(0)} />
-                        <Tab label="Active" {...a11yProps(1)} />
-                        <Tab label="Done" {...a11yProps(2)} />
-                    </Tabs>
-                    <Box sx={{ color: '#808080', mt: 2 }}>
-                        <SearchIcon onClick={handleShowSearchPanel} />
-                    </Box>
+    const onSearch = (data: string): void => {
+        setSearchTerm(data);
+    };
+
+    const FieldSelect = (data: string) => {
+        setFieldData(data);
+    };
+
+    const AZSelect = (data: string) => {
+        setAZData(data);
+    };
+
+    const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
+        setTabIndex(newValue);
+    };
+
+    return (
+        <Container maxWidth="xl" className='tabPanel'>
+            <Box className='tabPanel header' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                    value={tabIndex}
+                    onChange={handleChangeTab}
+                >
+                    <Tab label="All" {...a11yProps(0)} />
+                    <Tab label="Active" {...a11yProps(1)} />
+                    <Tab label="Done" {...a11yProps(2)} />
+                </Tabs>
+                <Box className='tabPanel search' >
+                    <SearchIcon onClick={handleShowSearchPanel} />
                 </Box>
-                <TabPanel value={value} index={0}>
-                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <CardList taskdata={taskdata.tasks} showSearchPanel={showSearchPanel} />
-                </TabPanel>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-                <Typography sx={{ mt: 1, mr: 2, color: '#808080' }}>tasks on page:</Typography>
-                <SelectTaskCount totalTasks={totalTasks} setTotalTasks={handleTotalTasks} />
-            </Box>
-            <Box>
-                {taskdata.totalPagesQty > 1 &&
-                    <PaginationControlled
-                        totalPagesQty={taskdata.totalPagesQty}
-                        currentPage={handleCurrentPageNumber}
-                        currentPageNumber={currentPageNumber}
-                    />
-                }
-            </Box>
+            <Button
+                className='tabPanel button'
+                variant="contained"
+                onClick={handleAddTask}
+            >
+                Add Task
+            </Button>
+            <FieldSort onSelect={FieldSelect} value={fieldData} />
+            <AZSort onSelect={AZSelect} value={AZData} />
+
+            {showSearchPanel &&
+                <SearchTask onSearch={onSearch} />
+            }
+            <TabPanel value={tabIndex} index={0}>
+                <CardList
+                    tabIndex={tabIndex}
+                    searchQuery={searchQuery}
+                    fieldData={fieldData}
+                    AZData={AZData}
+                />
+            </TabPanel>
+            <TabPanel value={tabIndex} index={1}>
+                <CardList
+                    tabIndex={tabIndex}
+                    searchQuery={searchQuery}
+                    fieldData={fieldData}
+                    AZData={AZData}
+                />
+            </TabPanel>
+            <TabPanel value={tabIndex} index={2}>
+                <CardList
+                    tabIndex={tabIndex}
+                    searchQuery={searchQuery}
+                    fieldData={fieldData}
+                    AZData={AZData}
+                />
+            </TabPanel>
         </Container>
     )
-        : isError ? <Navigate to='/login' /> : <Spinner />
-};
+}
 
 export default TabPanelComponent;

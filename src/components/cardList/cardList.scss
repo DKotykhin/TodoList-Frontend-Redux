@@ -1,11 +1,9 @@
-@import '../../constants/constants.scss';
+@import "../../constants/constants.scss";
 
-.cardList {   
-    &.button {
-        display: block;
-        margin: 16px auto;
-        border-radius: 20px;            
-    }   
+.cardList {
+    .cardListBox {
+        min-height: calc(100vh - 480px);
+    }
     &.fullCard {
         position: absolute;
         top: 50%;
@@ -17,16 +15,26 @@
         overflow-y: auto;
         border-radius: 20px;
     }
-    &.subtitle {
+    .subtitle {
         font-size: 18px;
         margin: 8px;
         text-align: center;
-        color: $color_grey;            
+        color: $color_grey;
     }
-    &.shortCard {
+    .shortCard {
         margin-top: 8px;
         margin-bottom: 8px;
         display: flex;
-        justify-content: center;       
+        justify-content: center;
+    }
+    .taskAmountBox {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+        .taskAmount {
+            margin-top: 8px;
+            margin-right: 16px;
+            color: $color_grey;            
+        }
     }
 }

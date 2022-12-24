@@ -1,0 +1,17 @@
+@import "../../constants/constants.scss";
+
+.tabPanel {
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .search {
+        color: $color_grey;
+        margin-top: 16px;
+    }
+    .button {
+        display: block;
+        margin: 20px auto;
+        border-radius: 20px;
+    }
+}

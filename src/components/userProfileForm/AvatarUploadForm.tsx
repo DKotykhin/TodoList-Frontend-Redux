@@ -21,7 +21,7 @@ const Base_URL = process.env.REACT_APP_BACKEND_URL;
 const AvatarUploadForm: React.FC = () => {
 
     const [loading, setLoading] = useState(false);
-    const [loaded, setLoaded] = useState('');
+    const [loadSuccess, setLoadSuccess] = useState('');
     const [loadError, setLoadError] = useState('');
 
     const [fileName, setFileName] = useState('');
@@ -41,9 +41,12 @@ const AvatarUploadForm: React.FC = () => {
     const onReset = () => {
         reset();
         setFileName("");
+        setLoadError('');
     };
 
     const onSubmit = (data: FieldValues): void => {
+        setLoadError('');
+        setLoadSuccess('');       
         const isApproved = checkFileType(data.avatar[0].type);
         if (!isApproved) {
             setLoadError("Can't upload this type of file");
@@ -56,10 +59,10 @@ const AvatarUploadForm: React.FC = () => {
             UploadAvatar(formData)
                 .then((response) => {
                     console.log(response.message);
-                    setLoaded(response.message);
+                    setLoadSuccess(response.message);
                     dispatch(addAvatar(response.avatarURL));
-                    reset();
                     setFileName("");
+                    reset();
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -109,7 +112,7 @@ const AvatarUploadForm: React.FC = () => {
                     </IconButton>
                 </>
             ) : <AvatarDeleteForm />}
-            <SnackBar successMessage={loaded} errorMessage={loadError} />
+            <SnackBar successMessage={loadSuccess} errorMessage={loadError} />
         </Box>
     )
 }
