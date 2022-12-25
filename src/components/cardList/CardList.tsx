@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Navigate } from "react-router-dom";
 
-import { Box, Container, Typography, Grid, Modal } from "@mui/material";
+import { Box, Container, Typography, Modal } from "@mui/material";
 
-import ShortCard from "components/card/ShortCard";
-import FullCard from "components/card/FullCard";
 import SelectTaskCount from "./SelectTaskCount";
 import PaginationControlled from "./PaginationControlled";
+import FullCard from "components/card/fullCard/FullCard";
+import ShortCardList from "components/card/shortCard/ShortCardList";
 import SnackBar from "components/snackBar/SnackBar";
 import Spinner from "components/spinner/Spinner";
 
@@ -14,6 +14,7 @@ import { fetchTasks } from "store/taskSlice";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { selectTask, selectQuery } from "store/selectors";
 import { setQuery } from "store/querySlice";
+
 import { IQueryData, ITask } from "types/taskTypes";
 
 import "./cardList.scss";
@@ -59,7 +60,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
     const isSuccess: boolean = fetching === "loaded";
     const isError: boolean = fetching === "error";
 
-    const fullCard = taskdata.tasks.filter((task: ITask) => task._id === cardFullId)[0];
+    const fullCardTask = taskdata.tasks.filter((task: ITask) => task._id === cardFullId)[0];
 
     useEffect(() => {
         dispatch(fetchTasks(query));
@@ -127,7 +128,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
                 <Modal open={cardFullOpen} onClose={cardFullClose}>
                     <Box sx={{ boxShadow: 24 }} className='cardList fullCard'>
                         <FullCard
-                            task={fullCard}
+                            task={fullCardTask}
                             deleteLoading={deleteLoading}
                             successMessage={successMessage}
                             errorMessage={errorMessage}
@@ -140,16 +141,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
                         ? `Total amount: ${taskdata.tasks.length}`
                         : "No cards"}
                 </Typography>
-                <Grid container sx={{ mb: 4 }}>
-                    {taskdata.tasks?.map((task) => (
-                        <Grid item xs={12} md={6} xl={4} key={task._id} className="cardList shortCard">
-                            <ShortCard
-                                task={task}
-                                handleOpenFullCard={() => handleOpenFullCard(task._id)}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
+                <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
             </Box>
             <Box className="cardList taskAmountBox" >
                 <Typography className="cardList taskAmount" >tasks on page:</Typography>

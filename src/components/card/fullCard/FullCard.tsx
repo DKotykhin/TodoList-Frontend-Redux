@@ -13,8 +13,8 @@ import SubjectIcon from "@mui/icons-material/Subject";
 import CloseIcon from "@mui/icons-material/Close";
 import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
 
-import CardTime from "./CardTime";
-import CardTitle from "./CardTitle";
+import CardTime from "../CardTime";
+import CardTitle from "../CardTitle";
 import FullCardButtons from "./FullCardButtons";
 import { ITask } from "types/taskTypes";
 
