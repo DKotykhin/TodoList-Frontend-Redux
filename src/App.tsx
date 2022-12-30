@@ -31,7 +31,7 @@ const ReqAuth = (element: JSX.Element): JSX.Element => {
     return (
         <RequireAuth>{element}</RequireAuth>
     )
-}
+};
 
 
 const App = () => {
