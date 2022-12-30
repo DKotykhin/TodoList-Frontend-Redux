@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-import img from "./sorry_1.jpg";
+import img from "images/webp/sorry_1.webp";
 
 import "./error.scss";
 
