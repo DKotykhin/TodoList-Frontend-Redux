@@ -16,9 +16,9 @@ const Base_URL = process.env.REACT_APP_BACKEND_URL;
 
 const NavBar: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const { userdata } = useAppSelector(selectUser);
+    const { userdata: { avatarURL, name } } = useAppSelector(selectUser);
 
-    const userAvatarURL = userdata.avatarURL ? Base_URL + userdata.avatarURL : "/";
+    const userAvatarURL = avatarURL ? Base_URL + avatarURL : "/";
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -35,14 +35,14 @@ const NavBar: React.FC = () => {
                     <AssignmentTurnedInIcon sx={{ mr: 1 }} />
                     <Typography
                         component={RouterLink}
-                        to="/"
+                        to={name ? "/" : "/login"}
                         className="navbar link_text"
                     >
                         TodoList
                     </Typography>
-                    {userdata.name &&
+                    {name &&
                         <>
-                            <Typography sx={{ mr: 3 }}>{userdata?.name}</Typography>
+                            <Typography sx={{ mr: 3 }}>{name}</Typography>
                             <Box>
                                 <Tooltip title="Open settings" arrow>
                                     <IconButton
@@ -50,7 +50,7 @@ const NavBar: React.FC = () => {
                                         sx={{ p: 0 }}
                                     >
                                         <Avatar
-                                            alt={userdata.name || "TodoList"}
+                                            alt={name || "TodoList"}
                                             src={userAvatarURL}
                                         />
                                     </IconButton>
