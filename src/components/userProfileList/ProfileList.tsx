@@ -15,7 +15,8 @@ import "./profilelist.scss";
 const ProfileList: React.FC = () => {
 
     const navigate = useNavigate();
-    const { userdata: { createdAt, name } } = useAppSelector(selectUser);
+    const { userdata } = useAppSelector(selectUser);
+    const { createdAt, name } = userdata;
 
     return (
         <Container maxWidth="xs" className="profile">
@@ -30,7 +31,7 @@ const ProfileList: React.FC = () => {
                     )}`}
                 </Typography>
             </Paper>
-            <ProfileForm />
+            <ProfileForm userdata={userdata} />
             <DeleteForm />
             <Button sx={{ m: 6 }} onClick={() => navigate("/")}>
                 Main Page

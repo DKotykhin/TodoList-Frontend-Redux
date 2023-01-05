@@ -10,18 +10,16 @@ import { EmailField, NameField } from "components/userFields";
 import SnackBar from "components/snackBar/SnackBar";
 
 import { UpdateUser } from "api/userrequests";
-import { selectUser } from "store/selectors";
-import { useAppSelector, useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/hook";
 import { updateName } from "store/userSlice";
-import { IUserUpdate } from "types/userTypes";
 
+import { IUserUpdate, IUser } from "types/userTypes";
 
-const ProfileForm: React.FC = () => {
+const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState('');
     const [updateError, setUpdateError] = useState('');
-    const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
     const {
@@ -37,7 +35,7 @@ const ProfileForm: React.FC = () => {
 
     const onSubmit = (data: IUserUpdate): void => {
         const { name } = data;
-        if(name !== userdata.name) {
+        if (name !== userdata.name) {
             setLoading(true);
             setLoaded('');
             setUpdateError('')
@@ -59,7 +57,7 @@ const ProfileForm: React.FC = () => {
 
     return (
         <Paper elevation={10} sx={{ my: 2 }}>
-            <AvatarUploadForm />
+            <AvatarUploadForm userdata={userdata} />
             <Box
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"
@@ -77,7 +75,7 @@ const ProfileForm: React.FC = () => {
                         error={errors.name}
                         control={control}
                     />
-                </Box>                
+                </Box>
                 <Button
                     type="submit"
                     variant="outlined"

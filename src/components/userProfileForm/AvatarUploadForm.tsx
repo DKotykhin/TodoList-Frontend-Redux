@@ -8,29 +8,31 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import AvatarDeleteForm from './AvatarDeleteForm';
 import SnackBar from 'components/snackBar/SnackBar';
 
-import { selectUser } from "store/selectors";
 import { UploadAvatar } from "api/userrequests";
-import { useAppSelector, useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/hook";
 import { addAvatar } from "store/userSlice";
+
+import { IUser } from 'types/userTypes';
 
 const checkFileType = (type: string): boolean => {
     return (type === 'image/jpeg' || type === 'image/png' || type === 'image/webp');
 };
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
 
-const AvatarUploadForm: React.FC = () => {
+const AvatarUploadForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
+
+    const { avatarURL } = userdata;
 
     const [loading, setLoading] = useState(false);
     const [loadSuccess, setLoadSuccess] = useState('');
     const [loadError, setLoadError] = useState('');
 
     const [fileName, setFileName] = useState('');
-    const { userdata } = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
 
     const { register, reset, handleSubmit } = useForm();
 
-    const userAvatarURL = userdata.avatarURL ? Base_URL + userdata.avatarURL : "/";
+    const userAvatarURL = avatarURL ? Base_URL + avatarURL : "/";
 
     const onChange = (e: any) => {
         setFileName(e.target.files[0].name);
@@ -46,7 +48,7 @@ const AvatarUploadForm: React.FC = () => {
 
     const onSubmit = (data: FieldValues): void => {
         setLoadError('');
-        setLoadSuccess('');       
+        setLoadSuccess('');
         const isApproved = checkFileType(data.avatar[0].type);
         if (!isApproved) {
             setLoadError("Can't upload this type of file");
@@ -111,7 +113,7 @@ const AvatarUploadForm: React.FC = () => {
                         </Tooltip>
                     </IconButton>
                 </>
-            ) : <AvatarDeleteForm />}
+            ) : <AvatarDeleteForm userdata={userdata} />}
             <SnackBar successMessage={loadSuccess} errorMessage={loadError} />
         </Box>
     )
