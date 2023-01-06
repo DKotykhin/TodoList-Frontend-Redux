@@ -7,12 +7,12 @@ import { Container, Typography } from "@mui/material";
 
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskFields";
 import { AddTaskFormValidation } from "../taskFields/taskFormValidation";
+import SubmitCancelButtons from "./SubmitCancelButtons";
 
 import { AddTask } from "api/taskrequests";
 import { IAddTask } from "types/taskTypes";
 
 import "./task.scss";
-import SubmitCancelButtons from "./SubmitCancelButtons";
 
 const AddTaskComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);

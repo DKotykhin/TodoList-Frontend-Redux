@@ -1,17 +1,15 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import Spinner from "components/spinner/Spinner";
 
-import { useAuth } from "hooks/isAuth";
-import { useError } from 'hooks/isError';
+import { useAuth } from "hooks/useAuth";
 
 const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
-    
-    const location = useLocation();
-    const isAuth = useAuth();
-    const isError = useError();
 
-    if (!isAuth) {
-        return isError ? <Navigate to='/login' state={{ from: location }} /> : <Spinner />
+    const location = useLocation();
+    const auth = useAuth();
+
+    if (!auth.isSuccess) {
+        return auth.isError ? <Navigate to='/login' state={{ from: location }} /> : <Spinner />
     }
 
     return children;

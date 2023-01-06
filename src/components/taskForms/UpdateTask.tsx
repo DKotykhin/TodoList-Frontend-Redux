@@ -14,6 +14,7 @@ import { TitleField, MDEField, SubtitleField, DeadlineField } from "../taskField
 import { UpdateTask } from "api/taskrequests";
 import { selectTask } from "store/selectors";
 import { useAppSelector } from "store/hook";
+
 import { IUpdateTask } from "types/taskTypes";
 
 import "./task.scss";
