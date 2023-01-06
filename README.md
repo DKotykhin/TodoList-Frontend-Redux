@@ -24,7 +24,7 @@ To run this project, you will need to add the following environment variables to
 
 
 
-  [https://todo-list-frontend-lemon.vercel.app](https://todo-list-frontend-lemon.vercel.app)
+  [todolist-frontend-redux.vercel.app](todolist-frontend-redux.vercel.app)
 
 
 
