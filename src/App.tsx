@@ -22,7 +22,7 @@ const ReqAuth = (element: JSX.Element): JSX.Element => {
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
+            <Route index element={ReqAuth(<HomePage />)} />
             <Route path="/addtask" element={ReqAuth(<AddTask />)} />
             <Route path="/updatetask/:taskId" element={ReqAuth(<UpdateTask />)} />
             <Route path="profile" element={ReqAuth(<ProfilePage />)} />
