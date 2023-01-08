@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
+import { toast } from 'react-toastify';
 
 import { Container, Typography, InputLabel, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
@@ -64,8 +65,7 @@ const UpdateTaskComponent: React.FC = () => {
                 navigate("/", { replace: true });
             })
             .catch((error) => {
-                console.log(error.message);
-                alert(error.response.data.message || error.message);
+                toast.error(error.response.data.message || error.message);
             })
             .finally(() => {
                 setLoading(false);

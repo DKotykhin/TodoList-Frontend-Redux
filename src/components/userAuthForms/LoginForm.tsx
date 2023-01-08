@@ -2,12 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 import { Button, Container, Typography, Box, Avatar, Paper } from "@mui/material";
 import { InputLabel, Checkbox } from "@mui/material";
 
 import { EmailField, PasswordField } from "components/userFields";
-import SnackBar from "components/snackBar/SnackBar";
 import { LoginFormValidation } from "./userFormValidation";
 
 import { LoginUser } from "api/userrequests";
@@ -22,7 +22,6 @@ interface IUserData extends IUserLogin {
 }
 
 const LoginForm: React.FC = () => {
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -37,7 +36,6 @@ const LoginForm: React.FC = () => {
     const onSubmit = (data: IUserData): void => {
         const { email, password } = data;
         setLoading(true);
-        setError('')
         LoginUser({ email, password })
             .then((response) => {
                 console.log(response.message);
@@ -52,7 +50,7 @@ const LoginForm: React.FC = () => {
             })
             .catch((error) => {
                 console.log(error.response.data.message || error.message);
-                setError(error.response.data.message || error.message);
+                toast.error(error.response.data.message || error.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -71,10 +69,10 @@ const LoginForm: React.FC = () => {
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
-                    <EmailField 
-                        disabled={false} 
-                        error={errors.email} 
-                        control={control} 
+                    <EmailField
+                        disabled={false}
+                        error={errors.email}
+                        control={control}
                     />
                     <PasswordField
                         name={"Password"}
@@ -96,8 +94,7 @@ const LoginForm: React.FC = () => {
                     >
                         {loading ? 'Loading...' : 'Login'}
                     </Button>
-                </Box>               
-                <SnackBar successMessage="" errorMessage={error} />
+                </Box>
             </Paper>
             <Typography className="form subtitle">
                 {"Don't have account?"}
