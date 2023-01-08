@@ -33,6 +33,13 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
         reset({ name: userdata.name, email: userdata.email });
     }, [reset, userdata.name, userdata.email]);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setUpdateError('');
+        }, 5500);
+        return () => clearTimeout(timer);
+    }, [updateError]);
+
     const onSubmit = (data: IUserUpdate): void => {
         const { name } = data;
         if (name !== userdata.name) {
