@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { toast } from 'react-toastify';
 
 import DeleteDialog from "../userDeleteForm/DeleteDialog";
-import SnackBar from 'components/snackBar/SnackBar';
 
 import { DeleteAvatar } from "api/userrequests";
 
@@ -12,37 +12,23 @@ import { IUser } from 'types/userTypes';
 
 const AvatarDeleteForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
-    const [deleted, setDeleted] = useState('');
-    const [deleteError, setDeleteError] = useState('');
-
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDeleted('');
-            setDeleteError('');
-        }, 7000);
-        return () => clearTimeout(timer);
-    }, [deleteError, deleted]);
 
     const handleDelete = (): void => {
         const data: string | undefined = userdata?.avatarURL;
         if (data) {
             DeleteAvatar()
                 .then((response) => {
-                    console.log(response.message);
-                    setDeleted(response.message);
+                    toast.success(response.message);
                     dispatch(addAvatar(''))
                 })
                 .catch((error) => {
-                    console.log(error.message);
-                    setDeleteError(error.response.data.message || error.message);
+                    toast.error(error.response.data.message || error.message);
                 })
         } else {
-            console.log("Avatar doesn't exist");
-            setDeleteError("Avatar doesn't exist");
+            toast.warn("Avatar doesn't exist");
         }
-    }
+    };
 
     return (
         <>
@@ -50,7 +36,6 @@ const AvatarDeleteForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
                 dialogTitle={"You really want to delete avatar?"}
                 deleteAction={handleDelete}
             />
-            <SnackBar successMessage={deleted} errorMessage={deleteError} />
         </>
     )
 }

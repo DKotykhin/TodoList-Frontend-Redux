@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { PasswordField } from "components/userFields";
-import SnackBar from "components/snackBar/SnackBar";
 import { PasswordFormValidation } from "../userFormValidation";
 import { UserConfirmPassword } from 'api/userrequests';
 
@@ -22,7 +22,6 @@ interface IPasswordData {
 const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
 
     const {
         control,
@@ -32,7 +31,6 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
 
     const onSubmit = (data: IPasswordData): void => {
         setLoading(true);
-        setError('');
         const { currentpassword } = data;
         UserConfirmPassword({ password: currentpassword })
             .then(response => {
@@ -40,12 +38,11 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
                 if (response.status) {
                     confirmStatus(response.status)
                 } else {
-                    setError(response.message);
+                    toast.error(response.message);
                 }
             })
             .catch(error => {
-                console.log(error.response.data.message || error.message);
-                setError(error.response.data.message || error.message);
+                toast.error(error.response.data.message || error.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -74,7 +71,6 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
                     {loading ? 'Loading...' : "Confirm password"}
                 </Button>
             </Box>
-            <SnackBar successMessage="" errorMessage={error} />
         </>
     )
 }

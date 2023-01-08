@@ -7,7 +7,6 @@ import SelectTaskCount from "./SelectTaskCount";
 import PaginationControlled from "./PaginationControlled";
 import FullCard from "components/card/fullCard/FullCard";
 import ShortCardList from "components/card/shortCard/ShortCardList";
-import SnackBar from "components/snackBar/SnackBar";
 import Spinner from "components/spinner/Spinner";
 
 import { fetchTasks } from "store/taskSlice";
@@ -38,9 +37,6 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
 
     const [cardFullOpen, setCardFullOpen] = useState(false);
     const [cardFullId, setCardFullId] = useState("");
-
-    const [succsessMessageHook, setSuccsessMessageHook] = useState("");
-    const [errorMessageHook, setErrorMessageHook] = useState("");
 
     const dispatch = useAppDispatch();
 
@@ -95,14 +91,6 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
         setLoading(data);
     };
 
-    const successMessage = (data: string): void => {
-        setSuccsessMessageHook(data);
-    };
-
-    const errorMessage = (data: string): void => {
-        setErrorMessageHook(data);
-    };
-
     return isSuccess ? (
         <Container className="cardList" maxWidth="xl">
             <Box className="cardList cardListBox">
@@ -110,9 +98,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
                     <Box sx={{ boxShadow: 24 }} className='cardList fullCard'>
                         <FullCard
                             task={fullCardTask}
-                            deleteLoading={deleteLoading}
-                            successMessage={successMessage}
-                            errorMessage={errorMessage}
+                            deleteLoading={deleteLoading}                           
                             closeModal={cardFullClose}
                         />
                     </Box>
@@ -136,7 +122,6 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
                         currentPageNumber={currentPageNumber} />
                 }
             </Box>
-            <SnackBar successMessage={succsessMessageHook} errorMessage={errorMessageHook} />
         </Container>
     ) : isError ? <Navigate to='/login' /> : <Spinner />;
 };

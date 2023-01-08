@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 import { Button, Paper } from "@mui/material";
 import { Box } from "@mui/system";
@@ -7,7 +8,6 @@ import { Box } from "@mui/system";
 import { ProfileFormValidation } from "./ProfileFormValidation";
 import AvatarUploadForm from "./AvatarUploadForm";
 import { EmailField, NameField } from "components/userFields";
-import SnackBar from "components/snackBar/SnackBar";
 
 import { UpdateUser } from "api/userrequests";
 import { useAppDispatch } from "store/hook";
@@ -18,8 +18,6 @@ import { IUserUpdate, IUser } from "types/userTypes";
 const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
     const [loading, setLoading] = useState(false);
-    const [loaded, setLoaded] = useState('');
-    const [updateError, setUpdateError] = useState('');
     const dispatch = useAppDispatch();
 
     const {
@@ -33,33 +31,24 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
         reset({ name: userdata.name, email: userdata.email });
     }, [reset, userdata.name, userdata.email]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setUpdateError('');
-        }, 5500);
-        return () => clearTimeout(timer);
-    }, [updateError]);
-
     const onSubmit = (data: IUserUpdate): void => {
         const { name } = data;
         if (name !== userdata.name) {
             setLoading(true);
-            setLoaded('');
-            setUpdateError('')
             UpdateUser({ name })
                 .then((response) => {
-                    console.log(response.message);
-                    setLoaded(response.message);
+                    toast.success(response.message);
                     dispatch(updateName(response.name));
                 })
                 .catch((error) => {
-                    console.log(error.response.data.message || error.message);
-                    setUpdateError(error.response.data.message || error.message);
+                    toast.error(error.response.data.message || error.message);
                 })
                 .finally(() => {
                     setLoading(false);
                 });
-        } else setUpdateError('The same name!');
+        } else {
+            toast.warn('The same name!')
+        }
     };
 
     return (
@@ -90,7 +79,6 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
                 >
                     {loading ? 'Loading...' : 'Save name'}
                 </Button>
-                <SnackBar successMessage={loaded} errorMessage={updateError} />
             </Box>
         </Paper>
     )
