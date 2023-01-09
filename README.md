@@ -1,12 +1,12 @@
 
-# Todo List
+# Todo List Frontend
 
 Full stack application
 
 ## Technologies
 
 -   Backend: Node JS, Express JS, Mongoose, Multer, Yup, JWT
--   Frontend: React, Axios, Typescript, React Hook Form, MUI, Markdown, Tostify, SCSS
+-   Frontend: React, Redux Toolkit, Axios, Typescript, React Hook Form, MUI, Markdown, Tostify, SCSS
 -   Database: Mongo DB
 
 ## Features
