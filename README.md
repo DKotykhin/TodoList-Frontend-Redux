@@ -1,15 +1,32 @@
 
 # Todo List
 
-A brief description of what this project does and who it's for
+Full stack application
+
+## Technologies
+
+-   Backend: Node JS, Express JS, Mongoose, Multer, Yup, JWT
+-   Frontend: React, Axios, Typescript, React Hook Form, MUI, Markdown, Tostify, SCSS
+-   Database: Mongo DB
+
 ## Features
 
-- Full Stack application
-- Express JS for backend
-- React, Typescript, MUI, SCSS for frontend
-- React Hook Form, yup for validation 
-- Mongo DB database for content placing
-- Mobile friendly
+-   User login/logout, delete and registration
+-   Authification by token
+-   User update name and password
+-   User upload/delete avatar
+-   Validation all fields
+-   CRUD tasks
+-   Short/Full card
+-   Quick complete
+-   Markdown for description field
+-   Tabs: All, Active, Done
+-   Sort by created, deadline, title from DB
+-   Search by title from DB
+-   Color deadline notification
+-   Toast success/Error notification
+-   Pagination
+-   Mobile friendly
 
 
 ## Environment Variables
