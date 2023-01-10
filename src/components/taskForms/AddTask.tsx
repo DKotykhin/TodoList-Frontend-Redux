@@ -29,18 +29,17 @@ const AddTaskComponent: React.FC = () => {
 
     const onSubmit = (data: IAddTask): void => {
         const { title, subtitle, deadline } = data;
-        setLoading(true);
-        const newDeadline: string = deadline ? new Date(deadline).toJSON() : ''
+        setLoading(true);        
         const newData: IAddTask = {
             title,
             subtitle,
             description: mdeValue,
-            deadline: newDeadline,
+            ...(deadline && { deadline: new Date(deadline).toJSON() }),
             completed: false
         };
         AddTask(newData)
             .then(response => {
-                console.log(response.message);
+                toast.success(response.message);
                 navigate("/");
             })
             .catch((error) => {

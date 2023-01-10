@@ -48,20 +48,19 @@ const UpdateTaskComponent: React.FC = () => {
     const parseDeadline = deadline ? format(new Date(deadline), "yyyy-LL-dd HH:mm") : '';
 
     const onSubmit = (data: IUpdateForm): void => {
-        const { title, subtitle, deadline, completed } = data;
-        const newDeadline = deadline ? new Date(deadline).toJSON() : '';
+        const { title, subtitle, deadline, completed } = data;        
         const totalData: IUpdateTask = {
             _id,
             title,
             subtitle,
             completed,
             description: mdeValue,
-            deadline: newDeadline,
+            ...(deadline && { deadline: new Date(deadline).toJSON() }),
         };
         setLoading(true);
         UpdateTask(totalData)
             .then(response => {
-                console.log(response.message);
+                toast.success(response.message);
                 navigate("/", { replace: true });
             })
             .catch((error) => {
