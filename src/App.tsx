@@ -16,6 +16,7 @@ import AddTask from "pages/AddTaskPage";
 export const router = createBrowserRouter([
     {
         element: <Layout />,
+        errorElement: <Page404/>,
         children: [
             {
                 path: '/',
@@ -44,11 +45,7 @@ export const router = createBrowserRouter([
             {
                 path: 'updatetask/:taskId',
                 element: <RequireAuth children={<UpdateTask />} />,
-            },
-            {
-                path: '*',
-                element: <Page404 />,
-            },
+            },            
         ],
     },
 ]);
