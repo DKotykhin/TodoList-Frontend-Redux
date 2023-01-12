@@ -68,7 +68,7 @@ Install dependencies
 Start the server
 
 ```bash
-npm run dev
+npm start
 # or
 yarn
 ```
