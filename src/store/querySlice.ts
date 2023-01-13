@@ -6,7 +6,7 @@ interface IQuery {
 }
 const initialState: IQuery = {
     query: {
-        limit: '6',
+        limit: 6,
         page: 1,
         tabKey: 0,
         sortField: 'createdAt',

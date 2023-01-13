@@ -4,14 +4,14 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface ISelectTaskCount {
-    totalTasks: string;
-    setTotalTasks: (arg0: string) => void;
+    tasksOnPage: number;
+    setTasksOnPage: (arg0: number) => void;
 }
 
-const SelectTaskCount: React.FC<ISelectTaskCount> = ({ totalTasks, setTotalTasks }) => {
+const SelectTaskCount: React.FC<ISelectTaskCount> = ({ tasksOnPage, setTasksOnPage }) => {
 
     const handleChange = (event: SelectChangeEvent) => {
-        setTotalTasks(event.target.value);
+        setTasksOnPage(parseInt(event.target.value));
     };
 
     return (
@@ -20,7 +20,7 @@ const SelectTaskCount: React.FC<ISelectTaskCount> = ({ totalTasks, setTotalTasks
                 sx={{ color: '#808080' }}
                 labelId="demo-select-small"
                 id="demo-select-small"
-                value={totalTasks}
+                value={tasksOnPage.toString()}
                 label="tasks on page"
                 onChange={handleChange}
             >
