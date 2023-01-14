@@ -7,65 +7,32 @@ import SearchIcon from '@mui/icons-material/Search';
 import FieldSort from 'components/cardSort/FieldSort';
 import AZSort from 'components/cardSort/AZSort';
 import SearchTask from 'components/searchTask/SearchTask';
-import CardList from 'components/cardList/CardList';
+import TabList from './TabList';
 
-import { useAppSelector } from "store/hook";
+import { useAppSelector } from "store/reduxHooks";
 import { selectQuery } from "store/selectors";
-
-import PropTypes from "prop-types";
 
 import './tabPanel.scss'
 
-interface TabPanelProps {
-    children?: React.ReactNode;
-    dir?: string;
-    index: number;
-    value: number;
-}
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-    return (
-        <Box
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 0 }}>
-                    <Box>{children}</Box>
-                </Box>
-            )}
-        </Box>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index: number) {
+const a11yProps = (index: number) => {
     return {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
-}
+};
 
 const TabPanelComponent: React.FC = () => {
-    const { query: { tabKey, sortOrder, sortField } } = useAppSelector(selectQuery);
 
+    const { query: { tabKey, sortOrder, sortField } } = useAppSelector(selectQuery);
     const [tabIndex, setTabIndex] = useState(tabKey);
 
     const [showSearchPanel, setShowSearchPanel] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const [fieldData, setFieldData] = useState(sortField);
-    const [AZData, setAZData] = useState(sortOrder);
+    const [fieldValue, setFieldValue] = useState(sortField);
+    const [AZValue, setAZValue] = useState(sortOrder);
 
     const navigate = useNavigate();
 
@@ -89,11 +56,11 @@ const TabPanelComponent: React.FC = () => {
     };
 
     const FieldSelect = (data: string) => {
-        setFieldData(data);
+        setFieldValue(data);
     };
 
     const AZSelect = (data: number) => {
-        setAZData(data);
+        setAZValue(data);
     };
 
     const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
@@ -122,36 +89,18 @@ const TabPanelComponent: React.FC = () => {
             >
                 Add Task
             </Button>
-            <FieldSort onSelect={FieldSelect} fieldValue={fieldData} />
-            <AZSort onSelect={AZSelect} sortValue={AZData} />
+            <FieldSort onSelect={FieldSelect} fieldValue={fieldValue} />
+            <AZSort onSelect={AZSelect} AZValue={AZValue} />
 
             {showSearchPanel &&
                 <SearchTask onSearch={onSearch} />
             }
-            <TabPanel value={tabIndex} index={0}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldData={fieldData}
-                    AZData={AZData}
-                />
-            </TabPanel>
-            <TabPanel value={tabIndex} index={1}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldData={fieldData}
-                    AZData={AZData}
-                />
-            </TabPanel>
-            <TabPanel value={tabIndex} index={2}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldData={fieldData}
-                    AZData={AZData}
-                />
-            </TabPanel>
+            <TabList
+                tabIndex={tabIndex}
+                searchQuery={searchQuery}
+                fieldValue={fieldValue}
+                AZValue={AZValue}
+            />
         </Container>
     )
 }

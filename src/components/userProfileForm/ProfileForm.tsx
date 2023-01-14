@@ -10,7 +10,7 @@ import AvatarUploadForm from "./AvatarUploadForm";
 import { EmailField, NameField } from "components/userFields";
 
 import { UpdateUser } from "api/userrequests";
-import { useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/reduxHooks";
 import { updateName } from "store/userSlice";
 
 import { IUserUpdate, IUser } from "types/userTypes";

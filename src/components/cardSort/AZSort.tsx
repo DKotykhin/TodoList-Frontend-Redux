@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Chip } from "@mui/material";
 
 interface IAZSort {
     onSelect: (arg0: number) => void;
-    sortValue: number;
+    AZValue: number;
 }
 
 const sortItems = ["A-z", "Z-a"];
 
-const AZSort: React.FC<IAZSort> = ({ onSelect, sortValue }) => {
+const AZSort: React.FC<IAZSort> = ({ onSelect, AZValue }) => {
 
-    const [value, setValue] = useState(sortValue === -1 ? "A-z" : "Z-a");
+    const value = AZValue === -1 ? "A-z" : "Z-a";
 
     const handleSelect = (label: string) => {
-        setValue(label)
         onSelect(label === "A-z" ? -1 : 1);
     };
 

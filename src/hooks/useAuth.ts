@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppSelector, useAppDispatch } from "store/hook";
+import { useAppSelector, useAppDispatch } from "store/reduxHooks";
 import { selectAuthError, selectAuthSuccess } from "store/selectors";
 import { fetchUserByToken } from "store/userSlice";
 

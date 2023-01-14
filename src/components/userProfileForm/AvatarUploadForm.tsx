@@ -9,7 +9,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import AvatarDeleteForm from './AvatarDeleteForm';
 
 import { UploadAvatar } from "api/userrequests";
-import { useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/reduxHooks";
 import { addAvatar } from "store/userSlice";
 
 import { IUser } from 'types/userTypes';

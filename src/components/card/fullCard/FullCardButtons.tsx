@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 
 import { DeleteTask, UpdateTask } from "api/taskrequests";
 import { fetchTasks } from "store/taskSlice";
-import { useAppDispatch, useAppSelector } from "store/hook";
+import { useAppDispatch, useAppSelector } from "store/reduxHooks";
 import { selectQuery } from "store/selectors";
 
 import { ICompleteTask, ITask } from "types/taskTypes";

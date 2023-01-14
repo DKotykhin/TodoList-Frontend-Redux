@@ -8,7 +8,7 @@ import DeleteForm from "../userDeleteForm/DeleteForm";
 import ProfileForm from "../userProfileForm/ProfileForm";
 
 import { selectUser } from "store/selectors";
-import { useAppSelector } from "store/hook";
+import { useAppSelector } from "store/reduxHooks";
 
 import "./profilelist.scss";
 

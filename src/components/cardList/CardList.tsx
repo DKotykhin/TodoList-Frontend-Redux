@@ -10,7 +10,7 @@ import ShortCardList from "components/card/shortCard/ShortCardList";
 import Spinner from "components/spinner/Spinner";
 
 import { fetchTasks } from "store/taskSlice";
-import { useAppDispatch, useAppSelector } from "store/hook";
+import { useAppDispatch, useAppSelector } from "store/reduxHooks";
 import { selectTask, selectQuery } from "store/selectors";
 import { setQuery } from "store/querySlice";
 
@@ -21,11 +21,11 @@ import "./cardList.scss";
 interface ICardList {
     tabIndex: number;
     searchQuery: string;
-    fieldData: string;
-    AZData: number;
+    fieldValue: string;
+    AZValue: number;
 }
 
-const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZData }) => {
+const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZValue }) => {
     const [loading, setLoading] = useState(false);
 
     const { query: { limit, page } } = useAppSelector(selectQuery);
@@ -49,15 +49,15 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldData, AZDat
             limit: tasksOnPage,
             page: currentPageNumber,
             tabKey: tabIndex,
-            sortField: fieldData,
-            sortOrder: AZData,
+            sortField: fieldValue,
+            sortOrder: AZValue,
             search: searchQuery,
         }),
         [
             currentPageNumber,
             searchQuery,
-            fieldData,
-            AZData,
+            fieldValue,
+            AZValue,
             tabIndex,
             tasksOnPage,
         ]

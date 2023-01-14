@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Chip } from "@mui/material";
 
 interface IFieldSort {
@@ -10,11 +10,10 @@ const sortItems = ["created", "deadline", "title"];
 
 const FieldSort: React.FC<IFieldSort> = ({ onSelect, fieldValue }) => {
 
-    const [value, setValue] = useState(fieldValue === 'createdAt' ? 'created' : fieldValue);
+    const value = fieldValue === 'createdAt' ? 'created' : fieldValue;
 
     const handleSelect = (label: string) => {
         onSelect(label === 'created' ? 'createdAt' : label);
-        setValue(label)
     };
 
     return (

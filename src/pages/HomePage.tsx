@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from "react-helmet";
 
-import TabPanelComponent from "components/tabPanel/TabPanel";
+import TabPanelComponent from "components/tabs/TabPanel";
 
 const HomePage: React.FC = () => {
 

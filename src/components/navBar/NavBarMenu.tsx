@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 
 import { removeUser } from "store/userSlice";
-import { useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/reduxHooks";
 
 const settings = ["Profile", "Change password", "Logout"];
 

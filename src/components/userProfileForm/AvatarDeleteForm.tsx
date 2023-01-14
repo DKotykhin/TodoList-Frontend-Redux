@@ -5,7 +5,7 @@ import DeleteDialog from "../userDeleteForm/DeleteDialog";
 
 import { DeleteAvatar } from "api/userrequests";
 
-import { useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/reduxHooks";
 import { addAvatar } from "store/userSlice";
 
 import { IUser } from 'types/userTypes';

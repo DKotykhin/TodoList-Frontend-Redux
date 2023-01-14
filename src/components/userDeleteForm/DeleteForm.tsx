@@ -8,7 +8,7 @@ import DeleteDialog from "./DeleteDialog";
 
 import { DeleteUser } from "api/userrequests";
 import { removeUser } from "store/userSlice";
-import { useAppDispatch } from "store/hook";
+import { useAppDispatch } from "store/reduxHooks";
 
 const DeleteForm: React.FC = () => {
 

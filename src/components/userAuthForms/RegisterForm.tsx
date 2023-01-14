@@ -10,7 +10,7 @@ import { EmailField, NameField, PasswordField } from "components/userFields";
 import { RegisterFormValidation } from "./userFormValidation";
 
 import { RegisterUser } from "api/userrequests";
-import { useAppDispatch } from 'store/hook';
+import { useAppDispatch } from 'store/reduxHooks';
 import { createUser } from "store/userSlice";
 import { IUserRegister } from "types/userTypes";
 
