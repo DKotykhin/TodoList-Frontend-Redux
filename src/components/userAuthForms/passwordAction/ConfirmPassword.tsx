@@ -35,8 +35,8 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
         UserConfirmPassword({ password: currentpassword })
             .then(response => {
                 console.log(response.message);
-                if (response.status) {
-                    confirmStatus(response.status)
+                if (response.confirmStatus) {
+                    confirmStatus(response.confirmStatus)
                 } else {
                     toast.error(response.message);
                 }

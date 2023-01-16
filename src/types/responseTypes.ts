@@ -11,17 +11,22 @@ export interface IUserWithTokenResponse extends IUserResponse {
 }
 
 export interface IUserConfirmPasswordResponse {
-    status: boolean;
+    confirmStatus: boolean;
+    message: string;
+}
+
+export interface IUserUpdatePasswordResponse {
+    updateStatus: boolean;
     message: string;
 }
 
 export interface IUserDeleteResponse {
     userStatus: {
-        acknowledged: boolean; 
+        acknowledged: boolean;
         deletedCount: number;
-    }
+    };
     taskStatus: {
-        acknowledged: boolean; 
+        acknowledged: boolean;
         deletedCount: number;
     };
     message: string;
@@ -40,21 +45,12 @@ export interface IGetTasksResponse {
     message: string;
 }
 
-export interface IAddTaskResponse extends ITask {
-    message: string;
-}
-
-export interface ITaskUpdateResponse {
-    status: {
-        acknowledged: boolean;
-        matchedCount: number;
-        modifiedCount: number;
-    };
+export interface ITaskResponse extends ITask {
     message: string;
 }
 
 export interface ITaskDeleteResponse {
-    status: {
+    taskStatus: {
         acknowledged: boolean;
         deletedCount: number;
     };

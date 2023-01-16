@@ -2,7 +2,12 @@ import axios from "axios";
 
 import { getToken } from "./getToken";
 
-import { IUserRegister, IUserLogin, IUserUpdate } from "../types/userTypes";
+import {
+    IUserRegister,
+    IUserLogin,
+    IUserUpdateName,
+    IUserUpdatePassword,
+} from "../types/userTypes";
 
 import {
     IUserResponse,
@@ -10,6 +15,7 @@ import {
     IUserWithTokenResponse,
     IUserConfirmPasswordResponse,
     IUserAvatarResponse,
+    IUserUpdatePasswordResponse,
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -32,7 +38,9 @@ export const RegisterUser = async (
     return result.data;
 };
 
-export const LoginUser = async (data: IUserLogin): Promise<IUserWithTokenResponse> => {
+export const LoginUser = async (
+    data: IUserLogin
+): Promise<IUserWithTokenResponse> => {
     const config = {
         method: "POST",
         url: "/user/login",
@@ -46,10 +54,59 @@ export const LoginUser = async (data: IUserLogin): Promise<IUserWithTokenRespons
     return result.data;
 };
 
-export const UpdateUser = async (data: IUserUpdate): Promise<IUserResponse> => {
+export const LoginUserByToken = async (): Promise<IUserResponse> => {
+    const config = {
+        method: "GET",
+        url: "/user/me",
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
+    };
+
+    const result = await axios(config);
+    return result.data;
+};
+
+export const UpdateUserName = async (
+    data: IUserUpdateName
+): Promise<IUserResponse> => {
     const config = {
         method: "PATCH",
-        url: "/user/me",
+        url: "/user/name",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+        },
+        data: JSON.stringify(data),
+    };
+
+    const result = await axios(config);
+    return result.data;
+};
+
+export const UpdateUserPassword = async (
+    data: IUserUpdatePassword
+): Promise<IUserUpdatePasswordResponse> => {
+    const config = {
+        method: "PATCH",
+        url: "/user/password",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`,
+        },
+        data: JSON.stringify(data),
+    };
+
+    const result = await axios(config);
+    return result.data;
+};
+
+export const UserConfirmPassword = async (data: {
+    password: string;
+}): Promise<IUserConfirmPasswordResponse> => {
+    const config = {
+        method: "POST",
+        url: "/user/password",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${getToken()}`,
@@ -68,37 +125,6 @@ export const DeleteUser = async (): Promise<IUserDeleteResponse> => {
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },
-    };
-
-    const result = await axios(config);
-    return result.data;
-};
-
-export const LoginUserByToken =
-    async (): Promise<IUserResponse> => {
-        const config = {
-            method: "GET",
-            url: "/user/me",
-            headers: {
-                Authorization: `Bearer ${getToken()}`,
-            },
-        };
-
-        const result = await axios(config);
-        return result.data;
-    };
-
-export const UserConfirmPassword = async (data: {
-    password: string;
-}): Promise<IUserConfirmPasswordResponse> => {
-    const config = {
-        method: "POST",
-        url: "/user/password",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getToken()}`,
-        },
-        data: JSON.stringify(data),
     };
 
     const result = await axios(config);

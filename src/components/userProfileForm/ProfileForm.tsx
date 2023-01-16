@@ -9,11 +9,11 @@ import { ProfileFormValidation } from "./ProfileFormValidation";
 import AvatarUploadForm from "./AvatarUploadForm";
 import { EmailField, NameField } from "components/userFields";
 
-import { UpdateUser } from "api/userrequests";
+import { UpdateUserName } from "api/userrequests";
 import { useAppDispatch } from "store/reduxHooks";
 import { updateName } from "store/userSlice";
 
-import { IUserUpdate, IUser } from "types/userTypes";
+import { IUser, IUserUpdateName } from "types/userTypes";
 
 const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
@@ -31,11 +31,11 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
         reset({ name: userdata.name, email: userdata.email });
     }, [reset, userdata.name, userdata.email]);
 
-    const onSubmit = (data: IUserUpdate): void => {
+    const onSubmit = (data: IUserUpdateName): void => {
         const { name } = data;
         if (name !== userdata.name) {
             setLoading(true);
-            UpdateUser({ name })
+            UpdateUserName({ name })
                 .then((response) => {
                     toast.success(response.message);
                     dispatch(updateName(response.name));

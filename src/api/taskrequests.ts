@@ -8,11 +8,10 @@ import {
     IQueryData,
     IUpdateTask,
 } from "types/taskTypes";
-import {
-    IAddTaskResponse,
+import {    
     IGetTasksResponse,
-    ITaskDeleteResponse,    
-    ITaskUpdateResponse,
+    ITaskDeleteResponse,
+    ITaskResponse,    
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -41,7 +40,7 @@ export const GetAllTasks = async (
     return result.data;
 };
 
-export const AddTask = async (data: IAddTask): Promise<IAddTaskResponse> => {
+export const AddTask = async (data: IAddTask): Promise<ITaskResponse> => {
     const config = {
         method: "POST",
         url: "/task",
@@ -58,7 +57,7 @@ export const AddTask = async (data: IAddTask): Promise<IAddTaskResponse> => {
 
 export const UpdateTask = async (
     data: IUpdateTask | ICompleteTask
-): Promise<ITaskUpdateResponse> => {
+): Promise<ITaskResponse> => {
     const config = {
         method: "PATCH",
         url: "/task",
