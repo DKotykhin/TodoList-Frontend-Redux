@@ -10,8 +10,8 @@ import {
 } from "types/taskTypes";
 import {
     IAddTaskResponse,
-    ITaskDeleteResponse,
-    ITaskResponse,
+    IGetTasksResponse,
+    ITaskDeleteResponse,    
     ITaskUpdateResponse,
 } from "types/responseTypes";
 
@@ -20,7 +20,7 @@ axios.defaults.baseURL = Base_URL;
 
 export const GetAllTasks = async (
     queryData: IQueryData
-): Promise<ITaskResponse> => {
+): Promise<IGetTasksResponse> => {
     const config = {
         method: "GET",
         url: "/task",

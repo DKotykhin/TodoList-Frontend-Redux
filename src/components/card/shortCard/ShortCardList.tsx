@@ -3,10 +3,10 @@ import React from 'react';
 import { Grid } from "@mui/material";
 
 import ShortCard from "components/card/shortCard/ShortCard";
-import { ITaskResponse } from 'types/responseTypes';
+import { IGetTasksResponse } from 'types/responseTypes';
 
 interface IShortCardList {
-    taskdata: ITaskResponse;
+    taskdata: IGetTasksResponse;
     handleOpenFullCard: (arg0: string) => void;
 };
 

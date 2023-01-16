@@ -7,7 +7,7 @@ import { IUserRegister, IUserLogin, IUserUpdate } from "../types/userTypes";
 import {
     IUserResponse,
     IUserDeleteResponse,
-    IUserWithoutTokenResponse,
+    IUserWithTokenResponse,
     IUserConfirmPasswordResponse,
     IUserAvatarResponse,
 } from "types/responseTypes";
@@ -18,7 +18,7 @@ axios.defaults.baseURL = Base_URL;
 
 export const RegisterUser = async (
     data: IUserRegister
-): Promise<IUserResponse> => {
+): Promise<IUserWithTokenResponse> => {
     const config = {
         method: "POST",
         url: "/user/register",
@@ -32,7 +32,7 @@ export const RegisterUser = async (
     return result.data;
 };
 
-export const LoginUser = async (data: IUserLogin): Promise<IUserResponse> => {
+export const LoginUser = async (data: IUserLogin): Promise<IUserWithTokenResponse> => {
     const config = {
         method: "POST",
         url: "/user/login",
@@ -75,7 +75,7 @@ export const DeleteUser = async (): Promise<IUserDeleteResponse> => {
 };
 
 export const LoginUserByToken =
-    async (): Promise<IUserWithoutTokenResponse> => {
+    async (): Promise<IUserResponse> => {
         const config = {
             method: "GET",
             url: "/user/me",
