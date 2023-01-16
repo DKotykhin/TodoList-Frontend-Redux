@@ -10,8 +10,9 @@ import {
 } from "types/taskTypes";
 import {
     IAddTaskResponse,
+    ITaskDeleteResponse,
     ITaskResponse,
-    ITaskStatusResponse,
+    ITaskUpdateResponse,
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -57,7 +58,7 @@ export const AddTask = async (data: IAddTask): Promise<IAddTaskResponse> => {
 
 export const UpdateTask = async (
     data: IUpdateTask | ICompleteTask
-): Promise<ITaskStatusResponse> => {
+): Promise<ITaskUpdateResponse> => {
     const config = {
         method: "PATCH",
         url: "/task",
@@ -74,7 +75,7 @@ export const UpdateTask = async (
 
 export const DeleteTask = async (id: {
     _id: string;
-}): Promise<ITaskStatusResponse> => {
+}): Promise<ITaskDeleteResponse> => {
     const config = {
         method: "DELETE",
         url: "/task",

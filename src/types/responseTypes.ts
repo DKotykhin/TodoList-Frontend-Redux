@@ -1,13 +1,13 @@
 import { IUser } from "./userTypes";
 import { ITask } from "./taskTypes";
 
-export interface IUserResponse extends IUser {    
+export interface IUserResponse extends IUser {
     token: string;
-    message: string; 
+    message: string;
 }
 
-export interface IUserWithoutTokenResponse extends IUser {    
-    message: string; 
+export interface IUserWithoutTokenResponse extends IUser {
+    message: string;
 }
 
 export interface IUserDeleteResponse {
@@ -25,19 +25,31 @@ export interface IUserAvatarResponse {
     message: string;
 }
 
-export interface IAddTaskResponse extends ITask {    
+export interface IAddTaskResponse extends ITask {
     message: string;
 }
 
 export interface ITaskResponse {
-    totalTasksQty: number; 
-    totalPagesQty: number; 
-    tasksOnPageQty: number; 
+    totalTasksQty: number;
+    totalPagesQty: number;
+    tasksOnPageQty: number;
     tasks: ITask[];
     message: string;
 }
 
-export interface ITaskStatusResponse {
-    status: object;
+export interface ITaskUpdateResponse {
+    status: {
+        acknowledged: boolean;
+        matchedCount: number;
+        modifiedCount: number;
+    };
+    message: string;
+}
+
+export interface ITaskDeleteResponse {
+    status: {
+        acknowledged: boolean;
+        deletedCount: number;
+    };
     message: string;
 }

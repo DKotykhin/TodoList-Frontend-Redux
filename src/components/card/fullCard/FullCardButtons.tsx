@@ -46,7 +46,8 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
     const handleComplete = (data: ITask) => {
         setCompleteLoading(true);
         closeModal();
-        const newData: ICompleteTask = { completed: !data.completed, _id: data._id, title: data?.title };
+        const { completed, _id, title } = data;
+        const newData: ICompleteTask = { completed: !completed, _id, title };
         UpdateTask(newData)
             .then(response => {
                 toast.success(response.message);
