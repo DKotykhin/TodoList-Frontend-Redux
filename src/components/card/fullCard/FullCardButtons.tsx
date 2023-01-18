@@ -27,10 +27,10 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleDelete = (id: string): void => {
+    const handleDelete = (_id: string): void => {
         deleteLoading(true);
         closeModal();
-        DeleteTask({ _id: id })
+        DeleteTask({ _id })
             .then(response => {
                 toast.success(response.message);
                 dispatch(fetchTasks({ limit, page, tabKey, sortField, sortOrder, search }));

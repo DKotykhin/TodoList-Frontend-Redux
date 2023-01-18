@@ -8,7 +8,7 @@ export interface IUserRegister extends IUserLogin {
 }
 
 export interface IUserUpdateName {
-    name?: string;
+    name: string;
 }
 
 export interface IUserUpdatePassword {

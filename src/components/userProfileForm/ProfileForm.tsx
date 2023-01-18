@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 
 import { Button, Paper } from "@mui/material";
@@ -13,7 +13,7 @@ import { UpdateUserName } from "api/userrequests";
 import { useAppDispatch } from "store/reduxHooks";
 import { updateName } from "store/userSlice";
 
-import { IUser, IUserUpdateName } from "types/userTypes";
+import { IUser } from "types/userTypes";
 
 const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
@@ -31,7 +31,7 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
         reset({ name: userdata.name, email: userdata.email });
     }, [reset, userdata.name, userdata.email]);
 
-    const onSubmit = (data: IUserUpdateName): void => {
+    const onSubmit = (data: FieldValues): void => {
         const { name } = data;
         if (name !== userdata.name) {
             setLoading(true);
