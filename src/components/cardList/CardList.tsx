@@ -106,14 +106,14 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
                     <Box sx={{ boxShadow: 24 }} className='cardList fullCard'>
                         <FullCard
                             task={fullCardTask}
-                            deleteLoading={deleteLoading}                           
+                            deleteLoading={deleteLoading}
                             closeModal={cardFullClose}
                         />
                     </Box>
                 </Modal>
                 <Typography className="cardList subtitle">
-                    {loading ? "Loading..." : taskdata.tasks.length
-                        ? `Total amount: ${taskdata.tasks.length}`
+                    {loading ? "Loading..." : taskdata.totalTasksQty
+                        ? `On page: ${taskdata.tasksOnPageQty}, total: ${taskdata.totalTasksQty}`
                         : "No cards"}
                 </Typography>
                 <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
