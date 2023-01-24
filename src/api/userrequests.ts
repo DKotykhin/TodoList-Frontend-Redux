@@ -27,7 +27,7 @@ export const RegisterUser = async (
 ): Promise<IUserWithTokenResponse> => {
     const config = {
         method: "POST",
-        url: "/user/register",
+        url: "/auth/register",
         headers: {
             "Content-Type": "application/json",
         },
@@ -43,7 +43,7 @@ export const LoginUser = async (
 ): Promise<IUserWithTokenResponse> => {
     const config = {
         method: "POST",
-        url: "/user/login",
+        url: "/auth/login",
         headers: {
             "Content-Type": "application/json",
         },
