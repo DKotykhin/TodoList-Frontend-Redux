@@ -136,7 +136,7 @@ export const UploadAvatar = async (
 ): Promise<IUserAvatarResponse> => {
     const config = {
         method: "POST",
-        url: "/upload",
+        url: "/avatar",
         headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${getToken()}`,
@@ -151,7 +151,7 @@ export const UploadAvatar = async (
 export const DeleteAvatar = async (): Promise<IUserAvatarResponse> => {
     const config = {
         method: "DELETE",
-        url: "/upload",
+        url: "/avatar",
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },
