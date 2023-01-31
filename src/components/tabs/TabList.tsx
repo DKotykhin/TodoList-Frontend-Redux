@@ -43,32 +43,18 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-const TabList: React.FC<ITabList> = ({ tabIndex, searchQuery, fieldValue, AZValue }) => {
+const TabList: React.FC<ITabList> = (props) => {
+    const { tabIndex } = props;
     return (
         <>
             <TabPanel value={tabIndex} index={0}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldValue={fieldValue}
-                    AZValue={AZValue}
-                />
+                <CardList {...props} />
             </TabPanel>
             <TabPanel value={tabIndex} index={1}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldValue={fieldValue}
-                    AZValue={AZValue}
-                />
+                <CardList {...props} />
             </TabPanel>
             <TabPanel value={tabIndex} index={2}>
-                <CardList
-                    tabIndex={tabIndex}
-                    searchQuery={searchQuery}
-                    fieldValue={fieldValue}
-                    AZValue={AZValue}
-                />
+                <CardList {...props} />
             </TabPanel>
         </>
     )
