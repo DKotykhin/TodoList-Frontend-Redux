@@ -19,6 +19,21 @@ const theme = createTheme({
             main: "#00a1b6",
         },
     },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Inter',
+            'Arial',
+            'Mulish',
+            'Segoe UI',
+            'Roboto',
+            'sans-serif',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+        ].join(','),
+    }
 });
 
 const root = ReactDOM.createRoot(
@@ -32,9 +47,9 @@ root.render(
             <ToastContainer
                 position="top-center"
                 autoClose={4000}
-                hideProgressBar                
+                hideProgressBar
                 transition={Flip}
-                closeOnClick                
+                closeOnClick
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
