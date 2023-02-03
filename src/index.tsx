@@ -23,15 +23,12 @@ const theme = createTheme({
         fontFamily: [
             '-apple-system',
             'BlinkMacSystemFont',
+            'Mulish',
             'Inter',
             'Arial',
-            'Mulish',
             'Segoe UI',
             'Roboto',
-            'sans-serif',
-            'Apple Color Emoji',
-            'Segoe UI Emoji',
-            'Segoe UI Symbol',
+            'sans-serif'
         ].join(','),
     }
 });

@@ -21,7 +21,7 @@ const ShortCard: React.FC<IShortCard> = ({ task, handleOpenFullCard }) => {
             className="card"
             sx={{ boxShadow: 24 }}
         >
-            <CardContent onClick={handleOpenFullCard} sx={{ cursor: "pointer" }}>
+            <CardContent onClick={handleOpenFullCard}>
                 <CardTitle
                     shortTitleWidth={false}
                     task={task}

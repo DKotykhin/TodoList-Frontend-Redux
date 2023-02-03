@@ -4,10 +4,18 @@
         margin-bottom: 8px;
         display: flex;
         justify-content: center;
+        :hover {
+            transition: all 0.5s ease;
+            transform: scale(1.05);
+        }          
     }
     .card {
         width: 380px;
         border: 2px solid #979797;
-        border-radius: 20px;             
+        border-radius: 20px; 
+        cursor: pointer;
+        :hover {
+            transform: none;
+        }  
     }
 }
