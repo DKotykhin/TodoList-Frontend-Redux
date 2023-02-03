@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 
-import PasswordForm from "components/userAuthForms/PasswordForm";
+import PasswordForm from "components/userAuthForms/passwordForm/PasswordForm";
 
 const ChangePasswordPage: React.FC = () => {
 

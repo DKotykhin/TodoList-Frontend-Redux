@@ -12,8 +12,7 @@ import TabList from './TabList';
 import { useAppSelector } from "store/reduxHooks";
 import { selectQuery } from "store/selectors";
 
-import './tabPanel.scss'
-
+import styles from './tabPanel.module.scss';
 
 const a11yProps = (index: number) => {
     return {
@@ -68,8 +67,8 @@ const TabPanelComponent: React.FC = () => {
     };
 
     return (
-        <Container maxWidth="xl" className='tabPanel'>
-            <Box className='tabPanel header' sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Container maxWidth="xl" className={styles.tabPanel}>
+            <Box className={styles.tabPanel__header} >
                 <Tabs
                     value={tabIndex}
                     onChange={handleChangeTab}
@@ -78,12 +77,12 @@ const TabPanelComponent: React.FC = () => {
                     <Tab label="Active" {...a11yProps(1)} />
                     <Tab label="Done" {...a11yProps(2)} />
                 </Tabs>
-                <Box className='tabPanel search' >
+                <Box className={styles.tabPanel__search} >
                     <SearchIcon onClick={handleShowSearchPanel} />
                 </Box>
             </Box>
             <Button
-                className='tabPanel button'
+                className={styles.tabPanel__button}
                 variant="contained"
                 onClick={handleAddTask}
             >

@@ -6,18 +6,17 @@ import { Box } from "@mui/system";
 
 import img from "images/webp/sorry_1.webp";
 
-import "./error.scss";
-
+import styles from "./error.module.scss";
 
 const Error: React.FC = () => {
-    
+
     return (
-        <Box className="error">
-            <img src={img} alt="error" className="error image" />
-            <Typography className="error title">
+        <Box className={styles.error}>
+            <img src={img} alt="error" className={styles.error__image} />
+            <Typography className={styles.error__title}>
                 Page not found
             </Typography>
-            <Link className="error link" to="/">
+            <Link className={styles.error__link} to="/">
                 Return to main page
             </Link>
         </Box>

@@ -1,0 +1,14 @@
+@import "constants/constants.scss";
+
+.button {
+    display: block;
+    margin: 20px;
+    text-align: center;
+    .button__cancel {
+        margin: 0 16px;
+        color: $color_grey;
+    }
+    .button__submit {
+        margin: 0 16px;
+    }
+}

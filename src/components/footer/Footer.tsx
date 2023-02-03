@@ -5,13 +5,13 @@ import { Box } from "@mui/system";
 
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
-import './footer.scss';
+import styles from './footer.module.scss';
 
 const Footer: React.FC = () => {
     return (
-        <Box className="footer">
-            <AssignmentTurnedInIcon className="footer icon" />
-            <Typography className="footer logo_text">
+        <Box className={styles.footer}>
+            <AssignmentTurnedInIcon className={styles.footer__icon} />
+            <Typography className={styles.footer__logo}>
                 TodoList
             </Typography>
         </Box>

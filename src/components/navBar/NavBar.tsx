@@ -10,7 +10,7 @@ import NavBarMenu from "./NavBarMenu";
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/reduxHooks";
 
-import "./navBar.scss";
+import styles from "./navBar.module.scss";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -30,13 +30,13 @@ const NavBar: React.FC = () => {
 
     return (
         <AppBar position="static">
-            <Container maxWidth="xl" className="navbar">
+            <Container maxWidth="xl" className={styles.navbar}>
                 <Toolbar disableGutters>
                     <AssignmentTurnedInIcon sx={{ mr: 1 }} />
                     <Typography
                         component={RouterLink}
                         to={name ? "/" : "/login"}
-                        className="navbar link_text"
+                        className={styles.navbar__logo}
                     >
                         TodoList
                     </Typography>

@@ -16,7 +16,7 @@ import { setQuery } from "store/querySlice";
 
 import { IQueryData, ITask } from "types/taskTypes";
 
-import "./cardList.scss";
+import styles from "./cardList.module.scss";
 
 interface ICardList {
     tabIndex: number;
@@ -100,10 +100,10 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
     };
 
     return isSuccess ? (
-        <Container className="cardList" maxWidth="xl">
-            <Box className="cardList cardListBox">
+        <Container maxWidth="xl">
+            <Box className={styles.cardList__box}>
                 <Modal open={cardFullOpen} onClose={cardFullClose}>
-                    <Box sx={{ boxShadow: 24 }} className='cardList fullCard'>
+                    <Box className={styles.cardList__fullCard}>
                         <FullCard
                             task={fullCardTask}
                             deleteLoading={deleteLoading}
@@ -111,15 +111,15 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
                         />
                     </Box>
                 </Modal>
-                <Typography className="cardList subtitle">
+                <Typography className={styles.cardList__subtitle}>
                     {loading ? "Loading..." : taskdata.totalTasksQty
                         ? `On page: ${taskdata.tasksOnPageQty}, total: ${taskdata.totalTasksQty}`
                         : "No cards"}
                 </Typography>
                 <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
             </Box>
-            <Box className="cardList taskAmountBox" >
-                <Typography className="cardList taskAmount" >tasks on page:</Typography>
+            <Box className={styles.cardList__taskAmountBox} >
+                <Typography className={styles.cardList__taskAmount} >tasks on page:</Typography>
                 <SelectTaskCount tasksOnPage={tasksOnPage} setTasksOnPage={handleTasksOnPage} />
             </Box>
             <Box>

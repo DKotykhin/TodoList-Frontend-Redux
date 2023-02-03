@@ -1,0 +1,30 @@
+@import "constants/constants.scss";
+
+.fullCard {
+    .fullCard__closeIcon {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        color: $color_grey;
+        cursor: pointer;
+        &:hover {
+            color: #000000;
+        }
+    }
+    .fullCard__subtitle {
+        min-height: 30px;
+        word-wrap: break-word;
+    }
+    .fullCard__description > p {
+        margin: 0;
+    }
+    .fullCard__description {
+        min-height: 100px;
+        word-wrap: break-word;
+        overflow-y: auto;
+    }
+    .fullCard__buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+}

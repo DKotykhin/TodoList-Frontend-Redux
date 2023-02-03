@@ -6,15 +6,15 @@ import { toast } from 'react-toastify';
 import { Button, Container, Typography, Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-import { EmailField, NameField, PasswordField } from "components/userFields";
-import { RegisterFormValidation } from "./userFormValidation";
+import { EmailField, NameField, PasswordField } from "components/fields/userFields";
+import { RegisterFormValidation } from "../validations/userFormValidation";
 
 import { RegisterUser } from "api/userrequests";
 import { useAppDispatch } from 'store/reduxHooks';
 import { createUser } from "store/userSlice";
 import { IUserRegister } from "types/userTypes";
 
-import "./styleForm.scss";
+import styles from "./form.module.scss";
 
 const RegisterForm = () => {
     const [loading, setLoading] = useState(false);
@@ -48,14 +48,14 @@ const RegisterForm = () => {
     };
 
     return (
-        <Container maxWidth="xs" className="form">
-            <Paper elevation={10} className="form paper">
-                <Typography className="form title" component="h2">
+        <Container maxWidth="xs" className={styles.form}>
+            <Paper elevation={10} className={styles.form__paper}>
+                <Typography className={styles.paper__title} component="h2">
                     {"Registration"}
                 </Typography>
-                <Avatar className="form avatar" />
+                <Avatar className={styles.paper__avatar} />
                 <Box
-                    className="form field"
+                    className={styles.paper__field}
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
@@ -75,17 +75,16 @@ const RegisterForm = () => {
                     />
                     <Button
                         disabled={!isValid}
-                        className="form submit_button"
                         type="submit"
                     >
                         {loading ? 'Loading...' : "Register"}
                     </Button>
                 </Box>
             </Paper>
-            <Typography className="form subtitle">
+            <Typography className={styles.form__subtitle}>
                 {"Already have account?"}
             </Typography>
-            <Button className="form submit_button" component={Link} to="/login">
+            <Button className={styles.form__submit_button} component={Link} to="/login">
                 {"Login"}
             </Button>
         </Container>

@@ -6,7 +6,7 @@ import { ITask } from "types/taskTypes";
 import CardTime from "../CardTime";
 import CardTitle from "../CardTitle";
 
-import './shortCard.scss';
+import styles from "./shortCard.module.scss";
 
 interface IShortCard {
     task: ITask;
@@ -18,8 +18,8 @@ const ShortCard: React.FC<IShortCard> = ({ task, handleOpenFullCard }) => {
     return (
         <Card
             variant="outlined"
-            className="card"
-            sx={{ boxShadow: 24 }}
+            className={styles.shortCard__card}
+            // sx={{ boxShadow: 24 }}
         >
             <CardContent onClick={handleOpenFullCard}>
                 <CardTitle

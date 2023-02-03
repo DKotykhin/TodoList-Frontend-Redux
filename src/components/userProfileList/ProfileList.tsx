@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Button, Typography, Container, Paper } from "@mui/material";
 
-import DeleteForm from "../userDeleteForm/DeleteForm";
-import ProfileForm from "../userProfileForm/ProfileForm";
+import DeleteForm from "./deleteForm/DeleteForm";
+import ProfileForm from "./profileForm/ProfileForm";
 
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/reduxHooks";
 
-import "./profilelist.scss";
+import styles from "./profileList.module.scss";
 
 const ProfileList: React.FC = () => {
 
@@ -19,9 +19,9 @@ const ProfileList: React.FC = () => {
     const { createdAt, name } = userdata;
 
     return (
-        <Container maxWidth="xs" className="profile">
+        <Container maxWidth="xs" className={styles.profile}>
             <Paper elevation={10}>
-                <Typography className="profile title" component="h2">
+                <Typography className={styles.profile__title} component="h2">
                     {name}
                 </Typography>
                 <Typography sx={{ pb: 1 }}>

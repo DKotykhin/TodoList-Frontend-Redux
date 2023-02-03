@@ -1,0 +1,33 @@
+@import "constants/constants.scss";
+
+.cardList__box {
+    min-height: calc(100vh - 480px);
+    .cardList__subtitle {
+        font-size: 18px;
+        margin-bottom: 8px;
+        text-align: center;
+        color: $color_grey;
+    }
+}
+.cardList__fullCard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+    max-height: 600px;
+    overflow-y: auto;
+    border-radius: 20px;
+}
+
+.cardList__taskAmountBox {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    .cardList__taskAmount {
+        margin-top: 8px;
+        margin-right: 16px;
+        color: $color_grey;
+    }
+}
