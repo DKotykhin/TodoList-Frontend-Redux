@@ -100,16 +100,16 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
     };
 
     return isSuccess ? (
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" className={styles.cardList}>
             <Box className={styles.cardList__box}>
                 <Modal open={cardFullOpen} onClose={cardFullClose}>
-                    <Box className={styles.cardList__fullCard}>
+                    <>
                         <FullCard
                             task={fullCardTask}
                             deleteLoading={deleteLoading}
                             closeModal={cardFullClose}
                         />
-                    </Box>
+                    </>
                 </Modal>
                 <Typography className={styles.cardList__subtitle}>
                     {loading ? "Loading..." : taskdata.totalTasksQty
