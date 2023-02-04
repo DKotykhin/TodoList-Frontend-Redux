@@ -5,7 +5,9 @@ import Typography from "@mui/material/Typography";
 import { removeUser } from "store/userSlice";
 import { useAppDispatch } from "store/reduxHooks";
 
-const settings = ["Profile", "Change password", "Logout"];
+import styles from "./navBar.module.scss";
+
+const menu = ["Profile", "Change password", "Logout"];
 
 const NavBarMenu = () => {    
     const navigate = useNavigate();
@@ -32,18 +34,13 @@ const NavBarMenu = () => {
 
     return (
         <>
-            {settings.map((setting) => (
+            {menu.map((item) => (
                 <Typography
-                    key={setting}
-                    sx={{
-                        padding: "5px 15px",
-                        cursor: "pointer",
-                        color: "#808080",
-                        ":hover": { color: "#2b2b2b" },
-                    }}
-                    onClick={() => handleSettingMenu(setting)}
+                    key={item}
+                    className={styles.navbar__menu}
+                    onClick={() => handleSettingMenu(item)}
                 >
-                    {setting}
+                    {item}
                 </Typography>
             ))}
         </>

@@ -1,3 +1,5 @@
+@import 'constants/constants.scss';
+
 .navbar {
     .navbar__logo {
         margin-right: 20px;
@@ -7,5 +9,13 @@
         color: #fff;
         text-decoration: none;
         flex-grow: 1;
+    }
+}
+.navbar__menu {
+    padding: 5px 15px;
+    color: $color_grey;
+    cursor: pointer;
+    &:hover {
+        color: #2b2b2b;
     }
 }
