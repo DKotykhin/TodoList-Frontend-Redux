@@ -4,17 +4,17 @@ import { Outlet } from "react-router-dom";
 import NavBar from "components/navBar/NavBar";
 import Footer from "components/footer/Footer";
 
+import styles from './layout.module.scss';
+
 const Layout: React.FC = () => {
-    return(
-        <div>
-            <div style={{'minHeight': 'calc(100vh - 64px)'}}>
-                <header>
-                    <NavBar/>
-                </header>
-                <main>
-                    <Outlet/>
-                </main>
-            </div>
+    return (
+        <div className={styles.layout}>
+            <header>
+                <NavBar />
+            </header>
+            <main className={styles.main}>
+                <Outlet />
+            </main>
             <footer>
                 <Footer />
             </footer>
