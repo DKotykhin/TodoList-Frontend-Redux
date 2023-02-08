@@ -3,15 +3,20 @@
 .navbar {
     .navbar__logo {
         margin-right: 20px;
-        font-size: 25px;
+        font-size: 26px;
         font-weight: 700;
         font-family: monospace;
         color: #fff;
         text-decoration: none;
+    }
+    .navbar__name {
         flex-grow: 1;
+        text-align: right;
+        margin-right: 15px;
     }
 }
 .navbar__menu {
+    display: block;
     padding: 5px 15px;
     color: $color_grey;
     cursor: pointer;
