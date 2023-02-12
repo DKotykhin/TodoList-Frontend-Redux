@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { format, formatDistanceToNow } from "date-fns";
 
@@ -18,7 +17,7 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
     const [daysLeft, setDaysLeft] = useState("");
     const [overdue, setOverdue] = useState(false);
 
-    useEffect(() => {
+    useMemo(() => {
         if (deadline) {
             const result = formatDistanceToNow(new Date(deadline), {
                 addSuffix: true,
@@ -39,7 +38,12 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
                     {"Created: "}
                     {format(new Date(createdAt), "dd.LL.yyyy H:mm")}
                 </Typography>
-                {deadline && (
+                {completed ?
+                    <Typography variant="body2" color="text.secondary">
+                        {"Completed"}
+                    </Typography>
+                    :
+                    deadline &&
                     <Typography variant="body2" color="text.secondary">
                         {"Deadline: "}
                         {format(new Date(deadline), "dd.LL.yyyy")}
@@ -56,7 +60,7 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
                             </Box>
                         )}
                     </Typography>
-                )}
+                }
             </Box>
         </Box>
     );
