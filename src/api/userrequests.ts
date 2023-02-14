@@ -16,6 +16,7 @@ import {
     IUserConfirmPasswordResponse,
     IUserAvatarResponse,
     IUserUpdatePasswordResponse,
+    ITaskStatisticResponse,
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -152,6 +153,19 @@ export const DeleteAvatar = async (): Promise<IUserAvatarResponse> => {
     const config = {
         method: "DELETE",
         url: "/avatar",
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
+    };
+
+    const result = await axios(config);
+    return result.data;
+};
+
+export const GetTasksStatistic = async (): Promise<ITaskStatisticResponse> => {
+    const config = {
+        method: "GET",
+        url: "/user/statistic",
         headers: {
             Authorization: `Bearer ${getToken()}`,
         },

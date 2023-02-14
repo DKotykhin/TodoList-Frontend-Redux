@@ -77,6 +77,7 @@ const AvatarUploadForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
+            sx={{ textAlign: 'center' }}
         >
             <Box sx={{ cursor: 'pointer' }} component="label" onChange={onChange}>
                 <Tooltip title="Change Avatar" placement="left" arrow>

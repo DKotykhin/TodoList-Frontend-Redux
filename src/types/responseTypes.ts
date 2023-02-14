@@ -56,3 +56,11 @@ export interface ITaskDeleteResponse {
     };
     message: string;
 }
+
+export interface ITaskStatisticResponse {
+    totalTasks: number;
+    completedTasks: number;
+    activeTasks: number;
+    overdueTasks: number;
+    message: string;
+}

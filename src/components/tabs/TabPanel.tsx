@@ -44,6 +44,7 @@ const TabPanelComponent: React.FC = () => {
 
     const handleShowSearchPanel = () => {
         setShowSearchPanel(prev => !prev);
+        setSearchTerm('');
     };
 
     const handleAddTask = (): void => {

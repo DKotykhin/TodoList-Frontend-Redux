@@ -6,6 +6,7 @@ import { Button, Typography, Container, Paper } from "@mui/material";
 
 import DeleteForm from "./deleteForm/DeleteForm";
 import ProfileForm from "./profileForm/ProfileForm";
+import UserStatistic from "./userStatistic/UserStatistic";
 
 import { selectUser } from "store/selectors";
 import { useAppSelector } from "store/reduxHooks";
@@ -20,7 +21,7 @@ const ProfileList: React.FC = () => {
 
     return (
         <Container maxWidth="xs" className={styles.profile}>
-            <Paper elevation={10}>
+            <Paper elevation={10} className={styles.profile__paper}>
                 <Typography className={styles.profile__title} component="h2">
                     {name}
                 </Typography>
@@ -31,9 +32,10 @@ const ProfileList: React.FC = () => {
                     )}`}
                 </Typography>
             </Paper>
+            <UserStatistic />
             <ProfileForm userdata={userdata} />
             <DeleteForm />
-            <Button sx={{ m: 6 }} onClick={() => navigate("/")}>
+            <Button className={styles.profile__link} sx={{ m: 6 }} onClick={() => navigate("/")}>
                 Main Page
             </Button>
         </Container>

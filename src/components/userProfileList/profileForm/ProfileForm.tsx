@@ -15,6 +15,8 @@ import { updateName } from "store/userSlice";
 
 import { IUser } from "types/userTypes";
 
+import styles from "../profileList.module.scss";
+
 const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
     const [loading, setLoading] = useState(false);
@@ -52,9 +54,10 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
     };
 
     return (
-        <Paper elevation={10} sx={{ my: 2 }}>
+        <Paper elevation={10} sx={{ my: 2, pb: 1 }}>
             <AvatarUploadForm userdata={userdata} />
             <Box
+                className={styles.profile__field}
                 onSubmit={handleSubmit(onSubmit)}
                 component="form"
                 noValidate
@@ -72,11 +75,7 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
                         control={control}
                     />
                 </Box>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    sx={{ m: 3 }}
-                >
+                <Button type="submit">
                     {loading ? 'Loading...' : 'Save name'}
                 </Button>
             </Box>
