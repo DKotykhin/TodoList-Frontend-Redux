@@ -20,7 +20,7 @@ const UserStatistic: React.FC = () => {
     return (
         <Paper elevation={10} className={styles.statistic}>
             <Typography className={styles.title}>
-                {"Your statistic:"}
+                {taskStatistic ? "Your statistic:" : "Loading..."}
             </Typography>
             {taskStatistic?.totalTasks ?
                 <Box className={styles.subtitle}>
