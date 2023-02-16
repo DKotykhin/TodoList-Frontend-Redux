@@ -3,19 +3,19 @@
 .cardList {
     .cardList__box {
         min-height: calc(100vh - 480px);
-        .cardList__subtitle {
-            font-size: 18px;
-            margin-bottom: 8px;
-            text-align: center;
-            color: $color_grey;
-        }
+    }
+    .cardList__subtitle {
+        font-size: 18px;
+        margin-bottom: 8px;
+        text-align: center;
+        color: $color_grey;
     }
     .cardList__taskAmountBox {
         display: flex;
         justify-content: flex-end;
         margin-bottom: 16px;
-        .cardList__taskAmount {
-            margin-top: 8px;
+        align-items: center;
+        .cardList__taskAmount {           
             margin-right: 16px;
             color: $color_grey;
         }

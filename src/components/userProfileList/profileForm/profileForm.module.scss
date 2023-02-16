@@ -1,0 +1,15 @@
+.profileForm {
+    margin-bottom: 16px;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    .profileForm__field {
+        & > :not(style) {
+            width: 300px;
+            display: block;
+            margin: 30px auto;
+        }
+        label {        
+            margin-bottom: 10px;        
+        }
+    }
+}

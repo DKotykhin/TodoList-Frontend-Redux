@@ -101,35 +101,33 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
 
     return isSuccess ? (
         <Container maxWidth="xl" className={styles.cardList}>
+            <Modal open={cardFullOpen} onClose={cardFullClose}>
+                <>
+                    <FullCard
+                        task={fullCardTask}
+                        deleteLoading={deleteLoading}
+                        closeModal={cardFullClose}
+                    />
+                </>
+            </Modal>
+            <Typography className={styles.cardList__subtitle}>
+                {loading ? "Loading..." : taskdata.totalTasksQty
+                    ? `On page: ${taskdata.tasksOnPageQty}, total: ${taskdata.totalTasksQty}`
+                    : "No cards"}
+            </Typography>
             <Box className={styles.cardList__box}>
-                <Modal open={cardFullOpen} onClose={cardFullClose}>
-                    <>
-                        <FullCard
-                            task={fullCardTask}
-                            deleteLoading={deleteLoading}
-                            closeModal={cardFullClose}
-                        />
-                    </>
-                </Modal>
-                <Typography className={styles.cardList__subtitle}>
-                    {loading ? "Loading..." : taskdata.totalTasksQty
-                        ? `On page: ${taskdata.tasksOnPageQty}, total: ${taskdata.totalTasksQty}`
-                        : "No cards"}
-                </Typography>
                 <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
             </Box>
             <Box className={styles.cardList__taskAmountBox} >
                 <Typography className={styles.cardList__taskAmount} >tasks on page:</Typography>
                 <SelectTaskCount tasksOnPage={tasksOnPage} setTasksOnPage={handleTasksOnPage} />
             </Box>
-            <Box>
-                {taskdata?.totalPagesQty > 1 &&
-                    <PaginationControlled
-                        totalPagesQty={taskdata?.totalPagesQty}
-                        currentPage={handleCurrentPageNumber}
-                        currentPageNumber={currentPageNumber} />
-                }
-            </Box>
+            {taskdata?.totalPagesQty > 1 &&
+                <PaginationControlled
+                    totalPagesQty={taskdata?.totalPagesQty}
+                    currentPage={handleCurrentPageNumber}
+                    currentPageNumber={currentPageNumber} />
+            }
         </Container>
     ) : isError ? <Navigate to='/login' /> : <Spinner />;
 };

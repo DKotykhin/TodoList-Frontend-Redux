@@ -2,7 +2,7 @@
 
 .profile {    
     .profile__paper {
-        margin-top: 30px;
+        margin: 32px 0 16px;
         text-align: center;
         .profile__title {
             font-size: 25px;            
@@ -13,15 +13,5 @@
     .profile__link {
         display: block;
         margin: 40px auto;
-    }
-    label {        
-        margin-bottom: 10px;        
-    }
-}
-.profile__field {
-    & > :not(style) {
-        width: 300px;
-        display: block;
-        margin: 30px auto;
-    }
+    }    
 }
