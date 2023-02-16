@@ -9,6 +9,8 @@ import {
     FormHelperText,
 } from "@mui/material";
 
+import styles from './field.module.scss';
+
 interface IEmailField {
     disabled: boolean;
     error: any;
@@ -17,14 +19,14 @@ interface IEmailField {
 
 const EmailField: React.FC<IEmailField> = ({ disabled, error, control }) => {
     return (
-        <Box>
+        <Box className={styles.field}>
             <InputLabel>Email</InputLabel>
             <FormControl>
                 <Controller
                     name="email"
                     control={control}
                     render={({ field }) => (
-                        <Input sx={{ width: '300px' }}
+                        <Input
                             {...field}
                             type="email"                            
                             disabled={disabled}

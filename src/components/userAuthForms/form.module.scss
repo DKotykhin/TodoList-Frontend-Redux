@@ -1,5 +1,3 @@
-@import "constants/constants.scss";
-
 .form {
     .form__paper {
         margin: 32px 0;
@@ -13,30 +11,30 @@
             height: 60px;
             margin: 0 auto;
             margin-top: 20px;
-        }
-        .paper__field {
-            & > :not(style) {
-                width: 300px;
-                display: block;
-                margin: 30px auto;
-            }
-        }
+        }       
         input[type="checkbox"] {
             display: inline;
             width: 25px;
             height: 25px;
             margin-right: 15px;
         }
+        .paper__checkbox {
+            cursor: pointer;
+            width: 150px;
+            margin-left: 50px;
+        }
     }
 
     .form__subtitle {
         text-align: center;
-        margin-bottom: 15px;
     }
     .form__submit_button {
-        text-align: center;
         display: block;
-        margin: 0 auto;
-        margin-bottom: 20px;
+        margin: 20px auto;
+    }
+    .form__return_button {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
     }
 }

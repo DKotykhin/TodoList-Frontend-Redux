@@ -65,7 +65,6 @@ const LoginForm: React.FC = () => {
                 </Typography>
                 <Avatar className={styles.paper__avatar} />
                 <Box
-                    className={styles.paper__field}
                     component="form"
                     onSubmit={handleSubmit(onSubmit)}
                 >
@@ -79,7 +78,7 @@ const LoginForm: React.FC = () => {
                         error={errors.password}
                         control={control}
                     />
-                    <InputLabel>
+                    <InputLabel className={styles.paper__checkbox}>
                         <Controller
                             name="rememberMe"
                             control={control}
@@ -89,6 +88,7 @@ const LoginForm: React.FC = () => {
                         Remember me
                     </InputLabel>
                     <Button
+                        className={styles.form__submit_button}
                         disabled={!isValid}
                         type="submit"
                     >
@@ -100,7 +100,7 @@ const LoginForm: React.FC = () => {
                 {"Don't have account?"}
             </Typography>
             <Button
-                className={styles.form__submit_button}
+                className={styles.form__return_button}
                 component={Link}
                 to="/registration"
             >

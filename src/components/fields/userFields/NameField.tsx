@@ -9,6 +9,7 @@ import {
     FormHelperText,
 } from "@mui/material";
 
+import styles from './field.module.scss';
 interface INameField {
     label: string;
     error: any;
@@ -17,14 +18,14 @@ interface INameField {
 
 const NameField: React.FC<INameField> = ({ label, error, control }) => {
     return (
-        <Box>
+        <Box className={styles.field}>
             <InputLabel>{label}</InputLabel>
             <FormControl>
                 <Controller
                     name="name"
                     control={control}
                     render={({ field }) => (
-                        <Input sx={{ width: '300px' }}
+                        <Input
                             {...field}
                             type="text"
                             placeholder="type name..."
