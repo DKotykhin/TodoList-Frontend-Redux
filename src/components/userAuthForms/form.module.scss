@@ -2,23 +2,22 @@
     .form__paper {
         margin: 32px 0;
         padding: 16px 0 8px;
-        .paper__title {
+        .form__title {
             font-size: 22px;
             text-align: center;
         }
-        .paper__avatar {
+        .form__avatar {
             width: 60px;
             height: 60px;
-            margin: 0 auto;
-            margin-top: 20px;
-        }       
+            margin: 30px auto;
+        }
         input[type="checkbox"] {
             display: inline;
             width: 25px;
             height: 25px;
             margin-right: 15px;
         }
-        .paper__checkbox {
+        .form__checkbox {
             cursor: pointer;
             width: 150px;
             margin-left: 50px;
@@ -31,10 +30,12 @@
     .form__submit_button {
         display: block;
         margin: 20px auto;
+        font-size: 1rem;
     }
     .form__return_button {
         display: block;
         text-align: center;
         margin: 20px auto;
+        font-size: 1rem;
     }
 }

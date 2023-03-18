@@ -1,11 +1,8 @@
 .field {
-    width: 300px;
-    display: block;
-    margin: 30px auto;
+    margin: 0 30px 30px;
+    display: flex;
+    flex-direction: column;
     label {
         margin-bottom: 10px;
-    }
-    input {
-        width: 300px; 
     }
 }

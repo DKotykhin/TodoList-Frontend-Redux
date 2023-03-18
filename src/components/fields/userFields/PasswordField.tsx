@@ -37,7 +37,7 @@ const PasswordField: React.FC<IPasswordField> = (props) => {
             <InputLabel>
                 {name}
             </InputLabel>
-            <FormControl sx={{ width: "300px" }}>
+            <FormControl>
                 <Controller
                     name={name.toLowerCase().split(' ').join('')}
                     control={control}
