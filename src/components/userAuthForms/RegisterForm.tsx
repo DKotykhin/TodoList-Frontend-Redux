@@ -9,9 +9,10 @@ import { Box } from "@mui/system";
 import { EmailField, NameField, PasswordField } from "components/fields/userFields";
 import { RegisterFormValidation } from "../validations/userFormValidation";
 
-import { RegisterUser } from "api/userrequests";
+import User from "api/userrequests";
 import { useAppDispatch } from 'store/reduxHooks';
 import { createUser } from "store/userSlice";
+
 import { IUserRegister } from "types/userTypes";
 
 import styles from "./form.module.scss";
@@ -31,7 +32,7 @@ const RegisterForm = () => {
 
     const onSubmit = (data: IUserRegister): void => {
         setLoading(true);
-        RegisterUser(data)
+        User.RegisterUser(data)
             .then(response => {
                 // console.log(response.message);
                 dispatch(createUser(response));

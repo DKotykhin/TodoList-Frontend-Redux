@@ -10,7 +10,7 @@ import { TitleField, MDEField, SubtitleField, DeadlineField } from "../fields/ta
 import { AddTaskFormValidation } from "../validations/taskFormValidation";
 import Buttons from "./buttons/Buttons";
 
-import { AddTask } from "api/taskrequests";
+import Task from "api/taskrequests";
 import { IAddTask } from "types/taskTypes";
 
 import styles from "./task.module.scss";
@@ -37,7 +37,7 @@ const AddTaskComponent: React.FC = () => {
             ...(deadline && { deadline: new Date(deadline).toJSON() }),
             completed: false
         };
-        AddTask(newData)
+        Task.AddTask(newData)
             .then(response => {
                 toast.success(response.message);
                 navigate("/");

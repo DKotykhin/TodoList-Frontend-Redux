@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 
-import { DeleteAvatar } from "api/userrequests";
+import User from "api/userrequests";
 
 import { useAppDispatch } from "store/reduxHooks";
 import { addAvatar } from "store/userSlice";
@@ -17,7 +17,7 @@ const AvatarDeleteForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
     const handleDelete = (): void => {
         const data: string | undefined = userdata?.avatarURL;
         if (data) {
-            DeleteAvatar()
+            User.DeleteAvatar()
                 .then((response) => {
                     toast.success(response.message);
                     dispatch(addAvatar(''))

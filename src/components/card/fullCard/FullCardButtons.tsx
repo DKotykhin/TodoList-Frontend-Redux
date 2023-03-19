@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { Button } from "@mui/material";
 
-import { DeleteTask, UpdateTask } from "api/taskrequests";
+import Task from "api/taskrequests";
 import { fetchTasks } from "store/taskSlice";
 import { useAppDispatch, useAppSelector } from "store/reduxHooks";
 import { selectQuery } from "store/selectors";
@@ -30,7 +30,7 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
     const handleDelete = (_id: string): void => {
         deleteLoading(true);
         closeModal();
-        DeleteTask({ _id })
+        Task.DeleteTask({ _id })
             .then(response => {
                 toast.success(response.message);
                 dispatch(fetchTasks({ limit, page, tabKey, sortField, sortOrder, search }));
@@ -48,7 +48,7 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
         closeModal();
         const { completed, _id, title } = data;
         const newData: ICompleteTask = { completed: !completed, _id, title };
-        UpdateTask(newData)
+        Task.UpdateTask(newData)
             .then(response => {
                 toast.success(response.message);
                 dispatch(fetchTasks({ limit, page, tabKey, sortField, sortOrder, search }));

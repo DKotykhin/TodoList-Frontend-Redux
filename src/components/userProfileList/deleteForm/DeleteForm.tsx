@@ -6,7 +6,7 @@ import { Typography, Paper } from "@mui/material";
 
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 
-import { DeleteUser } from "api/userrequests";
+import User from "api/userrequests";
 import { removeUser } from "store/userSlice";
 import { useAppDispatch } from "store/reduxHooks";
 
@@ -20,7 +20,7 @@ const DeleteForm: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const handleDelete = (): void => {
-        DeleteUser()
+        User.DeleteUser()
             .then((response) => {
                 console.log(response.message);
                 sessionStorage.removeItem("rememberMe");

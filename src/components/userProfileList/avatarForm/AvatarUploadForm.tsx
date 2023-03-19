@@ -8,7 +8,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import AvatarDeleteForm from './AvatarDeleteForm';
 
-import { UploadAvatar } from "api/userrequests";
+import User from "api/userrequests";
 import { useAppDispatch } from "store/reduxHooks";
 import { addAvatar } from "store/userSlice";
 
@@ -53,7 +53,7 @@ const AvatarUploadForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
             setLoading(true);
             const formData = new FormData();
             formData.append("avatar", data.avatar[0], data.avatar[0].name);
-            UploadAvatar(formData)
+            User.UploadAvatar(formData)
                 .then((response) => {
                     toast.success(response.message);
                     dispatch(addAvatar(response.avatarURL));

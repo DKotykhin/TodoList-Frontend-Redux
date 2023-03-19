@@ -12,7 +12,7 @@ import { UpdateTaskFormValidation } from "../validations/taskFormValidation";
 import { TitleField, MDEField, SubtitleField, DeadlineField } from "../fields/taskFields";
 import Buttons from "./buttons/Buttons";
 
-import { UpdateTask } from "api/taskrequests";
+import Task from "api/taskrequests";
 import { selectTask } from "store/selectors";
 import { useAppSelector } from "store/reduxHooks";
 
@@ -58,7 +58,7 @@ const UpdateTaskComponent: React.FC = () => {
             ...(deadline && { deadline: new Date(deadline).toJSON() }),
         };
         setLoading(true);
-        UpdateTask(totalData)
+        Task.UpdateTask(totalData)
             .then(response => {
                 toast.success(response.message);
                 navigate("/", { replace: true });

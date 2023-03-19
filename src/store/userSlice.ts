@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "types/userTypes";
-import { LoginUserByToken } from "api/userrequests";
+import User from "api/userrequests";
 
 export const fetchUserByToken = createAsyncThunk(
     "user/fetch",
     async (_, { rejectWithValue }) => {
         try {
-            const data: IUser = await LoginUserByToken();
-            console.log('login via token')
+            const data: IUser = await User.LoginUserByToken();
+            console.log("login via token");
             return data;
         } catch (err: any) {
             return rejectWithValue(err.response.data.message || err.message);
@@ -17,7 +17,7 @@ export const fetchUserByToken = createAsyncThunk(
 
 interface IUserdata {
     userdata: IUser;
-    fetching: string;    
+    fetching: string;
 }
 const emptyUser: IUser = {
     _id: "",
@@ -25,12 +25,12 @@ const emptyUser: IUser = {
     name: "",
     createdAt: "",
     avatarURL: "",
-    message: ""
+    message: "",
 };
 
 const initialState: IUserdata = {
     userdata: emptyUser,
-    fetching: "waiting",    
+    fetching: "waiting",
 };
 
 const UserSlice = createSlice({

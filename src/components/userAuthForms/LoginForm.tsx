@@ -10,7 +10,7 @@ import { InputLabel, Checkbox } from "@mui/material";
 import { EmailField, PasswordField } from "components/fields/userFields";
 import { LoginFormValidation } from "../validations/userFormValidation";
 
-import { LoginUser } from "api/userrequests";
+import User from "api/userrequests";
 import { useAppDispatch } from 'store/reduxHooks';
 import { createUser } from "store/userSlice";
 import { IUserLogin } from "types/userTypes";
@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
     const onSubmit = (data: IUserData): void => {
         const { email, password } = data;
         setLoading(true);
-        LoginUser({ email, password })
+        User.LoginUser({ email, password })
             .then((response) => {
                 // console.log(response.message);
                 dispatch(createUser(response));
@@ -66,7 +66,7 @@ const LoginForm: React.FC = () => {
                 <Avatar className={styles.form__avatar} />
                 <Box
                     component="form"
-                    onSubmit={handleSubmit(onSubmit)}                  
+                    onSubmit={handleSubmit(onSubmit)}
                 >
                     <EmailField
                         disabled={false}

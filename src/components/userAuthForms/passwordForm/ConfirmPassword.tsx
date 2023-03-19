@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 
 import { PasswordField } from "components/fields/userFields";
 import { PasswordFormValidation } from "../../validations/userFormValidation";
-import { UserConfirmPassword } from 'api/userrequests';
+import User from 'api/userrequests';
 
 import styles from "./password.module.scss";
 
@@ -32,7 +32,7 @@ const ConfirmPassword: React.FC<IConfirmPassword> = ({ confirmStatus }) => {
     const onSubmit = (data: IPasswordData): void => {
         setLoading(true);
         const { currentpassword } = data;
-        UserConfirmPassword({ password: currentpassword })
+        User.UserConfirmPassword({ password: currentpassword })
             .then(response => {
                 console.log(response.message);
                 if (response.confirmStatus) {

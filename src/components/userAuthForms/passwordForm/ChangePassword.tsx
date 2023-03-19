@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { PasswordField } from "components/fields/userFields";
-import { UpdateUserPassword } from "api/userrequests";
+import User from "api/userrequests";
 import { NewPasswordFormValidation } from "../../validations/userFormValidation";
 
 import styles from "./password.module.scss";
@@ -31,7 +31,7 @@ const ChangePassword: React.FC = () => {
         if (data.newpassword === data.confirmpassword) {
             setLoading(true);
             const { newpassword } = data;
-            UpdateUserPassword({ password: newpassword })
+            User.UpdateUserPassword({ password: newpassword })
                 .then(response => {
                     console.log(response.message);
                     toast.success('Password successfully changed!');

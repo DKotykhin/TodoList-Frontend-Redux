@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Typography, Paper, Box } from "@mui/material";
 
-import { GetTasksStatistic } from "api/userrequests";
+import User from "api/userrequests";
 
 import { ITaskStatisticResponse } from "types/responseTypes";
 
@@ -14,7 +14,7 @@ const UserStatistic: React.FC = () => {
     const [taskStatistic, setTaskStatistic] = useState<ITaskStatisticResponse>();
 
     useEffect(() => {
-        GetTasksStatistic().then(response => setTaskStatistic(response))
+        User.GetTasksStatistic().then(response => setTaskStatistic(response))
     }, []);
 
     return (

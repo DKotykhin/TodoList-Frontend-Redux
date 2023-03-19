@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { GetAllTasks } from "api/taskrequests";
+import Task from "api/taskrequests";
 import { IGetTasksResponse } from "types/responseTypes";
 import { IQueryData } from "types/taskTypes";
 
@@ -7,7 +7,7 @@ export const fetchTasks = createAsyncThunk(
     "task/fetch",
     async (queryData: IQueryData, { rejectWithValue }) => {
         try {
-            const data: IGetTasksResponse = await GetAllTasks(queryData);
+            const data: IGetTasksResponse = await Task.GetAllTasks(queryData);
             return data;
         } catch (err: any) {
             return rejectWithValue(err.response.data.message || err.message);

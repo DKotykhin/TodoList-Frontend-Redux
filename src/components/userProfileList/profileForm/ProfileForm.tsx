@@ -9,7 +9,7 @@ import { ProfileFormValidation } from "../../validations/profileFormValidation";
 import AvatarUploadForm from "../avatarForm/AvatarUploadForm";
 import { EmailField, NameField } from "components/fields/userFields";
 
-import { UpdateUserName } from "api/userrequests";
+import User from "api/userrequests";
 import { useAppDispatch } from "store/reduxHooks";
 import { updateName } from "store/userSlice";
 
@@ -37,7 +37,7 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
         const { name } = data;
         if (name !== userdata.name) {
             setLoading(true);
-            UpdateUserName({ name })
+            User.UpdateUserName({ name })
                 .then((response) => {
                     toast.success(response.message);
                     dispatch(updateName(response.name));
