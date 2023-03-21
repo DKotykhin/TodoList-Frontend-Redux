@@ -7,6 +7,7 @@ import {
     IUserLogin,
     IUserUpdateName,
     IUserUpdatePassword,
+    IUserAvatar,
 } from "../types/userTypes";
 
 import {
@@ -14,7 +15,6 @@ import {
     IUserDeleteResponse,
     IUserWithTokenResponse,
     IUserConfirmPasswordResponse,
-    IUserAvatarResponse,
     IUserUpdatePasswordResponse,
     ITaskStatisticResponse,
 } from "types/responseTypes";
@@ -24,9 +24,7 @@ const Base_URL = process.env.REACT_APP_BACKEND_URL;
 axios.defaults.baseURL = Base_URL;
 
 class User {
-    RegisterUser = async (
-        data: IUserRegister
-    ): Promise<IUserWithTokenResponse> => {
+    async RegisterUser(data: IUserRegister): Promise<IUserWithTokenResponse> {
         const config = {
             method: "POST",
             url: "/auth/register",
@@ -38,7 +36,7 @@ class User {
 
         const result = await axios(config);
         return result.data;
-    };
+    }
 
     LoginUser = async (data: IUserLogin): Promise<IUserWithTokenResponse> => {
         const config = {
@@ -129,7 +127,7 @@ class User {
         return result.data;
     };
 
-    UploadAvatar = async (data: FormData): Promise<IUserAvatarResponse> => {
+    UploadAvatar = async (data: FormData): Promise<IUserAvatar> => {
         const config = {
             method: "POST",
             url: "/avatar",
@@ -144,7 +142,7 @@ class User {
         return result.data;
     };
 
-    DeleteAvatar = async (): Promise<IUserAvatarResponse> => {
+    DeleteAvatar = async (): Promise<IUserAvatar> => {
         const config = {
             method: "DELETE",
             url: "/avatar",

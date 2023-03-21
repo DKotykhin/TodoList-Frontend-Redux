@@ -7,7 +7,6 @@ export interface IUserResponse extends IUser {
 
 export interface IUserWithTokenResponse extends IUserResponse {
     token: string;
-    message: string;
 }
 
 export interface IUserConfirmPasswordResponse {
@@ -29,11 +28,6 @@ export interface IUserDeleteResponse {
         acknowledged: boolean;
         deletedCount: number;
     };
-    message: string;
-}
-
-export interface IUserAvatarResponse {
-    avatarURL: string;
     message: string;
 }
 
