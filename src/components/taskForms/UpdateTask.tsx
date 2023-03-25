@@ -90,7 +90,7 @@ const UpdateTaskComponent: React.FC = () => {
                         {...register("completed")}
                         defaultChecked={completed}
                     />
-                    <InputLabel sx={{ mt: 1 }}>Completed</InputLabel>
+                    <InputLabel>Completed</InputLabel>
                 </Box>
                 <Buttons loading={loading} />
             </Box>

@@ -11,12 +11,12 @@ interface IDeadlineField {
 
 const DeadlineField: React.FC<IDeadlineField> = ({ register, value }) => {
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-            <InputLabel sx={{ mt: 2, mr: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', my: 3, flexWrap: 'wrap' }}>
+            <InputLabel>
                 Deadline
             </InputLabel>
             <TextField
-                sx={{ minWidth: "150px" }}
+                sx={{ ml: 3, minWidth: '200px' }}
                 {...register("deadline")}
                 type="datetime-local"
                 inputProps={{

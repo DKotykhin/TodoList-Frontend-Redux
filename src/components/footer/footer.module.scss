@@ -1,17 +1,18 @@
-@import 'constants/constants.scss';
+@import "constants/constants.scss";
 
 .footer {
     background-color: $color_mint;
     height: 64px;
     .footer__container {
         height: 64px;
-        display: flex;  
+        display: flex;
         justify-content: space-between;
         align-items: center;
         .footer__right {
-            color: #ffffff; 
+            color: #ffffff;
+            margin-right: 10px;
         }
-        .footer__logo {        
+        .footer__logo {
             text-align: right;
             font-size: 25px;
             font-weight: 700;

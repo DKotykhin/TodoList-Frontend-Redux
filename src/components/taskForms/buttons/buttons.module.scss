@@ -1,9 +1,9 @@
 @import "constants/constants.scss";
 
 .button {
-    display: block;
-    margin: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 50px;
     .button__cancel {
         margin: 0 16px;
         color: $color_grey;
