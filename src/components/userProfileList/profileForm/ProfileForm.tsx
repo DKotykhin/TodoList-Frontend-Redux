@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import { Button, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-import { ProfileFormValidation } from "../../validations/profileFormValidation";
-import AvatarUploadForm from "../avatarForm/AvatarUploadForm";
+import { ProfileFormValidation } from "components/validations/userFormValidation";
 import { EmailField, NameField } from "components/fields/userFields";
+import AvatarUploadForm from "../avatarForm/AvatarUploadForm";
 
 import User from "api/userrequests";
 import { useAppDispatch } from "store/reduxHooks";
@@ -35,9 +35,10 @@ const ProfileForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
     const onSubmit = (data: FieldValues): void => {
         const { name } = data;
-        if (name !== userdata.name) {
+        const validName = name.trim();
+        if (validName !== userdata.name) {
             setLoading(true);
-            User.UpdateUserName({ name })
+            User.UpdateUserName({ name: validName })
                 .then((response) => {
                     toast.success(response.message);
                     dispatch(updateName(response.name));

@@ -34,9 +34,13 @@ const LoginForm: React.FC = () => {
     } = useForm<IUserData>(LoginFormValidation);
 
     const onSubmit = (data: IUserData): void => {
-        const { email, password } = data;
         setLoading(true);
-        User.LoginUser({ email, password })
+        const { email, password } = data;
+        const validData = {
+            email: email.trim(),
+            password: password.trim(),
+        };
+        User.LoginUser(validData)
             .then((response) => {
                 // console.log(response.message);
                 dispatch(createUser(response));

@@ -32,7 +32,13 @@ const RegisterForm = () => {
 
     const onSubmit = (data: IUserRegister): void => {
         setLoading(true);
-        User.RegisterUser(data)
+        const { name, email, password } = data;
+        const validData = {
+            name: name.trim(),
+            email: email.trim(),
+            password: password.trim(),
+        };
+        User.RegisterUser(validData)
             .then(response => {
                 // console.log(response.message);
                 dispatch(createUser(response));
