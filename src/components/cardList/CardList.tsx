@@ -26,10 +26,10 @@ interface ICardList {
 }
 
 const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZValue }) => {
-    const [loading, setLoading] = useState(false);
 
     const { query: { limit, page } } = useAppSelector(selectQuery);
 
+    const [loading, setLoading] = useState(false);
     const [tasksOnPage, setTasksOnPage] = useState(limit);
     const [currentPageNumber, setCurrentPageNumber] = useState(page);
 
@@ -65,18 +65,18 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
 
     useEffect(() => {
         dispatch(fetchTasks(query));
-        dispatch(setQuery({ query }))
+        dispatch(setQuery({ query }));
     }, [dispatch, query]);
 
     useEffect(() => {
-        if (taskdata?.tasksOnPageQty === 0) {
+        if (Boolean(taskdata.totalTasksQty && (taskdata.tasksOnPageQty === 0))) {
             setCurrentPageNumber(prev => prev - 1);
         }
-    }, [taskdata?.tasksOnPageQty]);
+    }, [taskdata.tasksOnPageQty, taskdata.totalTasksQty]);
 
     useEffect(() => {
         setCurrentPageNumber(1);
-    }, [tabIndex, tasksOnPage]);
+    }, [tabIndex]);
 
     const handleTasksOnPage = (data: number): void => {
         setTasksOnPage(data);

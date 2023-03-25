@@ -3,6 +3,7 @@ import axios from "axios";
 import { getToken } from "./getToken";
 
 import {
+    ITask,
     IAddTask,
     ICompleteTask,
     IQueryData,
@@ -35,6 +36,19 @@ class Task {
             },
         };
 
+        const result = await axios(config);
+        return result.data;
+    };
+
+    GetOneTask = async (data: string): Promise<ITask> => {
+        const config = {
+            method: "GET",
+            url: `/task/${data}`,
+            headers: {
+                Authorization: `Bearer ${getToken()}`,
+                "Content-Type": "application/json",
+            },
+        };
         const result = await axios(config);
         return result.data;
     };

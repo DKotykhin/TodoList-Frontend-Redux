@@ -13,8 +13,6 @@ import { TitleField, MDEField, SubtitleField, DeadlineField } from "../fields/ta
 import Buttons from "./buttons/Buttons";
 
 import Task from "api/taskrequests";
-import { selectTask } from "store/selectors";
-import { useAppSelector } from "store/reduxHooks";
 
 import { ITask, IUpdateTask } from "types/taskTypes";
 
@@ -32,7 +30,6 @@ const UpdateTaskComponent: React.FC = () => {
     const [mdeValue, setMdeValue] = useState("");
     const [singleTask, setSingleTask] = useState<ITask>();
 
-    const { taskdata } = useAppSelector(selectTask);
     const params = useParams();;
     const navigate = useNavigate();
 
@@ -43,12 +40,11 @@ const UpdateTaskComponent: React.FC = () => {
     } = useForm<IUpdateForm>(UpdateTaskFormValidation);
 
     useEffect(() => {
-        const currentTask = taskdata.tasks.filter((task) => task._id === params.taskId);
-        if (currentTask.length) {
-            setSingleTask(currentTask[0])
-        } else navigate('/');
-
-    }, [navigate, params.taskId, taskdata.tasks]);
+        if (params.taskId) {
+            Task.GetOneTask(params.taskId)
+                .then(response => setSingleTask(response))
+        }
+    }, [params.taskId])
 
     const onSubmit = (data: IUpdateForm): void => {
         const { title, subtitle, deadline, completed } = data;
