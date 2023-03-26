@@ -34,15 +34,13 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
     const [currentPageNumber, setCurrentPageNumber] = useState(page);
 
     const [cardFullOpen, setCardFullOpen] = useState(false);
-    const [cardFullId, setCardFullId] = useState("");
+    const [cardFullTask, setCardFullTask] = useState<ITask>();
 
     const dispatch = useAppDispatch();
 
     const { taskdata, fetching } = useAppSelector(selectTask);
     const isSuccess: boolean = fetching === "loaded";
     const isError: boolean = fetching === "error";
-
-    const fullCardTask = taskdata.tasks.filter((task: ITask) => task._id === cardFullId)[0];
 
     const query: IQueryData = useMemo(
         () => ({
@@ -86,9 +84,10 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
         setCurrentPageNumber(value);
     };
 
-    const handleOpenFullCard = (data: string): void => {
+    const handleOpenFullCard = (id: string): void => {
+        const fullCardTask = taskdata.tasks.find((task: ITask) => task._id === id);
+        setCardFullTask(fullCardTask);
         setCardFullOpen(true);
-        setCardFullId(data);
     };
 
     const cardFullClose = (): void => {
@@ -104,7 +103,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
             <Modal open={cardFullOpen} onClose={cardFullClose}>
                 <>
                     <FullCard
-                        task={fullCardTask}
+                        task={cardFullTask}
                         deleteLoading={deleteLoading}
                         closeModal={cardFullClose}
                     />

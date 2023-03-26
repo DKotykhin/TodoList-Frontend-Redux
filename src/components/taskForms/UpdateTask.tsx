@@ -17,6 +17,7 @@ import Task from "api/taskrequests";
 import { ITask, IUpdateTask } from "types/taskTypes";
 
 import styles from "./task.module.scss";
+import Spinner from "components/spinner/Spinner";
 
 interface IUpdateForm {
     title: string;
@@ -30,7 +31,11 @@ const UpdateTaskComponent: React.FC = () => {
     const [mdeValue, setMdeValue] = useState("");
     const [singleTask, setSingleTask] = useState<ITask>();
 
-    const params = useParams();;
+    const [oneTaskLoading, setOneTaskLoading] = useState(false);
+    const [oneTaskError, setOneTaskError] = useState(false);
+
+    const { taskId } = useParams();
+
     const navigate = useNavigate();
 
     const {
@@ -40,11 +45,20 @@ const UpdateTaskComponent: React.FC = () => {
     } = useForm<IUpdateForm>(UpdateTaskFormValidation);
 
     useEffect(() => {
-        if (params.taskId) {
-            Task.GetOneTask(params.taskId)
+        if (taskId) {
+            setOneTaskError(false);
+            setOneTaskLoading(true);
+            Task.GetOneTask(taskId)
                 .then(response => setSingleTask(response))
+                .catch((error) => {
+                    console.log(error);
+                    setOneTaskError(true);
+                })
+                .finally(() => {
+                    setOneTaskLoading(false);
+                });
         }
-    }, [params.taskId])
+    }, [taskId]);
 
     const onSubmit = (data: IUpdateForm): void => {
         const { title, subtitle, deadline, completed } = data;
@@ -74,26 +88,29 @@ const UpdateTaskComponent: React.FC = () => {
         setMdeValue(data);
     }, []);
 
-    return (
+    return oneTaskLoading ? <Spinner /> : (
         <Container className={styles.task} maxWidth="sm">
             <Typography className={styles.task__title}>Update Task</Typography>
-            {singleTask &&
-                <Box onSubmit={handleSubmit(onSubmit)} component="form">
+            {
+                oneTaskError ?
+                    <Typography className={styles.task__error}>Can't load task...</Typography>
+                    : singleTask &&
+                    <Box onSubmit={handleSubmit(onSubmit)} component="form">
 
-                    <TitleField register={register} error={errors} value={singleTask.title} />
-                    <SubtitleField register={register} value={singleTask.subtitle} />
-                    <MDEField MDEChange={MDEChange} description={singleTask.description} />
-                    <DeadlineField register={register} value={format(new Date(singleTask.deadline || ""), "yyyy-LL-dd HH:mm")} />
+                        <TitleField register={register} error={errors} value={singleTask.title} />
+                        <SubtitleField register={register} value={singleTask.subtitle} />
+                        <MDEField MDEChange={MDEChange} description={singleTask.description} />
+                        <DeadlineField register={register} value={format(new Date(singleTask.deadline || ""), "yyyy-LL-dd HH:mm")} />
 
-                    <Box className={styles.task__checkbox}>
-                        <Checkbox
-                            {...register("completed")}
-                            defaultChecked={singleTask.completed}
-                        />
-                        <InputLabel>Completed</InputLabel>
+                        <Box className={styles.task__checkbox}>
+                            <Checkbox
+                                {...register("completed")}
+                                defaultChecked={singleTask.completed}
+                            />
+                            <InputLabel>Completed</InputLabel>
+                        </Box>
+                        <Buttons loading={loading} />
                     </Box>
-                    <Buttons loading={loading} />
-                </Box>
             }
         </Container>
     );

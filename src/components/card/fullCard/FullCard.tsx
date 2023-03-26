@@ -21,44 +21,45 @@ import { ITask } from "types/taskTypes";
 import styles from "./fullCard.module.scss";
 
 interface IFullCard {
-    task: ITask;
+    task?: ITask;
     deleteLoading: (arg0: boolean) => void;
     closeModal: () => void;
 }
 
 const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
-    const { subtitle, description } = task;
 
     return (
         <Box className={styles.fullCard}>
-            <Card variant="outlined">
-                <CardContent>
-                    <CloseIcon className={styles.fullCard__closeIcon} onClick={closeModal} />
-                    <CardTitle shortTitleWidth={true} task={task} />
-                    <Box sx={{ display: "flex" }}>
-                        <SubtitlesOutlinedIcon sx={{ mr: 1 }} />
-                        <Typography className={styles.fullCard__subtitle} color="text.secondary">
-                            {subtitle}
-                        </Typography>
-                    </Box>
-                    <Divider sx={{ mb: 1 }} />
-                    <Box sx={{ display: "flex" }}>
-                        <SubjectIcon sx={{ mr: 1 }} />
-                        <Box className={styles.fullCard__description}>
-                            {description && <ReactMarkdown children={description} />}
+            {task &&
+                <Card variant="outlined">
+                    <CardContent>
+                        <CloseIcon className={styles.fullCard__closeIcon} onClick={closeModal} />
+                        <CardTitle shortTitleWidth={true} task={task} />
+                        <Box sx={{ display: "flex" }}>
+                            <SubtitlesOutlinedIcon sx={{ mr: 1 }} />
+                            <Typography className={styles.fullCard__subtitle} color="text.secondary">
+                                {task.subtitle}
+                            </Typography>
                         </Box>
-                    </Box>
-                    <Divider sx={{ my: 1 }} />
-                    <CardTime task={task} />
-                </CardContent>
-                <CardActions className={styles.fullCard__buttons}>
-                    <FullCardButtons
-                        task={task}
-                        closeModal={closeModal}
-                        deleteLoading={deleteLoading}
-                    />
-                </CardActions>
-            </Card>
+                        <Divider sx={{ mb: 1 }} />
+                        <Box sx={{ display: "flex" }}>
+                            <SubjectIcon sx={{ mr: 1 }} />
+                            <Box className={styles.fullCard__description}>
+                                {task.description && <ReactMarkdown children={task.description} />}
+                            </Box>
+                        </Box>
+                        <Divider sx={{ my: 1 }} />
+                        <CardTime task={task} />
+                    </CardContent>
+                    <CardActions className={styles.fullCard__buttons}>
+                        <FullCardButtons
+                            task={task}
+                            closeModal={closeModal}
+                            deleteLoading={deleteLoading}
+                        />
+                    </CardActions>
+                </Card>
+            }
         </Box>
     );
 };
