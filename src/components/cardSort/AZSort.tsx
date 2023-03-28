@@ -10,10 +10,10 @@ const sortItems = ["A-z", "Z-a"];
 
 const AZSort: React.FC<IAZSort> = ({ onSelect, AZValue }) => {
 
-    const value = AZValue === -1 ? "A-z" : "Z-a";
+    const value = AZValue === 1 ? "A-z" : "Z-a";
 
     const handleSelect = (label: string) => {
-        onSelect(label === "A-z" ? -1 : 1);
+        onSelect(label === "A-z" ? 1 : -1);
     };
 
     return (

@@ -4,11 +4,12 @@
     .tabPanel__header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         border-bottom: 1px solid #e0e0e0;
     }
     .tabPanel__search {
         color: $color_grey;
-        margin-top: 16px;
+        margin: 8px 0 0 8px;
     }
     .tabPanel__button {
         display: block;

@@ -9,14 +9,14 @@ import ProfilePage from "pages/ProfilePage";
 import RegistrationPage from "pages/RegistrationPage";
 import Page404 from "pages/Page404";
 import ChangePasswordPage from "pages/ChangePasswordPage";
-import UpdateTask from "pages/UpdateTaskPage";
-import AddTask from "pages/AddTaskPage";
+import UpdateTaskPage from "pages/UpdateTaskPage";
+import AddTaskPage from "pages/AddTaskPage";
 
 
 export const router = createBrowserRouter([
     {
         element: <Layout />,
-        errorElement: <Page404/>,
+        errorElement: <Page404 />,
         children: [
             {
                 path: '/',
@@ -40,12 +40,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'addtask',
-                element: <RequireAuth children={<AddTask />} />,
+                element: <RequireAuth children={<AddTaskPage />} />,
             },
             {
                 path: 'updatetask/:taskId',
-                element: <RequireAuth children={<UpdateTask />} />,
-            },            
+                element: <RequireAuth children={<UpdateTaskPage />} />,
+            },
         ],
     },
 ]);

@@ -10,7 +10,7 @@ const initialState: IQuery = {
         page: 1,
         tabKey: 0,
         sortField: 'createdAt',
-        sortOrder: -1,
+        sortOrder: 1,
         search: ''
     }
 };

@@ -73,9 +73,12 @@ const TabPanelComponent: React.FC = () => {
                 <Tabs
                     value={tabIndex}
                     onChange={handleChangeTab}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile
                 >
-                    <Tab label="All" {...a11yProps(0)} />
-                    <Tab label="Active" {...a11yProps(1)} />
+                    <Tab label="Active" {...a11yProps(0)} />
+                    <Tab label="Overdue" {...a11yProps(1)} />
                     <Tab label="Done" {...a11yProps(2)} />
                 </Tabs>
                 <Box className={styles.tabPanel__search} >
