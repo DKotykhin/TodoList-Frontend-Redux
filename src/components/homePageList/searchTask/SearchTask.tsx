@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Input } from "@mui/material";
 
+import styles from './searchTask.module.scss';
+
 interface ISearchTask {
     onSearch: (arg0: string) => void
 }
@@ -10,9 +12,8 @@ const SearchTask: React.FC<ISearchTask> = ({ onSearch }) => {
         onSearch(data);
     };
     return (
-        <Box component="form" sx={{ textAlign: "center", m: 3 }}>
+        <Box className={styles.searchTask} component="form">
             <Input
-                sx={{ width: 240 }}
                 onChange={(e) => onSubmit(e.target.value)}
                 type="search"
                 placeholder="search task by title..."

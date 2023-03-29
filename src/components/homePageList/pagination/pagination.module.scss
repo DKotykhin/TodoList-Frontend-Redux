@@ -1,0 +1,13 @@
+@import "constants/constants.scss";
+
+.pagination {
+    text-align: center;
+    margin-bottom: 20px;
+    .pagination__title {
+        color: $color_grey;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+    }
+}

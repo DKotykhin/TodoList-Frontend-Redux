@@ -1,17 +1,22 @@
 @import "constants/constants.scss";
 
-.tabPanel {
-    .tabPanel__header {
+.homePageList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 130px);
+    .homePageList__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #e0e0e0;
     }
-    .tabPanel__search {
+    .homePageList__search {
         color: $color_grey;
         margin: 8px 0 0 8px;
+        cursor: pointer;
     }
-    .tabPanel__button {
+    .homePageList__button {
         display: block;
         margin: 20px auto;
         border-radius: 20px;

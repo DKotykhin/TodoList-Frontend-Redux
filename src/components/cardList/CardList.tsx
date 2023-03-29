@@ -1,88 +1,24 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState } from "react";
 
 import { Box, Container, Typography, Modal } from "@mui/material";
 
-import SelectTaskCount from "./SelectTaskCount";
-import PaginationControlled from "./PaginationControlled";
 import FullCard from "components/card/fullCard/FullCard";
 import ShortCardList from "components/card/shortCard/ShortCardList";
-import Spinner from "components/spinner/Spinner";
 
-import { fetchTasks } from "store/taskSlice";
-import { useAppDispatch, useAppSelector } from "store/reduxHooks";
-import { selectTask, selectQuery } from "store/selectors";
-import { setQuery } from "store/querySlice";
-
-import { IQueryData, ITask } from "types/taskTypes";
+import { ITask } from "types/taskTypes";
+import { IGetTasksResponse } from "types/responseTypes";
 
 import styles from "./cardList.module.scss";
 
 interface ICardList {
-    tabIndex: number;
-    searchQuery: string;
-    fieldValue: string;
-    AZValue: number;
-}
+    taskdata: IGetTasksResponse;
+};
 
-const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZValue }) => {
-
-    const { query: { limit, page } } = useAppSelector(selectQuery);
+const CardList: React.FC<ICardList> = ({ taskdata }) => {
 
     const [loading, setLoading] = useState(false);
-    const [tasksOnPage, setTasksOnPage] = useState(limit);
-    const [currentPageNumber, setCurrentPageNumber] = useState(page);
-
     const [cardFullOpen, setCardFullOpen] = useState(false);
     const [cardFullTask, setCardFullTask] = useState<ITask>();
-
-    const dispatch = useAppDispatch();
-
-    const { taskdata, fetching } = useAppSelector(selectTask);
-    const isSuccess: boolean = fetching === "loaded";
-    const isError: boolean = fetching === "error";
-
-    const query: IQueryData = useMemo(
-        () => ({
-            limit: tasksOnPage,
-            page: currentPageNumber,
-            tabKey: tabIndex,
-            sortField: fieldValue,
-            sortOrder: AZValue,
-            search: searchQuery,
-        }),
-        [
-            currentPageNumber,
-            searchQuery,
-            fieldValue,
-            AZValue,
-            tabIndex,
-            tasksOnPage,
-        ]
-    );
-
-    useEffect(() => {
-        dispatch(fetchTasks(query));
-        dispatch(setQuery({ query }));
-    }, [dispatch, query]);
-
-    useEffect(() => {
-        if (Boolean(taskdata.totalTasksQty && (taskdata.tasksOnPageQty === 0))) {
-            setCurrentPageNumber(prev => prev - 1);
-        }
-    }, [taskdata.tasksOnPageQty, taskdata.totalTasksQty]);
-
-    useEffect(() => {
-        setCurrentPageNumber(1);
-    }, [tabIndex]);
-
-    const handleTasksOnPage = (data: number): void => {
-        setTasksOnPage(data);
-    };
-
-    const handleCurrentPageNumber = (value: number): void => {
-        setCurrentPageNumber(value);
-    };
 
     const handleOpenFullCard = (id: string): void => {
         const fullCardTask = taskdata.tasks.find((task: ITask) => task._id === id);
@@ -98,7 +34,7 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
         setLoading(data);
     };
 
-    return isSuccess ? (
+    return (
         <Container maxWidth="xl" className={styles.cardList}>
             <Modal open={cardFullOpen} onClose={cardFullClose}>
                 <>
@@ -117,18 +53,8 @@ const CardList: React.FC<ICardList> = ({ tabIndex, searchQuery, fieldValue, AZVa
             <Box className={styles.cardList__box}>
                 <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
             </Box>
-            <Box className={styles.cardList__taskAmountBox} >
-                <Typography className={styles.cardList__taskAmount} >tasks on page:</Typography>
-                <SelectTaskCount tasksOnPage={tasksOnPage} setTasksOnPage={handleTasksOnPage} />
-            </Box>
-            {taskdata?.totalPagesQty > 1 &&
-                <PaginationControlled
-                    totalPagesQty={taskdata?.totalPagesQty}
-                    currentPage={handleCurrentPageNumber}
-                    currentPageNumber={currentPageNumber} />
-            }
         </Container>
-    ) : isError ? <Navigate to='/login' /> : <Spinner />;
+    )
 };
 
 export default CardList;

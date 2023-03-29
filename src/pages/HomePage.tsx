@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from "react-helmet";
 
-import TabPanelComponent from "components/tabs/TabPanel";
+import HomePageList from "components/homePageList/HomePageList";
 
 const HomePage: React.FC = () => {
 
@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
                 <meta name="description" content="Home Page" />
                 <title>Home Page</title>
             </Helmet>
-            <TabPanelComponent />
+            <HomePageList />
         </>
     )
 };

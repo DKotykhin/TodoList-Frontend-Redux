@@ -4,12 +4,11 @@ import { Box } from "@mui/material";
 import CardList from 'components/cardList/CardList';
 
 import PropTypes from "prop-types";
+import { IGetTasksResponse } from 'types/responseTypes';
 
 interface ITabList {
     tabIndex: number;
-    searchQuery: string;
-    fieldValue: string;
-    AZValue: number;
+    taskdata: IGetTasksResponse;
 }
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -43,21 +42,21 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-const TabList: React.FC<ITabList> = (props) => {
-    const { tabIndex } = props;
+const TabList: React.FC<ITabList> = ({ tabIndex, taskdata }) => {
+
     return (
         <>
             <TabPanel value={tabIndex} index={0}>
-                <CardList {...props} />
+                <CardList taskdata={taskdata} />
             </TabPanel>
             <TabPanel value={tabIndex} index={1}>
-                <CardList {...props} />
+                <CardList taskdata={taskdata} />
             </TabPanel>
             <TabPanel value={tabIndex} index={2}>
-                <CardList {...props} />
+                <CardList taskdata={taskdata} />
             </TabPanel>
         </>
     )
-}
+};
 
 export default TabList;
