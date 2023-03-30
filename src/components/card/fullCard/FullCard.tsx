@@ -15,18 +15,18 @@ import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
 
 import CardTime from "../CardTime";
 import CardTitle from "../CardTitle";
-import FullCardButtons from "./FullCardButtons";
+import FullCardButtons from "./fullCardButtons/FullCardButtons";
+
 import { ITask } from "types/taskTypes";
 
 import styles from "./fullCard.module.scss";
 
 interface IFullCard {
     task?: ITask;
-    deleteLoading: (arg0: boolean) => void;
     closeModal: () => void;
 }
 
-const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
+const FullCard: React.FC<IFullCard> = ({ task, closeModal }) => {
 
     return (
         <Box className={styles.fullCard}>
@@ -55,7 +55,6 @@ const FullCard: React.FC<IFullCard> = ({ task, deleteLoading, closeModal }) => {
                         <FullCardButtons
                             task={task}
                             closeModal={closeModal}
-                            deleteLoading={deleteLoading}
                         />
                     </CardActions>
                 </Card>

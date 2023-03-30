@@ -1,0 +1,21 @@
+@import "constants/constants.scss";
+
+.avatarForm {
+    text-align: center;
+    .avatarForm__avatar {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+    .avatarForm__loading {
+        margin-top: 18px;
+        color: $color_mint;
+    }
+    .deleteForm__icon {
+        color: #ff0000;
+        cursor: pointer;
+        margin-top: 8px;
+        font-size: 1.8rem;
+    }
+}

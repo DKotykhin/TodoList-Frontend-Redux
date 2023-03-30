@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 import { Typography, Paper } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import DeleteDialog from "../deleteDialog/DeleteDialog";
+import ChildModal from "components/childModal/ChildModal";
 
 import User from "api/userrequests";
 import { removeUser } from "store/userSlice";
@@ -15,11 +16,14 @@ import styles from "./deleteForm.module.scss";
 const DeleteForm: React.FC = () => {
 
     const [deleting, setDeleting] = useState(false);
+    const [openChildModal, setOpenChildModal] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const handleDelete = (): void => {
+    const handleSubmit = (): void => {
+        setDeleting(true);
+        setOpenChildModal(false);
         User.DeleteUser()
             .then((response) => {
                 console.log(response.message);
@@ -36,14 +40,24 @@ const DeleteForm: React.FC = () => {
             });
     };
 
+    const handleClick = (): void => {
+        setOpenChildModal(true);
+    };
+    const handleClose = (): void => {
+        setOpenChildModal(false);
+    };
+
     return (
         <Paper elevation={10} className={styles.deleteForm}>
             <Typography className={styles.deleteForm__title}>
                 {deleting ? 'Deleting...' : 'Need to delete Profile?'}
             </Typography>
-            <DeleteDialog
-                dialogTitle={"You really want to delete user?"}
-                deleteAction={handleDelete}
+            <DeleteForeverIcon onClick={handleClick} className={styles.deleteForm__icon} />
+            <ChildModal
+                open={openChildModal}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                title={'user'}
             />
         </Paper>
     )

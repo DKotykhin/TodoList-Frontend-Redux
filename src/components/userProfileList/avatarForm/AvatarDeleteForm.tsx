@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import DeleteDialog from "../deleteDialog/DeleteDialog";
+import Typography from '@mui/material/Typography';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+import ChildModal from "components/childModal/ChildModal";
 
 import User from "api/userrequests";
 
 import { useAppDispatch } from "store/reduxHooks";
 import { addAvatar } from "store/userSlice";
 
-import { IUser } from 'types/userTypes';
+import styles from './avatarForm.module.scss';
 
-const AvatarDeleteForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
 
+const AvatarDeleteForm: React.FC<{ avatarURL: string }> = ({ avatarURL }) => {
+
+    const [loading, setLoading] = useState(false);
+    const [openChildModal, setOpenChildModal] = useState(false);
     const dispatch = useAppDispatch();
 
-    const handleDelete = (): void => {
-        const data: string | undefined = userdata?.avatarURL;
-        if (data) {
+    const handleSubmit = (): void => {
+        setOpenChildModal(false);
+        setLoading(true);
+        if (avatarURL) {
             User.DeleteAvatar()
                 .then((response) => {
                     toast.success(response.message);
@@ -25,19 +32,35 @@ const AvatarDeleteForm: React.FC<{ userdata: IUser }> = ({ userdata }) => {
                 .catch((error) => {
                     toast.error(error.response.data.message || error.message);
                 })
+                .finally(() => setLoading(false))
         } else {
             toast.warn("Avatar doesn't exist");
         }
     };
 
+    const handleClick = (): void => {
+        setOpenChildModal(true);
+    };
+    const handleClose = (): void => {
+        setOpenChildModal(false);
+    };
+
     return (
         <>
-            <DeleteDialog
-                dialogTitle={"You really want to delete avatar?"}
-                deleteAction={handleDelete}
+            {loading ?
+                <Typography className={styles.avatarForm__loading}>
+                    Loading...
+                </Typography> :
+                <DeleteForeverIcon onClick={handleClick} className={styles.deleteForm__icon} />
+            }
+            <ChildModal
+                open={openChildModal}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                title={'avatar'}
             />
         </>
     )
-}
+};
 
 export default AvatarDeleteForm;

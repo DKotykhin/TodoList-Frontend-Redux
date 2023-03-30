@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 
 import { Button } from "@mui/material";
 
+import ChildModal from "components/childModal/ChildModal";
+
 import Task from "api/taskrequests";
 import { fetchTasks } from "store/taskSlice";
 import { useAppDispatch, useAppSelector } from "store/reduxHooks";
@@ -13,13 +15,15 @@ import { ICompleteTask, ITask } from "types/taskTypes";
 
 interface IFullCardButtons {
     task: ITask;
-    deleteLoading: (arg0: boolean) => void;
     closeModal: () => void;
 }
 
-const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, closeModal }) => {
+const FullCardButtons: React.FC<IFullCardButtons> = ({ task, closeModal }) => {
     const { _id, completed } = task;
+
     const [completeLoading, setCompleteLoading] = useState(false);
+    const [openChildModal, setOpenChildModal] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
     const { query } = useAppSelector(selectQuery);
     const { limit, page, tabKey, sortField, sortOrder, search } = query;
@@ -28,19 +32,13 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
     const navigate = useNavigate();
 
     const handleDelete = (_id: string): void => {
-        deleteLoading(true);
-        closeModal();
-        Task.DeleteTask({ _id })
-            .then(response => {
-                toast.success(response.message);
-                dispatch(fetchTasks({ limit, page, tabKey, sortField, sortOrder, search }));
-            })
-            .catch(error => toast.error(error.response.data.message || error.message))
-            .finally(() => deleteLoading(false));
+        setOpenChildModal(true);
     };
 
     const handleUpdate = (id: string): void => {
-        navigate(`/updatetask/${id}`);
+        if (!task.completed) {
+            navigate(`/updatetask/${id}`);
+        } else toast.warn("You can't update completed task!");
     };
 
     const handleComplete = (data: ITask) => {
@@ -59,6 +57,22 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
             .finally(() => setCompleteLoading(false));
     };
 
+    const handleClose = (): void => {
+        setOpenChildModal(false);
+    };
+    const handleSubmit = (): void => {
+        setDeleteLoading(true);
+        setOpenChildModal(false);
+        Task.DeleteTask({ _id })
+            .then(response => {
+                closeModal();
+                toast.success(response.message);
+                dispatch(fetchTasks({ limit, page, tabKey, sortField, sortOrder, search }));
+            })
+            .catch(error => toast.error(error.response.data.message || error.message))
+            .finally(() => setDeleteLoading(false));
+    };
+
     return (
         <>
             <Button
@@ -66,7 +80,9 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
                 color="error"
                 onClick={() => handleDelete(_id)}
             >
-                Delete
+                {
+                    deleteLoading ? 'Loading...' : 'Delete'
+                }
             </Button>
             <Button
                 size="small"
@@ -82,6 +98,12 @@ const FullCardButtons: React.FC<IFullCardButtons> = ({ task, deleteLoading, clos
                         ? "Undo Complete"
                         : "Complete"}
             </Button>
+            <ChildModal
+                open={openChildModal}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                title={'task'}
+            />
         </>
     );
 };

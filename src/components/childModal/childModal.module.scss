@@ -1,0 +1,38 @@
+@import "constants/constants.scss";
+
+.modal {
+    .modal__box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        border: 2px solid #ff0000;
+        border-radius: 12px;
+        background-color: #fff;
+        padding: 32px 16px 8px 16px;
+    }
+    .modal__title {
+        color: #ff0000;
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    .modal__text {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .modal__divider {
+        margin-bottom: 10px;
+    }
+    .modal__buttons {
+        display: flex;
+        justify-content: space-evenly;
+        .modal__cancel {
+            color: $color_grey;
+        }
+        .modal__delete {
+            color: #ff0000;
+        }
+    }
+}

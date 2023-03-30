@@ -16,7 +16,6 @@ interface ICardList {
 
 const CardList: React.FC<ICardList> = ({ taskdata }) => {
 
-    const [loading, setLoading] = useState(false);
     const [cardFullOpen, setCardFullOpen] = useState(false);
     const [cardFullTask, setCardFullTask] = useState<ITask>();
 
@@ -30,25 +29,21 @@ const CardList: React.FC<ICardList> = ({ taskdata }) => {
         setCardFullOpen(false);
     };
 
-    const deleteLoading = (data: boolean): void => {
-        setLoading(data);
-    };
-
     return (
         <Container maxWidth="xl" className={styles.cardList}>
             <Modal open={cardFullOpen} onClose={cardFullClose}>
                 <>
                     <FullCard
                         task={cardFullTask}
-                        deleteLoading={deleteLoading}
                         closeModal={cardFullClose}
                     />
                 </>
             </Modal>
             <Typography className={styles.cardList__subtitle}>
-                {loading ? "Loading..." : taskdata.totalTasksQty
+                {taskdata.totalTasksQty
                     ? `On page: ${taskdata.tasksOnPageQty}, total: ${taskdata.totalTasksQty}`
-                    : "No cards"}
+                    : "No cards"
+                }
             </Typography>
             <Box className={styles.cardList__box}>
                 <ShortCardList taskdata={taskdata} handleOpenFullCard={handleOpenFullCard} />
