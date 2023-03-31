@@ -8,14 +8,17 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { ITask } from "types/taskTypes";
 
 interface ICardTime {
-    task: ITask
+    task: ITask,
+    isFullCard: boolean,
 }
 
-const CardTime: React.FC<ICardTime> = ({ task }) => {
-    const { deadline, createdAt, completed } = task;
+const CardTime: React.FC<ICardTime> = ({ task, isFullCard }) => {
+    const { deadline, createdAt, completed, updatedAt } = task;
 
     const [daysLeft, setDaysLeft] = useState("");
     const [overdue, setOverdue] = useState(false);
+
+    const isUpdated = getTime(new Date(createdAt)) !== getTime(new Date(updatedAt));
 
     useMemo(() => {
         if (deadline) {
@@ -37,6 +40,11 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
                     {"Created: "}
                     {format(new Date(createdAt), "dd.LL.yyyy H:mm")}
                 </Typography>
+                {isUpdated && isFullCard &&
+                    <Typography variant="body2" color="text.secondary">
+                        {"Last update: "}{format(new Date(updatedAt), "dd.LL.yyyy H:mm")}
+                    </Typography>
+                }
                 {completed ?
                     <Typography variant="body2" color="text.secondary">
                         {"Completed"}
@@ -46,18 +54,16 @@ const CardTime: React.FC<ICardTime> = ({ task }) => {
                     <Typography variant="body2" color="text.secondary">
                         {"Deadline: "}
                         {format(new Date(deadline), "dd.LL.yyyy")}
-                        {!completed && (
-                            <Box
-                                component="span"
-                                sx={[
-                                    overdue ? { color: "#ff0000" } : null,
-                                    { fontWeight: 700 },
-                                ]}
-                            >
-                                &nbsp;&rarr;&nbsp;
-                                {daysLeft}
-                            </Box>
-                        )}
+                        <Box
+                            component="span"
+                            sx={[
+                                overdue ? { color: "#ff0000" } : null,
+                                { fontWeight: 700 },
+                            ]}
+                        >
+                            &nbsp;&rarr;&nbsp;
+                            {daysLeft}
+                        </Box>
                     </Typography>
                 }
             </Box>

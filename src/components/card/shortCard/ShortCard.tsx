@@ -19,15 +19,15 @@ const ShortCard: React.FC<IShortCard> = ({ task, handleOpenFullCard }) => {
         <Card
             variant="outlined"
             className={styles.shortCard__card}
-            // sx={{ boxShadow: 24 }}
+        // sx={{ boxShadow: 24 }}
         >
             <CardContent onClick={handleOpenFullCard}>
                 <CardTitle
-                    shortTitleWidth={false}
+                    isFullCard={false}
                     task={task}
                 />
                 <Divider sx={{ mb: 2 }} />
-                <CardTime task={task} />
+                <CardTime task={task} isFullCard={false} />
             </CardContent>
         </Card>
     );

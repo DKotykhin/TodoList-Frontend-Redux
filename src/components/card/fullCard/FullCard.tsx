@@ -34,7 +34,7 @@ const FullCard: React.FC<IFullCard> = ({ task, closeModal }) => {
                 <Card variant="outlined">
                     <CardContent>
                         <CloseIcon className={styles.fullCard__closeIcon} onClick={closeModal} />
-                        <CardTitle shortTitleWidth={true} task={task} />
+                        <CardTitle isFullCard={true} task={task} />
                         <Box sx={{ display: "flex" }}>
                             <SubtitlesOutlinedIcon sx={{ mr: 1 }} />
                             <Typography className={styles.fullCard__subtitle} color="text.secondary">
@@ -49,7 +49,7 @@ const FullCard: React.FC<IFullCard> = ({ task, closeModal }) => {
                             </Box>
                         </Box>
                         <Divider sx={{ my: 1 }} />
-                        <CardTime task={task} />
+                        <CardTime task={task} isFullCard={true} />
                     </CardContent>
                     <CardActions className={styles.fullCard__buttons}>
                         <FullCardButtons
