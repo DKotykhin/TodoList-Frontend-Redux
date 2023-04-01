@@ -13,7 +13,7 @@ interface ICardTime {
 }
 
 const CardTime: React.FC<ICardTime> = ({ task, isFullCard }) => {
-    const { deadline, createdAt, completed, updatedAt } = task;
+    const { deadline, createdAt, completed, updatedAt, completedAt } = task;
 
     const [daysLeft, setDaysLeft] = useState("");
     const [overdue, setOverdue] = useState(false);
@@ -42,12 +42,14 @@ const CardTime: React.FC<ICardTime> = ({ task, isFullCard }) => {
                 </Typography>
                 {isUpdated && isFullCard &&
                     <Typography variant="body2" color="text.secondary">
-                        {"Last update: "}{format(new Date(updatedAt), "dd.LL.yyyy H:mm")}
+                        {"Last update: "}
+                        {format(new Date(updatedAt), "dd.LL.yyyy H:mm")}
                     </Typography>
                 }
                 {completed ?
-                    <Typography variant="body2" color="text.secondary">
-                        {"Completed"}
+                    <Typography variant="body2" color="primary">
+                        {"Completed: "}
+                        {completedAt ? format(new Date(completedAt), "dd.LL.yyyy H:mm") : null}
                     </Typography>
                     :
                     deadline &&

@@ -19,6 +19,7 @@ export interface ICompleteTask {
 export interface ITask extends IUpdateTask {
     createdAt: string;
     updatedAt: string;
+    completedAt?: string;
 }
 
 export interface IQueryData {
