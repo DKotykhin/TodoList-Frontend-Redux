@@ -40,33 +40,36 @@ const CardTime: React.FC<ICardTime> = ({ task, isFullCard }) => {
                     {"Created: "}
                     {format(new Date(createdAt), "dd.LL.yyyy H:mm")}
                 </Typography>
-                {isUpdated && isFullCard &&
-                    <Typography variant="body2" color="text.secondary">
-                        {"Last update: "}
-                        {format(new Date(updatedAt), "dd.LL.yyyy H:mm")}
-                    </Typography>
-                }
                 {completed ?
                     <Typography variant="body2" color="primary">
                         {"Completed: "}
                         {completedAt ? format(new Date(completedAt), "dd.LL.yyyy H:mm") : null}
                     </Typography>
                     :
-                    deadline &&
-                    <Typography variant="body2" color="text.secondary">
-                        {"Deadline: "}
-                        {format(new Date(deadline), "dd.LL.yyyy")}
-                        <Box
-                            component="span"
-                            sx={[
-                                overdue ? { color: "#ff0000" } : null,
-                                { fontWeight: 700 },
-                            ]}
-                        >
-                            &nbsp;&rarr;&nbsp;
-                            {daysLeft}
-                        </Box>
-                    </Typography>
+                    <>
+                        {isUpdated && isFullCard &&
+                            <Typography variant="body2" color="text.secondary">
+                                {"Last update: "}
+                                {format(new Date(updatedAt), "dd.LL.yyyy H:mm")}
+                            </Typography>
+                        }
+                        {deadline &&
+                            <Typography variant="body2" color="text.secondary">
+                                {"Deadline: "}
+                                {format(new Date(deadline), "dd.LL.yyyy")}
+                                <Box
+                                    component="span"
+                                    sx={[
+                                        overdue ? { color: "#ff0000" } : null,
+                                        { fontWeight: 700 },
+                                    ]}
+                                >
+                                    &nbsp;&rarr;&nbsp;
+                                    {daysLeft}
+                                </Box>
+                            </Typography>
+                        }
+                    </>
                 }
             </Box>
         </Box>
