@@ -5,12 +5,14 @@ import { RequireAuth } from "hocs/RequireAuth";
 
 import HomePage from "pages/HomePage";
 import LoginPage from "pages/LoginPage";
-import ProfilePage from "pages/ProfilePage";
 import RegistrationPage from "pages/RegistrationPage";
-import Page404 from "pages/Page404";
+import ProfilePage from "pages/ProfilePage";
+import ResetPasswordPage from "pages/ResetPasswordPage";
+import SetNewPasswordPage from "pages/SetNewPasswordPage";
 import ChangePasswordPage from "pages/ChangePasswordPage";
-import UpdateTaskPage from "pages/UpdateTaskPage";
 import AddTaskPage from "pages/AddTaskPage";
+import UpdateTaskPage from "pages/UpdateTaskPage";
+import Page404 from "pages/Page404";
 
 
 export const router = createBrowserRouter([
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <LoginPage />,
+            },
+            {
+                path: 'reset',
+                element: <ResetPasswordPage />,
+            },
+            {
+                path: 'auth/reset/:token',
+                element: <SetNewPasswordPage />,
             },
             {
                 path: 'profile',

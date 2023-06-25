@@ -1,3 +1,5 @@
+@import "constants/constants.scss";
+
 .form {
     .form__paper {
         margin: 32px 0;
@@ -21,6 +23,17 @@
             cursor: pointer;
             width: 150px;
             margin-left: 50px;
+        }
+        .form__forgot {
+            margin: 0 30px 10px;
+            text-align: right;
+            color: $color_mint;
+            cursor: pointer;
+        }
+        .form__reset_subtitle {
+            margin: 0 30px 10px;
+            text-align: center;
+            font-size: 1.15rem;
         }
     }
 

@@ -29,6 +29,10 @@ const loginschema = yup.object({
     password,
 });
 
+const resetpasswordschema = yup.object({
+    email,
+});
+
 const passwordschema = yup.object({
     currentpassword: password,
 });
@@ -59,6 +63,14 @@ export const LoginFormValidation: Object = {
         rememberMe: false,
     },
     resolver: yupResolver(loginschema),
+    mode: "onChange",
+};
+
+export const ResetPasswordFormValidation: Object = {
+    defaultValues: {
+        email: "",
+    },
+    resolver: yupResolver(resetpasswordschema),
     mode: "onChange",
 };
 

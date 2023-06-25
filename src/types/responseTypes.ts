@@ -19,6 +19,11 @@ export interface IUserUpdatePasswordResponse {
     message: string;
 }
 
+export interface IUserResetPasswordResponse {
+    status: string;
+    message: string;
+}
+
 export interface IUserDeleteResponse {
     userStatus: {
         acknowledged: boolean;

@@ -17,6 +17,7 @@ import {
     IUserConfirmPasswordResponse,
     IUserUpdatePasswordResponse,
     ITaskStatisticResponse,
+    IUserResetPasswordResponse,
 } from "types/responseTypes";
 
 const Base_URL = process.env.REACT_APP_BACKEND_URL;
@@ -106,6 +107,39 @@ class User {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${getToken()}`,
+            },
+            data: JSON.stringify(data),
+        };
+
+        const result = await axios(config);
+        return result.data;
+    };
+
+    UserResetPassword = async (data: {
+        email: string;
+    }): Promise<IUserResetPasswordResponse> => {
+        const config = {
+            method: "POST",
+            url: "/auth/reset",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify(data),
+        };
+
+        const result = await axios(config);
+        return result.data;
+    };
+
+    UserSetNewPassword = async (data: {
+        password: string;
+        token: string | undefined;
+    }): Promise<IUserUpdatePasswordResponse> => {
+        const config = {
+            method: "PATCH",
+            url: "/auth/reset",
+            headers: {
+                "Content-Type": "application/json",
             },
             data: JSON.stringify(data),
         };
